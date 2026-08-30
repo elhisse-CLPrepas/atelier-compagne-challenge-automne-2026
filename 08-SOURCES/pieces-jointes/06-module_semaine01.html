@@ -1,0 +1,1960 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="color-scheme" content="dark light" />
+  <title>Formation IA 2026 — Parcours Entreprise — Semaine 1</title>
+  <meta name="description" content="Semaine 1 — Fondations IA en entreprise. Cadre, concepts clés, démo, pratique, méthode reproductible, évaluation." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+  /* ===== RESET & BASE ===== */
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  :root {
+    /* Couleurs principales */
+    --bg-primary: #f7fafc;
+    --bg-panel: #ffffff;
+    --bg-panel-secondary: #f1f5f9;
+    --text-primary: #0f172a;
+    --text-secondary: #334155;
+    --text-muted: #64748b;
+    
+    /* Bordures */
+    --border-light: rgba(15, 23, 42, 0.10);
+    
+    /* Accents */
+    --accent-blue: #1d4ed8;
+    --accent-gold: #c9a96e;
+    --success: #16a34a;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    
+    /* UI */
+    --radius: 18px;
+    --shadow: 0 14px 38px rgba(2, 6, 23, 0.10);
+    --shadow-light: 0 8px 22px rgba(2, 6, 23, 0.08);
+    --max-width: 1120px;
+    --transition: all 0.2s ease;
+  }
+
+  /* ===== TYPOGRAPHY ===== */
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+    background:
+      radial-gradient(900px 520px at 18% 8%, rgba(29, 78, 216, 0.14), transparent 55%),
+      radial-gradient(900px 520px at 82% 18%, rgba(201, 169, 110, 0.16), transparent 55%),
+      radial-gradient(1000px 720px at 50% 110%, rgba(14, 165, 233, 0.12), transparent 60%),
+      var(--bg-primary);
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
+  }
+
+  h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    margin-bottom: 1rem;
+  }
+
+  .lead {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+  }
+
+  .muted {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+  }
+
+  /* ===== LAYOUT ===== */
+  .container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  .skip {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--accent-blue);
+    color: white;
+    padding: 8px;
+    z-index: 100;
+    text-decoration: none;
+  }
+
+  .skip:focus {
+    top: 0;
+  }
+
+  /* ===== TOPBAR ===== */
+  .topbar {
+    background: rgba(247, 250, 252, 0.95);
+    border-bottom: 1px solid var(--border-light);
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+
+  .topbar-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 0;
+    gap: 1.5rem;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .mark {
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-gold));
+    border-radius: 8px;
+  }
+
+  .name {
+    font-weight: 800;
+    font-size: 1.1rem;
+  }
+
+  .sub {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
+
+  /* ===== NAVIGATION ===== */
+  .nav {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .nav a {
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    color: var(--text-secondary);
+    border-radius: var(--radius);
+    border: 1px solid transparent;
+    transition: var(--transition);
+  }
+
+  .nav a:hover {
+    background: rgba(29, 78, 216, 0.06);
+    border-color: rgba(29, 78, 216, 0.18);
+    color: var(--text-primary);
+  }
+
+  .nav a.active {
+    background: rgba(29, 78, 216, 0.10);
+    border-color: rgba(29, 78, 216, 0.22);
+    color: var(--text-primary);
+    font-weight: 500;
+  }
+
+  /* ===== ACTIONS ===== */
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.75);
+    border: 1px solid rgba(15, 23, 42, 0.12);
+    border-radius: 100px;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    background: var(--accent-blue);
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px rgba(29, 78, 216, 0.12);
+  }
+
+  /* ===== BUTTONS ===== */
+  .btn {
+    padding: 0.75rem 1.5rem;
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid rgba(15, 23, 42, 0.14);
+    border-radius: var(--radius);
+    color: var(--text-primary);
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .btn:hover {
+    border-color: rgba(29, 78, 216, 0.28);
+    box-shadow: var(--shadow-light);
+    transform: translateY(-1px);
+  }
+
+  .btn.primary {
+    background: linear-gradient(135deg, rgba(29, 78, 216, 0.16), rgba(201, 169, 110, 0.12));
+    border-color: rgba(29, 78, 216, 0.28);
+    color: var(--accent-blue);
+    font-weight: 600;
+  }
+
+  .btn.copy {
+    padding: 0.375rem 0.75rem;
+    font-size: 0.875rem;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    padding: 3rem 0;
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+  }
+
+  @media (max-width: 968px) {
+    .hero-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .hero-card {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(241, 245, 249, 0.78));
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius);
+    padding: 2rem;
+    box-shadow: var(--shadow-light);
+  }
+
+  .kicker {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.375rem 0.75rem;
+    background: rgba(201, 169, 110, 0.14);
+    border: 1px solid rgba(201, 169, 110, 0.35);
+    border-radius: 100px;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+  }
+
+  .split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin: 2rem 0;
+  }
+
+  .mini {
+    background: rgba(255, 255, 255, 0.90);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+  }
+
+  .mono {
+    font-family: 'Courier New', monospace;
+    background: rgba(2, 6, 23, 0.04);
+    padding: 1rem;
+    border-radius: 8px;
+    border: 1px solid rgba(15, 23, 42, 0.10);
+    white-space: pre-wrap;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+  }
+
+  .kpi-line {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .field label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+  }
+
+  .field input {
+    padding: 0.75rem;
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    background: rgba(255, 255, 255, 0.9);
+  }
+
+  /* ===== PROGRESS ===== */
+  .progress-wrap {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(241, 245, 249, 0.78));
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius);
+    padding: 2rem;
+    box-shadow: var(--shadow-light);
+  }
+
+  .progress-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    margin-bottom: 1.5rem;
+  }
+
+  .bar {
+    height: 8px;
+    background: rgba(2, 6, 23, 0.06);
+    border-radius: 4px;
+    border: 1px solid rgba(15, 23, 42, 0.12);
+    overflow: hidden;
+    margin: 1rem 0;
+  }
+
+  .bar > i {
+    display: block;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(29, 78, 216, 0.80), rgba(201, 169, 110, 0.55));
+    border-radius: 4px;
+    transition: width 0.3s ease;
+    width: 0%;
+  }
+
+  .barline {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
+
+  .hr {
+    height: 1px;
+    background: var(--border-light);
+    margin: 2rem 0;
+  }
+
+  /* ===== SECTIONS ===== */
+  section {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(241, 245, 249, 0.78));
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow-light);
+  }
+
+  .head {
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--border-light);
+    padding-bottom: 1rem;
+  }
+
+  /* ===== CARDS ===== */
+  .card {
+    background: rgba(255, 255, 255, 0.90);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+  }
+
+  .grid-2, .grid-3 {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .grid-2 {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+
+  .grid-3 {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+
+  /* ===== TIMELINE ===== */
+  .timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .step {
+    display: flex;
+    gap: 1rem;
+    background: rgba(255, 255, 255, 0.90);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+  }
+
+  .step .badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 60px;
+    height: 60px;
+    background: rgba(29, 78, 216, 0.10);
+    border: 1px solid rgba(29, 78, 216, 0.22);
+    border-radius: 12px;
+    font-weight: 600;
+    color: var(--accent-blue);
+  }
+
+  .meta {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-top: 0.25rem;
+  }
+
+  /* ===== PROMPTS ===== */
+  .prompt {
+    background: rgba(2, 6, 23, 0.04);
+    border: 1px solid rgba(15, 23, 42, 0.10);
+    border-radius: 8px;
+    margin-top: 1rem;
+    overflow: hidden;
+  }
+
+  .prompt-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background: rgba(255, 255, 255, 0.5);
+    border-bottom: 1px solid rgba(15, 23, 42, 0.10);
+  }
+
+  .prompt pre {
+    padding: 1rem;
+    font-family: 'Courier New', monospace;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    word-break: break-word;
+    color: var(--text-primary);
+    margin: 0;
+  }
+
+  /* ===== CHECKLISTS ===== */
+  .checklist {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .check {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    background: rgba(255, 255, 255, 0.90);
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+  }
+
+  .check input[type="checkbox"] {
+    margin-top: 0.25rem;
+    accent-color: var(--accent-blue);
+  }
+
+  .check .t {
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+  }
+
+  .check .d {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+  }
+
+  /* ===== QUIZ ===== */
+  .quiz {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+  }
+
+  .q {
+    background: rgba(255, 255, 255, 0.90);
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    padding: 1.5rem;
+  }
+
+  .choices {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .choices label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 6px;
+    transition: var(--transition);
+  }
+
+  .choices label:hover {
+    background: rgba(29, 78, 216, 0.05);
+  }
+
+  .score {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.90);
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    margin-top: 1.5rem;
+  }
+
+  .small {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+  }
+
+  /* ===== DETAILS ===== */
+  details {
+    background: rgba(255, 255, 255, 0.90);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    margin-top: 1rem;
+  }
+
+  summary {
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .chev {
+    transition: transform 0.2s ease;
+  }
+
+  details[open] .chev {
+    transform: rotate(180deg);
+  }
+
+  .detail-body {
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-light);
+    margin-top: 1rem;
+  }
+
+  /* ===== BULLETS ===== */
+  .bullets {
+    list-style: none;
+    padding: 0;
+  }
+
+  .bullets li {
+    padding: 0.5rem 0;
+    padding-left: 1.5rem;
+    position: relative;
+  }
+
+  .bullets li:before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--accent-blue);
+    font-weight: bold;
+  }
+
+  /* ===== TOAST ===== */
+  .toast {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(15, 23, 42, 0.14);
+    border-radius: var(--radius);
+    padding: 1rem 1.5rem;
+    box-shadow: var(--shadow);
+    color: var(--text-primary);
+    font-weight: 500;
+    z-index: 9999;
+    opacity: 0;
+    transition: all 0.3s ease;
+  }
+
+  .toast.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+
+  /* ===== FOOTER ===== */
+  footer {
+    text-align: center;
+    padding: 2rem 0;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border-light);
+    margin-top: 3rem;
+  }
+
+  .footline {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .topbar-inner {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    
+    .nav {
+      justify-content: center;
+      overflow-x: auto;
+      padding-bottom: 0.5rem;
+    }
+    
+    .actions {
+      justify-content: center;
+    }
+    
+    .split, .kpi-line {
+      grid-template-columns: 1fr;
+    }
+    
+    .step {
+      flex-direction: column;
+    }
+    
+    .step .badge {
+      align-self: flex-start;
+    }
+  }
+</style>
+</head>
+
+<body>
+  <a class="skip" href="#contenu">Aller au contenu</a>
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="container">
+      <div class="topbar-inner">
+        <div class="brand" aria-label="Formation IA 2026">
+          <span class="mark" aria-hidden="true"></span>
+          <div>
+            <div class="name" id="brandName">Formation IA 2026</div>
+            <div class="sub" id="brandSub">Parcours Entreprise</div>
+          </div>
+        </div>
+
+        <nav class="nav" aria-label="Navigation module">
+          <a href="#hero">Module</a>
+          <a href="#objectifs">Objectifs</a>
+          <a href="#agenda">Agenda</a>
+          <a href="#concepts">Concepts</a>
+          <a href="#erreurs">Erreurs</a>
+          <a href="#demo">Démo</a>
+          <a href="#atelier">Atelier</a>
+          <a href="#methode">Méthode</a>
+          <a href="#asynchrone">7 jours</a>
+          <a href="#evaluation">Évaluation</a>
+          <a href="#ressources">Prompts</a>
+        </nav>
+
+        <div class="actions">
+          <span class="pill" title="Progression semaine">
+            <span class="dot" aria-hidden="true"></span>
+            <span id="weekLabel">Semaine 1/6</span>
+          </span>
+          <button class="btn" id="btnReset" type="button" title="Réinitialiser la progression">
+            Reset
+          </button>
+          <button class="btn primary" id="btnStart" type="button">
+            Démarrer
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <header class="hero" id="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-card" role="region" aria-label="Présentation module">
+          <div class="kicker">
+            <span class="tag">MODULE <small id="moduleVersion">v1.0</small></span>
+            <span class="tag">RÈGLE <small>humain valide avant diffusion</small></span>
+          </div>
+
+          <h1 id="moduleTitle">Semaine 1 — Fondations IA en entreprise</h1>
+          <p class="lead" id="modulePromise">Poser le cadre. Comprendre l'IA sans jargon. Installer une méthode reproductible.</p>
+
+          <div class="split">
+            <div class="mini">
+              <h3>Indicateur 7 jours</h3>
+              <p>Objectif mesurable de la semaine</p>
+              <div class="mono" id="indicatorText">[À COMPLÉTER] Ex : 1 cas réel traité + 10 prompts validés + 1 SOP interne publiée</div>
+            </div>
+            <div class="mini">
+              <h3>Contexte entreprise</h3>
+              <p>Personnalisez selon votre situation</p>
+              <div class="mono" id="companyBox"></div>
+            </div>
+          </div>
+
+          <div class="kpi-line">
+            <div class="field">
+              <label for="kpiInput">Votre KPI 7 jours</label>
+              <input id="kpiInput" type="text" placeholder="ex: 10 prompts validés + 1 cas réel traité" />
+            </div>
+            <div class="field">
+              <label for="linkInput">Lien interne (agenda / docs)</label>
+              <input id="linkInput" type="text" placeholder="Lien Teams / Drive / Confluence" />
+            </div>
+          </div>
+        </div>
+
+        <div class="progress-wrap" role="region" aria-label="Progression">
+          <div class="progress-title">
+            <div>
+              <h2>Progression</h2>
+              <div class="muted" id="progressHint">Cochez pour suivre votre avancement</div>
+            </div>
+            <span class="pill" title="Stockage local">
+              Local
+            </span>
+          </div>
+
+          <div class="bar" aria-label="Barre de progression">
+            <i id="progressBar"></i>
+          </div>
+          <div class="barline">
+            <span id="progressText">0%</span>
+            <span id="progressCount">0/0</span>
+          </div>
+
+          <div class="hr"></div>
+
+          <div class="card">
+            <h3>Démarrage rapide</h3>
+            <p>Suivez l'agenda structuré ou commencez directement par l'atelier pratique.</p>
+            <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px">
+              <a class="btn primary" href="#agenda">Voir l'agenda 90 min</a>
+              <a class="btn" href="#atelier">Aller à l'atelier</a>
+              <button class="btn" id="btnCopyInvite" type="button">Copier invitation</button>
+            </div>
+          </div>
+
+          <div class="hr"></div>
+
+          <div class="card">
+            <h3>Règles de base</h3>
+            <ul class="bullets">
+              <li>Anonymisez les données avant utilisation</li>
+              <li>Exigez un format vérifiable (JSON, table, étapes)</li>
+              <li>Validez humainement avant toute diffusion</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main id="contenu" class="container">
+    
+    <!-- 2) OBJECTIFS -->
+    <section id="objectifs">
+      <div class="head">
+        <h2>2) Objectifs de la semaine</h2>
+        <div class="muted">3 objectifs clés avec métriques mesurables</div>
+      </div>
+      <div class="body">
+        <div class="grid-3" id="objectifsGrid"></div>
+      </div>
+    </section>
+
+    <!-- 3) AGENDA -->
+    <section id="agenda">
+      <div class="head">
+        <h2>3) Agenda - 90 minutes</h2>
+        <div class="muted">Séquence structurée pour une formation efficace</div>
+      </div>
+      <div class="body">
+        <div class="timeline" id="agendaList"></div>
+      </div>
+    </section>
+
+    <!-- 4) CONCEPTS CLÉS -->
+    <section id="concepts">
+      <div class="head">
+        <h2>4) Concepts clés</h2>
+        <div class="muted">5 catégories de tâches à maîtriser</div>
+      </div>
+      <div class="body">
+        <div class="grid-2" id="conceptsCards"></div>
+        <div class="hr"></div>
+        <details>
+          <summary>FAQ : Quel type de demande dois-je écrire ? <span class="chev">▾</span></summary>
+          <div class="detail-body">
+            <ul class="bullets">
+              <li><strong>Rédaction</strong> → texte publiable (email, procédure, note)</li>
+              <li><strong>Classification</strong> → trier, étiqueter, prioriser</li>
+              <li><strong>Extraction</strong> → table de champs depuis un texte</li>
+              <li><strong>Raisonnement</strong> → décision avec options A/B/C</li>
+              <li><strong>Recherche</strong> → faits vérifiables avec sources</li>
+            </ul>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- 5) ERREURS FRÉQUENTES -->
+    <section id="erreurs">
+      <div class="head">
+        <h2>5) Erreurs à éviter</h2>
+        <div class="muted">Les 5 pièges qui font perdre du temps</div>
+      </div>
+      <div class="body">
+        <div class="grid-2" id="errorsGrid"></div>
+      </div>
+    </section>
+
+    <!-- 6) DÉMONSTRATION -->
+    <section id="demo">
+      <div class="head">
+        <h2>6) Démonstration guidée</h2>
+        <div class="muted">Cas pratique complet étape par étape</div>
+      </div>
+      <div class="body">
+        <div class="card">
+          <h3 id="demoTitle">Cas : triage et réponse support client</h3>
+          <p id="demoContext">Vous recevez 30 messages/jour. Vous perdez du temps. Vous voulez standardiser sans exposer de données sensibles.</p>
+        </div>
+
+        <div class="hr"></div>
+
+        <div class="timeline" id="demoSteps"></div>
+      </div>
+    </section>
+
+    <!-- 7) ATELIER PRATIQUE -->
+    <section id="atelier">
+      <div class="head">
+        <h2>7) Atelier pratique - Binômes</h2>
+        <div class="muted">Mettez en pratique sur votre cas réel</div>
+      </div>
+      <div class="body">
+        <div class="grid-2">
+          <div class="card">
+            <h3>Consigne</h3>
+            <p id="binConsigne">En binômes. Choisissez un micro-cas réel. Anonymisez. Produisez 1 livrable complet.</p>
+            <div class="hr"></div>
+            <h3>Livrables attendus</h3>
+            <ul class="bullets" id="binLivrables"></ul>
+          </div>
+          <div class="card">
+            <h3>Critères de réussite</h3>
+            <ul class="bullets" id="binCriteres"></ul>
+            <div class="hr"></div>
+            <div class="prompt">
+              <div class="prompt-top">
+                <strong>Prompt rapide pour binôme</strong>
+                <button class="btn copy" data-copy-target="p-binome">Copier</button>
+              </div>
+              <pre id="p-binome">Rôle : coach opérationnel.
+Objectif : produire 1 livrable réutilisable demain.
+Règles : anonymiser, format vérifiable, validation humaine avant diffusion.
+
+Cas (anonymisé) :
+"""[COLLEZ ICI]"""
+
+Livrables demandés :
+1) Classification JSON avec labels et priorité
+2) Réponse email structurée
+3) Mini-SOP (10 lignes) avec checklist
+
+Format final :
+1) JSON
+2) Email (objet + corps)
+3) SOP + checklist validation</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8) MÉTHODE REPRODUCTIBLE -->
+    <section id="methode">
+      <div class="head">
+        <h2>8) Méthode reproductible</h2>
+        <div class="muted">Le "permis de conduire" IA en 6 étapes</div>
+      </div>
+      <div class="body">
+        <div class="card">
+          <h3>Principe fondamental</h3>
+          <p id="methodPrinciple">Écrire → Vérifier → Standardiser → (puis) Automatiser</p>
+        </div>
+
+        <div class="hr"></div>
+
+        <div class="grid-2">
+          <div class="card">
+            <h3>Checklist opérationnelle</h3>
+            <p>Cochez chaque étape au fur et à mesure</p>
+            <div class="checklist" id="methodChecklist"></div>
+          </div>
+          <div class="card">
+            <h3>Grille de validation humaine</h3>
+            <ul class="bullets">
+              <li><b>Faits</b> : qu'est-ce qui est vérifié et certain ?</li>
+              <li><b>Confidentialité</b> : aucune donnée sensible exposée</li>
+              <li><b>Risque</b> : pas de promesse dangereuse ou d'engagement risqué</li>
+              <li><b>Action</b> : prochaine étape claire et réalisable</li>
+            </ul>
+            <div class="hr"></div>
+            <div class="prompt">
+              <div class="prompt-top">
+                <strong>Prompt "vérification humaine"</strong>
+                <button class="btn copy" data-copy-target="p-verify">Copier</button>
+              </div>
+              <pre id="p-verify">Rôle : relecteur qualité et confidentialité.
+Objectif : valider avant diffusion.
+Tâche : vérifier et lister les corrections nécessaires.
+
+Livrable à valider :
+"""[COLLEZ ICI]"""
+
+Contrôles obligatoires :
+1) Faits : identifier ce qui est certain / incertain
+2) Confidentialité : lister tout ce qui doit être retiré
+3) Ton : trop agressif / trop vague / inapproprié
+4) Engagement : y a-t-il une promesse risquée ?
+5) Améliorations : 3 corrections prioritaires à apporter</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9) PROGRAMME 7 JOURS -->
+    <section id="asynchrone">
+      <div class="head">
+        <h2>9) Programme 7 jours</h2>
+        <div class="muted">Micro-actions quotidiennes pour ancrer les compétences</div>
+      </div>
+      <div class="body">
+        <div class="timeline" id="asyncList"></div>
+      </div>
+    </section>
+
+    <!-- 10) ÉVALUATION -->
+    <section id="evaluation">
+      <div class="head">
+        <h2>10) Évaluation des acquis</h2>
+        <div class="muted">Quiz + cas pratique pour valider la compréhension</div>
+      </div>
+      <div class="body">
+        <div class="grid-2">
+          <div class="card">
+            <h3>Quiz rapide (5 questions)</h3>
+            <p>Testez votre compréhension des fondamentaux</p>
+            <div class="quiz" id="quizBox"></div>
+            <div class="score">
+              <div>
+                <strong>Votre score</strong>
+                <div class="small">Sauvegardé localement</div>
+              </div>
+              <div style="text-align:right">
+                <div id="scoreText"><b>0</b>/5</div>
+                <button class="btn" id="btnScore" type="button">Calculer le score</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Mini-cas pratique (10 minutes)</h3>
+            <p>Appliquez la méthode sur un message anonymisé</p>
+            <ul class="bullets">
+              <li>1) Classifier (labels + priorité)</li>
+              <li>2) Rédiger une réponse professionnelle (6 lignes max)</li>
+              <li>3) Valider avec la grille de validation humaine</li>
+            </ul>
+            <div class="hr"></div>
+            <div class="prompt">
+              <div class="prompt-top">
+                <strong>Prompt mini-cas</strong>
+                <button class="btn copy" data-copy-target="p-minicas">Copier</button>
+              </div>
+              <pre id="p-minicas">Rôle : assistant opérationnel.
+Règles : anonymiser, format vérifiable, validation humaine avant diffusion.
+
+Message anonymisé :
+"""[COLLEZ ICI]"""
+
+Livrables attendus :
+A) Classification JSON (labels + priorité + justification)
+B) Réponse email (objet + corps, 6 lignes maximum)
+C) Checklist validation humaine (OK/KO + corrections nécessaires)</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11) RESSOURCES -->
+    <section id="ressources">
+      <div class="head">
+        <h2>11) Ressources & prompts</h2>
+        <div class="muted">Templates à copier-coller et adapter</div>
+      </div>
+      <div class="body">
+        <div class="grid-2" id="promptCards"></div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footline">
+        <span>© <span id="year">2026</span> <b>Formation IA 2026</b></span>
+        <span>Version <b id="vFoot">v1.0</b></span>
+        <span>Contact : <b>formation@entreprise.com</b></span>
+      </div>
+      <div style="margin-top:8px">Règle permanente : <b>humain valide avant diffusion</b> - Sécurité et qualité avant tout</div>
+    </footer>
+  </main>
+
+  <!-- TOAST NOTIFICATION -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    // =========================
+    // DONNÉES DU MODULE
+    // =========================
+    const MODULE = {
+      id: "entreprise-semaine-1",
+      programme: "Formation IA 2026 — Parcours Entreprise",
+      titre: "Semaine 1 — Fondations IA en entreprise",
+      version: "v1.1",
+      totalWeeks: 6,
+      week: 1,
+
+      contexte: {
+        secteur: "Tous secteurs",
+        tailleMetiers: "10-500 personnes, toutes fonctions",
+        niveauIA: "Débutant à intermédiaire",
+        contraintes: "Confidentialité, qualité, rapidité",
+        outilsAutorises: "ChatGPT, Claude, Copilot, autres LLMs",
+        objectifBusiness: "Gagner en productivité sans risque"
+      },
+
+      promesse: "Poser le cadre. Comprendre l'IA sans jargon. Installer une méthode reproductible.",
+      indicateur7j: "1 cas réel traité + 10 prompts validés + 1 SOP interne publiée",
+
+      objectifs: [
+        { 
+          texte: "Expliquer l'IA à un public non technique en 60 secondes", 
+          metrique: "1 pitch écrit + relu par un collègue" 
+        },
+        { 
+          texte: "Distinguer 5 types de tâches IA et choisir la bonne demande", 
+          metrique: "5 exemples classés avec justification" 
+        },
+        { 
+          texte: "Appliquer la règle : humain valide avant diffusion", 
+          metrique: "Grille de validation signée sur 1 livrable" 
+        }
+      ],
+
+      agenda: [
+        { 
+          bloc: "0-10 min", 
+          titre: "Cadrage et objectif mesurable", 
+          sortie: "KPI de séance + règles sécurité", 
+          methode: "Alignement du groupe" 
+        },
+        { 
+          bloc: "10-30 min", 
+          titre: "Concepts clés et erreurs fréquentes", 
+          sortie: "Fiches concepts + 5 erreurs à éviter", 
+          methode: "Apprentissage rapide" 
+        },
+        { 
+          bloc: "30-50 min", 
+          titre: "Démo guidée sur cas entreprise", 
+          sortie: "Chaîne de prompts + critères qualité", 
+          methode: "Observation du standard" 
+        },
+        { 
+          bloc: "50-80 min", 
+          titre: "Pratique en binômes", 
+          sortie: "1 livrable complet par binôme", 
+          methode: "Production concrète" 
+        },
+        { 
+          bloc: "80-90 min", 
+          titre: "Débrief + consignes asynchrones", 
+          sortie: "Plan 7 jours + indicateur personnel", 
+          methode: "Ancrage des habitudes" 
+        }
+      ],
+
+      concepts: [
+        {
+          key: "recherche",
+          titre: "Recherche d'information",
+          definition: "Obtenir des informations vérifiables avec sources. Vous demandez des références et vous contrôlez les faits.",
+          quand: "Quand une décision dépend de données factuelles vérifiées.",
+          sortie: "Liste sourcée + points de contrôle",
+          exemple: "Comparer 2 approches techniques. Lister 5 risques réglementaires. Identifier normes applicables."
+        },
+        {
+          key: "redaction",
+          titre: "Rédaction professionnelle",
+          definition: "Produire un texte prêt à l'emploi. Vous imposez format, ton, longueur et structure.",
+          quand: "Quand vous devez écrire rapidement avec qualité professionnelle.",
+          sortie: "Document structuré et publiable",
+          exemple: "Email interne. Procédure opérationnelle. Note de synthèse. FAQ interne."
+        },
+        {
+          key: "raisonnement",
+          titre: "Raisonnement et décision",
+          definition: "Structurer une décision complexe. Vous exigez options A/B/C avec critères d'évaluation.",
+          quand: "Face à plusieurs choix avec contraintes et impacts variables.",
+          sortie: "Arbre de décision + recommandation justifiée",
+          exemple: "Choisir un outil logiciel. Prioriser un backlog produit. Décider d'un plan d'action stratégique."
+        },
+        {
+          key: "extraction",
+          titre: "Extraction de données",
+          definition: "Extraire des champs spécifiques d'un texte non structuré. Vous imposez un format tabulaire standardisé.",
+          quand: "Face à des documents, emails ou comptes-rendus dont vous devez extraire l'information.",
+          sortie: "Tableau (CSV/JSON) avec champs normalisés",
+          exemple: "Extraire : client, demande, urgence, date limite, action requise depuis un email."
+        },
+        {
+          key: "classification",
+          titre: "Classification et tri",
+          definition: "Trier, étiqueter, prioriser. Vous définissez les catégories et règles de classification.",
+          quand: "Quand il faut organiser un flux d'information ou de demandes.",
+          sortie: "Tags + priorité + prochaine action définie",
+          exemple: "Tickets support : Urgent/Normal/Faible. Thèmes : Facturation/Support technique/Contrat/Formation."
+        }
+      ],
+
+      erreurs: [
+        { 
+          titre: "Demande trop vague", 
+          faire: "Ajoutez toujours : but + contexte + format attendu", 
+          verifier: "Une phrase doit suffire à résumer le besoin à un collègue" 
+        },
+        { 
+          titre: "Absence de contraintes", 
+          faire: "Fixez : longueur, ton, audience, structure, exclusions", 
+          verifier: "Le livrable doit être publiable sans réécriture importante" 
+        },
+        { 
+          titre: "Mauvais type de tâche", 
+          faire: "Identifiez d'abord : recherche, rédaction, raisonnement, extraction ou classification", 
+          verifier: "Le format du résultat correspond-il au besoin ? (table, options, texte, etc.)" 
+        },
+        { 
+          titre: "Copier-coller sans contrôle", 
+          faire: "Activez systématiquement la validation humaine avant utilisation", 
+          verifier: "1 relecture faits + 1 check confidentialité + 1 check risques" 
+        },
+        { 
+          titre: "Itération non structurée", 
+          faire: "Travaillez en couches : ajustez 1 variable à la fois (ton, format, contenu)", 
+          verifier: "Vous devez pouvoir expliquer pourquoi la version 2 est meilleure que la version 1" 
+        }
+      ],
+
+      demo: {
+        titre: "Cas pratique : triage et réponse support client",
+        contexte: "Vous recevez 30 messages/jour de clients. Vous perdez du temps dans le tri et la réponse. Objectif : standardiser le processus sans exposer de données sensibles.",
+        steps: [
+          {
+            titre: "Étape 1 — Classification du message",
+            prompt: `Rôle : assistant opérationnel support.
+Contrainte : aucune donnée sensible. Anonymisez toute information personnelle.
+Tâche : classifier le message en {LABELS} et attribuer une priorité P1/P2/P3.
+Format de sortie : JSON structuré.
+
+Message à traiter :
+"""[COLLEZ ICI UN MESSAGE ANONYMISÉ]"""`,
+            validation: "Validation humaine : anonymisation OK, label cohérent, priorité justifiée."
+          },
+          {
+            titre: "Étape 2 — Proposition de réponse email",
+            prompt: `Rôle : agent support professionnel.
+Objectif : réponse claire en 6 lignes maximum.
+Ton : professionnel, direct, empathique.
+Format : Email avec Objet + Corps structuré.
+Règle : si incertain, poser 2 questions précises pour clarifier.
+
+Contexte organisationnel :
+- Politique réponse : 24h maximum
+- Délai cible : 4h pour P1, 24h pour P2
+- Outil autorisé : ChatGPT/Claude avec validation humaine
+
+Données d'entrée :
+{JSON_DE_CLASSIFICATION_ETAPE_1}`,
+            validation: "Validation humaine : promesse tenue, pas d'engagement risqué, aucune donnée interne exposée."
+          },
+          {
+            titre: "Étape 3 — Création de mini-procédure",
+            prompt: `Rôle : responsable qualité et processus.
+Objectif : SOP (Standard Operating Procedure) de 1 page pour ce type de demande.
+Contenu requis : étapes claires + points de contrôle + exemples concrets.
+Format : titre explicite, liste numérotée, checklist finale de validation.`,
+            validation: "Validation humaine : procédure applicable, simple à suivre, testable en moins de 2 minutes."
+          }
+        ]
+      },
+
+      binomes: {
+        consigne: "En binômes, choisissez un micro-cas réel de votre quotidien. Anonymisez-le complètement. Produisez 1 livrable complet en 30 minutes.",
+        livrables: [
+          "1 classification JSON avec justification des choix",
+          "1 réponse email professionnelle (objet + corps)",
+          "1 mini-SOP opérationnelle (10 lignes maximum)"
+        ],
+        criteres: [
+          "Le type de tâche est correctement identifié",
+          "Le format demandé est strictement respecté",
+          "La validation humaine est planifiée et documentée",
+          "Le résultat est réutilisable dès demain en production"
+        ]
+      },
+
+      methodePermis: {
+        principe: "Méthode en 6 étapes : Écrire → Vérifier → Standardiser → (puis) Automatiser.",
+        checklist: [
+          { id: "m1", t: "Définir le type de tâche", d: "Recherche / Rédaction / Raisonnement / Extraction / Classification" },
+          { id: "m2", t: "Écrire le contexte minimal", d: "But précis + Audience cible + Contraintes + Format attendu" },
+          { id: "m3", t: "Protéger les données sensibles", d: "Retirer informations personnelles, anonymiser, masquer" },
+          { id: "m4", t: "Demander un format vérifiable", d: "Tableau / JSON / Étapes numérotées / Options A-B-C" },
+          { id: "m5", t: "Valider humainement systématiquement", d: "Faits + Ton + Risques + Confidentialité" },
+          { id: "m6", t: "Standardiser le prompt réussi", d: "Transformer en template réutilisable par l'équipe" }
+        ]
+      },
+
+      asynchrone7j: [
+        { j: "Jour 1", t: "Identifier 1 cas réel", d: "Choisir 1 tâche répétitive. Lister 5 exemples concrets." },
+        { j: "Jour 2", t: "Créer 1 template", d: "Écrire 1 prompt modèle avec zones à remplir." },
+        { j: "Jour 3", t: "Tester 1 itération", d: "Améliorer le prompt avec 1 contrainte supplémentaire." },
+        { j: "Jour 4", t: "Appliquer 1 contrôle", d: "Utiliser la grille de validation humaine sur un livrable." },
+        { j: "Jour 5", t: "Rédiger 1 SOP", d: "Écrire une mini-procédure opérationnelle (10 lignes)." },
+        { j: "Jour 6", t: "Partager 1 retour", d: "Partager le template avec un collègue. Recueillir 1 feedback." },
+        { j: "Jour 7", t: "Répliquer sur 1 nouveau cas", d: "Réappliquer la méthode sur un second cas. Comparer les résultats." }
+      ],
+
+      quiz: [
+        { 
+          id: "q1", 
+          q: "Quel élément est non négociable dès le départ avec l'IA ?", 
+          a: ["Le style littéraire", "La validation humaine", "Le nombre de tokens utilisé"], 
+          correct: 1 
+        },
+        { 
+          id: "q2", 
+          q: "Quel type de tâche produit un tableau de champs extraits ?", 
+          a: ["Rédaction", "Extraction", "Raisonnement"], 
+          correct: 1 
+        },
+        { 
+          id: "q3", 
+          q: "Quelle est la meilleure correction d'une demande floue ?", 
+          a: ["Changer de modèle d'IA", "Ajouter but + contexte + format", "Demander une réponse plus longue"], 
+          correct: 1 
+        },
+        { 
+          id: "q4", 
+          q: "Quelle pratique réduit le risque de réponses inutiles ?", 
+          a: ["Itérer en changeant 10 paramètres", "Itérer en changeant 1 variable à la fois", "Copier-coller sans relire"], 
+          correct: 1 
+        },
+        { 
+          id: "q5", 
+          q: "La classification sert principalement à…", 
+          a: ["Écrire un email professionnel", "Trier et prioriser des éléments", "Faire une recherche web"], 
+          correct: 1 
+        }
+      ],
+
+      ressources: {
+        promptsCopier: [
+          {
+            titre: "Template universel de prompt",
+            texte: `Rôle : [ex: assistant opérationnel, expert métier, relecteur qualité]
+Contexte : [secteur, équipe, contraintes spécifiques]
+Objectif mesurable : [1 résultat observable et vérifiable]
+Type de tâche : [recherche / rédaction / raisonnement / extraction / classification]
+Données d'entrée : [texte anonymisé / liste / documents]
+Contraintes : [ton, longueur, interdits, outils autorisés]
+Format attendu : [liste / tableau / JSON / plan structuré]
+Validation humaine : [ce que l'humain doit vérifier avant diffusion]`
+          },
+          {
+            titre: "Message d'invitation (Teams/WhatsApp)",
+            texte: `🎯 Formation IA 2026 — Parcours Entreprise — Semaine 1
+📅 Durée : 90 minutes
+🎯 Objectif : Comprendre l'IA sans jargon et installer une méthode reproductible
+📌 Règle d'or : Humain valide avant diffusion
+🔧 À préparer : 1 micro-cas réel (anonymisé) de votre quotidien
+🔗 Lien de connexion : [À COMPLÉTER]`
+          }
+        ]
+      }
+    };
+
+    // =========================
+    // FONCTIONS UTILITAIRES
+    // =========================
+    const LS = {
+      key(prefix) { 
+        return `${MODULE.id}:${prefix}`; 
+      },
+      
+      get(k, fallback = null) {
+        try {
+          const v = localStorage.getItem(k);
+          return v === null ? fallback : JSON.parse(v);
+        } catch {
+          return fallback;
+        }
+      },
+      
+      set(k, v) {
+        try { 
+          localStorage.setItem(k, JSON.stringify(v)); 
+        } catch (e) {
+          console.warn("Erreur localStorage:", e);
+        }
+      },
+      
+      del(k) { 
+        try { 
+          localStorage.removeItem(k); 
+        } catch {} 
+      },
+      
+      clearModule() {
+        Object.keys(localStorage).forEach(k => {
+          if (k.startsWith(`${MODULE.id}:`)) {
+            localStorage.removeItem(k);
+          }
+        });
+      }
+    };
+
+    function createElement(tag, attrs = {}, children = []) {
+      const element = document.createElement(tag);
+      
+      Object.entries(attrs).forEach(([key, value]) => {
+        if (key === "class") {
+          element.className = value;
+        } else if (key === "html") {
+          element.innerHTML = value;
+        } else if (key.startsWith("on") && typeof value === "function") {
+          element.addEventListener(key.slice(2), value);
+        } else if (key === "for") {
+          element.htmlFor = value;
+        } else {
+          element.setAttribute(key, value);
+        }
+      });
+      
+      const childrenArray = Array.isArray(children) ? children : [children];
+      childrenArray.forEach(child => {
+        if (child == null) return;
+        if (typeof child === "string" || typeof child === "number") {
+          element.appendChild(document.createTextNode(child));
+        } else {
+          element.appendChild(child);
+        }
+      });
+      
+      return element;
+    }
+
+    function showToast(message, duration = 2000) {
+      const toast = document.getElementById("toast");
+      toast.textContent = message;
+      toast.classList.add("show");
+      
+      clearTimeout(window.toastTimeout);
+      window.toastTimeout = setTimeout(() => {
+        toast.classList.remove("show");
+      }, duration);
+    }
+
+    async function copyToClipboard(text) {
+      try {
+        await navigator.clipboard.writeText(text);
+        return true;
+      } catch {
+        return false;
+      }
+    }
+
+    // =========================
+    // FONCTIONS DE RENDU
+    // =========================
+    function renderHero() {
+      // Texte statique
+      document.getElementById("brandName").textContent = MODULE.programme.split("—")[0].trim();
+      document.getElementById("brandSub").textContent = "Parcours Entreprise";
+      document.getElementById("moduleVersion").textContent = MODULE.version;
+      document.getElementById("moduleTitle").textContent = MODULE.titre;
+      document.getElementById("modulePromise").textContent = MODULE.promesse;
+      document.getElementById("indicatorText").textContent = MODULE.indicateur7j;
+      
+      // Contexte entreprise
+      const context = MODULE.contexte;
+      const contextText = `Secteur : ${context.secteur}\nTaille / métiers : ${context.tailleMetiers}\nNiveau IA : ${context.niveauIA}\nContraintes : ${context.contraintes}\nOutils autorisés : ${context.outilsAutorises}\nObjectif business : ${context.objectifBusiness}`;
+      document.getElementById("companyBox").textContent = contextText;
+      
+      // Éléments UI
+      document.getElementById("weekLabel").textContent = `Semaine ${MODULE.week}/${MODULE.totalWeeks}`;
+      document.getElementById("vFoot").textContent = MODULE.version;
+      document.getElementById("year").textContent = new Date().getFullYear();
+      
+      // Champs de saisie avec sauvegarde
+      const kpiInput = document.getElementById("kpiInput");
+      const linkInput = document.getElementById("linkInput");
+      
+      kpiInput.value = LS.get(LS.key("kpi7j"), MODULE.indicateur7j);
+      linkInput.value = LS.get(LS.key("link"), "");
+      
+      kpiInput.addEventListener("input", () => {
+        LS.set(LS.key("kpi7j"), kpiInput.value.trim());
+        updateProgress();
+      });
+      
+      linkInput.addEventListener("input", () => {
+        LS.set(LS.key("link"), linkInput.value.trim());
+      });
+    }
+
+    function renderObjectifs() {
+      const container = document.getElementById("objectifsGrid");
+      container.innerHTML = "";
+      
+      MODULE.objectifs.forEach((obj, index) => {
+        const card = createElement("div", { class: "card" }, [
+          createElement("h3", {}, `${index + 1}. ${obj.texte}`),
+          createElement("p", { class: "meta" }, `Métrique : ${obj.metrique}`)
+        ]);
+        container.appendChild(card);
+      });
+    }
+
+    function renderAgenda() {
+      const container = document.getElementById("agendaList");
+      container.innerHTML = "";
+      
+      MODULE.agenda.forEach(item => {
+        const step = createElement("div", { class: "step" }, [
+          createElement("div", { class: "badge" }, item.bloc),
+          createElement("div", {}, [
+            createElement("h3", {}, item.titre),
+            createElement("p", { class: "meta" }, 
+              `Sortie : ${item.sortie} | Méthode : ${item.methode}`)
+          ])
+        ]);
+        container.appendChild(step);
+      });
+    }
+
+    function renderConcepts() {
+      const container = document.getElementById("conceptsCards");
+      container.innerHTML = "";
+      
+      MODULE.concepts.forEach(concept => {
+        const card = createElement("div", { class: "card" }, [
+          createElement("h3", {}, concept.titre),
+          createElement("p", {}, concept.definition),
+          createElement("ul", { class: "bullets" }, [
+            createElement("li", {}, `Quand l'utiliser : ${concept.quand}`),
+            createElement("li", {}, `Format de sortie : ${concept.sortie}`),
+            createElement("li", {}, `Exemples : ${concept.exemple}`)
+          ])
+        ]);
+        container.appendChild(card);
+      });
+    }
+
+    function renderErrors() {
+      const container = document.getElementById("errorsGrid");
+      container.innerHTML = "";
+      
+      MODULE.erreurs.forEach(error => {
+        const card = createElement("div", { class: "card" }, [
+          createElement("h3", {}, error.titre),
+          createElement("p", {}, `🔧 ${error.faire}`),
+          createElement("p", {}, `✅ ${error.verifier}`)
+        ]);
+        container.appendChild(card);
+      });
+    }
+
+    function renderDemo() {
+      document.getElementById("demoTitle").textContent = MODULE.demo.titre;
+      document.getElementById("demoContext").textContent = MODULE.demo.contexte;
+      
+      const container = document.getElementById("demoSteps");
+      container.innerHTML = "";
+      
+      MODULE.demo.steps.forEach((step, index) => {
+        const promptId = `demo-prompt-${index}`;
+        
+        const promptElement = createElement("div", { class: "prompt" }, [
+          createElement("div", { class: "prompt-top" }, [
+            createElement("strong", {}, "Prompt à utiliser"),
+            createElement("button", { 
+              class: "btn copy", 
+              "data-copy-target": promptId,
+              type: "button" 
+            }, "Copier")
+          ]),
+          createElement("pre", { id: promptId }, step.prompt)
+        ]);
+        
+        const stepElement = createElement("div", { class: "step" }, [
+          createElement("div", { class: "badge" }, `Étape ${index + 1}`),
+          createElement("div", {}, [
+            createElement("h3", {}, step.titre),
+            createElement("p", { class: "meta" }, `Validation : ${step.validation}`),
+            promptElement
+          ])
+        ]);
+        
+        container.appendChild(stepElement);
+      });
+    }
+
+    function renderBinomes() {
+      document.getElementById("binConsigne").textContent = MODULE.binomes.consigne;
+      
+      const livrablesList = document.getElementById("binLivrables");
+      livrablesList.innerHTML = "";
+      MODULE.binomes.livrables.forEach(item => {
+        livrablesList.appendChild(createElement("li", {}, item));
+      });
+      
+      const criteresList = document.getElementById("binCriteres");
+      criteresList.innerHTML = "";
+      MODULE.binomes.criteres.forEach(item => {
+        criteresList.appendChild(createElement("li", {}, item));
+      });
+    }
+
+    function renderMethode() {
+      document.getElementById("methodPrinciple").textContent = MODULE.methodePermis.principe;
+      
+      const container = document.getElementById("methodChecklist");
+      container.innerHTML = "";
+      
+      MODULE.methodePermis.checklist.forEach(item => {
+        const storageKey = LS.key(`check:${item.id}`);
+        const isChecked = LS.get(storageKey, false);
+        const checkboxId = `check-${item.id}`;
+        
+        const checkbox = createElement("input", {
+          type: "checkbox",
+          id: checkboxId,
+          "data-store": storageKey
+        });
+        checkbox.checked = isChecked;
+        
+        checkbox.addEventListener("change", () => {
+          LS.set(storageKey, checkbox.checked);
+          updateProgress();
+        });
+        
+        const checkItem = createElement("div", { class: "check" }, [
+          checkbox,
+          createElement("label", { for: checkboxId }, [
+            createElement("div", { class: "t" }, item.t),
+            createElement("div", { class: "d" }, item.d)
+          ])
+        ]);
+        
+        container.appendChild(checkItem);
+      });
+    }
+
+    function renderAsync() {
+      const container = document.getElementById("asyncList");
+      container.innerHTML = "";
+      
+      MODULE.asynchrone7j.forEach((day, index) => {
+        const storageKey = LS.key(`check:async:day${index}`);
+        const isChecked = LS.get(storageKey, false);
+        const checkboxId = `async-check-${index}`;
+        
+        const checkbox = createElement("input", {
+          type: "checkbox",
+          id: checkboxId
+        });
+        checkbox.checked = isChecked;
+        
+        checkbox.addEventListener("change", () => {
+          LS.set(storageKey, checkbox.checked);
+          updateProgress();
+        });
+        
+        const step = createElement("div", { class: "step" }, [
+          createElement("div", { class: "badge" }, day.j),
+          createElement("div", {}, [
+            createElement("h3", {}, day.t),
+            createElement("p", { class: "meta" }, day.d),
+            createElement("div", { class: "check" }, [
+              checkbox,
+              createElement("label", { for: checkboxId }, [
+                createElement("div", { class: "t" }, "Action réalisée"),
+                createElement("div", { class: "d" }, "Cochez quand terminé")
+              ])
+            ])
+          ])
+        ]);
+        
+        container.appendChild(step);
+      });
+    }
+
+    function renderQuiz() {
+      const container = document.getElementById("quizBox");
+      container.innerHTML = "";
+      
+      MODULE.quiz.forEach((question, index) => {
+        const storageKey = LS.key(`quiz:${question.id}`);
+        const savedAnswer = LS.get(storageKey, null);
+        
+        const questionElement = createElement("div", { class: "q" }, [
+          createElement("h3", {}, `${index + 1}) ${question.q}`)
+        ]);
+        
+        const choicesContainer = createElement("div", { class: "choices" });
+        
+        question.a.forEach((choice, choiceIndex) => {
+          const choiceId = `choice-${question.id}-${choiceIndex}`;
+          const radio = createElement("input", {
+            type: "radio",
+            name: question.id,
+            id: choiceId,
+            value: choiceIndex
+          });
+          
+          if (savedAnswer !== null && Number(savedAnswer) === choiceIndex) {
+            radio.checked = true;
+          }
+          
+          radio.addEventListener("change", () => {
+            LS.set(storageKey, choiceIndex);
+          });
+          
+          const label = createElement("label", { for: choiceId }, [
+            radio,
+            createElement("span", {}, choice)
+          ]);
+          
+          choicesContainer.appendChild(label);
+        });
+        
+        questionElement.appendChild(choicesContainer);
+        container.appendChild(questionElement);
+      });
+      
+      // Restaurer le score
+      const savedScore = LS.get(LS.key("score"), 0);
+      document.getElementById("scoreText").innerHTML = `<b>${savedScore}</b>/5`;
+    }
+
+    function renderPrompts() {
+      const container = document.getElementById("promptCards");
+      container.innerHTML = "";
+      
+      MODULE.ressources.promptsCopier.forEach((prompt, index) => {
+        const promptId = `prompt-${index}`;
+        
+        const card = createElement("div", { class: "card" }, [
+          createElement("h3", {}, prompt.titre),
+          createElement("p", {}, "Copiez, adaptez à votre contexte, puis validez humainement."),
+          createElement("div", { class: "prompt" }, [
+            createElement("div", { class: "prompt-top" }, [
+              createElement("strong", {}, "Texte du prompt"),
+              createElement("button", { 
+                class: "btn copy", 
+                "data-copy-target": promptId,
+                type: "button" 
+              }, "Copier")
+            ]),
+            createElement("pre", { id: promptId }, prompt.texte)
+          ])
+        ]);
+        
+        container.appendChild(card);
+      });
+    }
+
+    // =========================
+    // GESTION DE LA PROGRESSION
+    // =========================
+    function updateProgress() {
+      // Compter les éléments à suivre
+      const methodItems = MODULE.methodePermis.checklist.length;
+      const asyncItems = MODULE.asynchrone7j.length;
+      const quizItems = MODULE.quiz.length;
+      const kpiItem = 1; // Le KPI rempli
+      
+      const totalItems = methodItems + asyncItems + quizItems + kpiItem;
+      let completedItems = 0;
+      
+      // Checklist méthode
+      MODULE.methodePermis.checklist.forEach(item => {
+        const key = LS.key(`check:${item.id}`);
+        if (LS.get(key, false)) completedItems++;
+      });
+      
+      // Checklist asynchrone
+      MODULE.asynchrone7j.forEach((_, index) => {
+        const key = LS.key(`check:async:day${index}`);
+        if (LS.get(key, false)) completedItems++;
+      });
+      
+      // Quiz répondu
+      MODULE.quiz.forEach(question => {
+        const key = LS.key(`quiz:${question.id}`);
+        if (LS.get(key, null) !== null) completedItems++;
+      });
+      
+      // KPI rempli
+      const kpiValue = LS.get(LS.key("kpi7j"), "");
+      if (kpiValue.trim().length > 0 && kpiValue !== MODULE.indicateur7j) {
+        completedItems++;
+      }
+      
+      // Calcul du pourcentage
+      const percentage = totalItems > 0 ? Math.round((completedItems / totalItems) * 100) : 0;
+      
+      // Mise à jour de l'UI
+      document.getElementById("progressBar").style.width = `${percentage}%`;
+      document.getElementById("progressText").textContent = `${percentage}%`;
+      document.getElementById("progressCount").textContent = `${completedItems}/${totalItems}`;
+    }
+
+    // =========================
+    // GESTION DES ÉVÉNEMENTS
+    // =========================
+    function setupCopyButtons() {
+      document.addEventListener("click", async (event) => {
+        if (event.target.matches("[data-copy-target]")) {
+          const targetId = event.target.getAttribute("data-copy-target");
+          const targetElement = document.getElementById(targetId);
+          
+          if (targetElement) {
+            const success = await copyToClipboard(targetElement.textContent);
+            showToast(success ? "Copié dans le presse-papier !" : "Échec de la copie");
+          }
+        }
+      });
+    }
+
+    function setupNavigation() {
+      const navLinks = document.querySelectorAll(".nav a");
+      const sections = Array.from(navLinks).map(link => {
+        const href = link.getAttribute("href");
+        return href && href.startsWith("#") ? href.substring(1) : null;
+      }).filter(Boolean);
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const activeId = entry.target.id;
+            navLinks.forEach(link => {
+              const href = link.getAttribute("href");
+              link.classList.toggle("active", href === `#${activeId}`);
+            });
+          }
+        });
+      }, { 
+        rootMargin: "-20% 0px -70% 0px",
+        threshold: 0.1
+      });
+      
+      sections.forEach(id => {
+        const section = document.getElementById(id);
+        if (section) observer.observe(section);
+      });
+    }
+
+    function setupButtons() {
+      // Bouton Démarrer
+      document.getElementById("btnStart").addEventListener("click", () => {
+        document.querySelector("#agenda").scrollIntoView({ behavior: "smooth" });
+        showToast("Navigation vers l'agenda");
+      });
+      
+      // Bouton Copier invitation
+      document.getElementById("btnCopyInvite").addEventListener("click", async () => {
+        const invitePrompt = MODULE.ressources.promptsCopier[1];
+        if (invitePrompt) {
+          const link = LS.get(LS.key("link"), "");
+          let text = invitePrompt.texte;
+          
+          if (link) {
+            text = text.replace("[À COMPLÉTER]", link);
+          }
+          
+          const success = await copyToClipboard(text);
+          showToast(success ? "Invitation copiée !" : "Échec de la copie");
+        }
+      });
+      
+      // Bouton Réinitialiser
+      document.getElementById("btnReset").addEventListener("click", () => {
+        if (confirm("Voulez-vous vraiment réinitialiser toute votre progression ?")) {
+          LS.clearModule();
+          
+          // Re-rendre les composants
+          renderHero();
+          renderMethode();
+          renderAsync();
+          renderQuiz();
+          updateProgress();
+          
+          showToast("Progression réinitialisée");
+        }
+      });
+      
+      // Bouton Calculer score
+      document.getElementById("btnScore").addEventListener("click", () => {
+        let score = 0;
+        
+        MODULE.quiz.forEach(question => {
+          const userAnswer = LS.get(LS.key(`quiz:${question.id}`), null);
+          if (userAnswer !== null && Number(userAnswer) === question.correct) {
+            score++;
+          }
+        });
+        
+        LS.set(LS.key("score"), score);
+        document.getElementById("scoreText").innerHTML = `<b>${score}</b>/5`;
+        showToast(`Score calculé : ${score}/5`);
+      });
+    }
+
+    // =========================
+    // INITIALISATION
+    // =========================
+    function init() {
+      // Rendu initial
+      renderHero();
+      renderObjectifs();
+      renderAgenda();
+      renderConcepts();
+      renderErrors();
+      renderDemo();
+      renderBinomes();
+      renderMethode();
+      renderAsync();
+      renderQuiz();
+      renderPrompts();
+      
+      // Configuration des événements
+      setupCopyButtons();
+      setupNavigation();
+      setupButtons();
+      
+      // Mise à jour initiale de la progression
+      updateProgress();
+      
+      // Animation de bienvenue
+      setTimeout(() => {
+        showToast("Module chargé avec succès !", 1500);
+      }, 500);
+    }
+
+    // Lancement quand le DOM est prêt
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", init);
+    } else {
+      init();
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,2790 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FORMATION-IA-2026 | Parcours Entreprise — Semaine 3 : Workflows et automatisation utile</title>
+
+  <meta name="description" content="Semaine 3 — Passer du prompt ponctuel au process reproductible. Standardiser. Réduire les erreurs. Documenter pour réutiliser." />
+  <meta property="og:title" content="Semaine 3 — Workflows et automatisation utile" />
+  <meta property="og:description" content="Workflows et automatisation utile. Mesure avant/après. Contrôles explicites. Reproductibilité en 15 minutes." />
+  <meta property="og:image" content="https://example.com/workflow-automation-og.jpg" />
+  <meta name="theme-color" content="#0a1a3a" />
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+  <style>
+    :root{
+      --night:#0a1a3a;
+      --gold:#c9a96e;
+      --teal:#38b2ac;
+      --ink:#0e1726;
+      --muted:#6c757d;
+      --card:#0f2348;
+      --line: rgba(201,169,110,.35);
+      --soft: rgba(255,255,255,.08);
+      --white: #ffffff;
+    }
+    body{
+      background: radial-gradient(1200px 600px at 10% 0%, rgba(201,169,110,.15), transparent 60%),
+                  radial-gradient(900px 500px at 90% 10%, rgba(56,178,172,.10), transparent 55%),
+                  linear-gradient(180deg, #071026 0%, #050b18 100%);
+      color: #e9eef8;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+    }
+    .navbar{
+      background: rgba(10,26,58,.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(201,169,110,.2);
+    }
+    .brand-badge{
+      background: linear-gradient(135deg, rgba(201,169,110,.2), rgba(201,169,110,.1));
+      border: 1px solid rgba(201,169,110,.4);
+      color: #f7e7c8;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+    .hero{
+      border-bottom: 1px solid rgba(255,255,255,.1);
+      background: linear-gradient(180deg, rgba(10,26,58,.7) 0%, rgba(10,26,58,.25) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(201,169,110,0.03)"/></svg>');
+      pointer-events: none;
+    }
+    .hero-card{
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 20px 40px rgba(0,0,0,.3);
+    }
+    .section-title{
+      letter-spacing: .3px;
+      font-weight: 700;
+      position: relative;
+      padding-bottom: 12px;
+    }
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--teal));
+      border-radius: 2px;
+    }
+    .gold{
+      color: var(--gold);
+    }
+    .teal{
+      color: var(--teal);
+    }
+    .soft{
+      color: rgba(233,238,248,.85);
+    }
+    .kpi-pill{
+      background: linear-gradient(135deg, rgba(201,169,110,.2), rgba(56,178,172,.2));
+      border: 1px solid rgba(201,169,110,.4);
+      color: #f7e7c8;
+      font-weight: 600;
+    }
+    .cardx{
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: 18px;
+      backdrop-filter: blur(8px);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      height: 100%;
+    }
+    .cardx:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0,0,0,.4);
+    }
+    .cardx .card-header{
+      background: linear-gradient(180deg, rgba(10,26,58,.6), rgba(10,26,58,.4));
+      border-bottom: 1px solid rgba(255,255,255,.15);
+      border-top-left-radius: 18px;
+      border-top-right-radius: 18px;
+      padding: 1.25rem 1.5rem;
+    }
+    .badge-outline{
+      border: 1px solid rgba(201,169,110,.5);
+      color: #f7e7c8;
+      background: rgba(201,169,110,.12);
+      font-weight: 500;
+    }
+    .timeline{
+      border-left: 3px solid var(--gold);
+      margin-left: 1rem;
+      padding-left: 1.5rem;
+    }
+    .tl-item{
+      position: relative;
+      padding: .75rem 0;
+    }
+    .tl-item::before{
+      content:"";
+      position:absolute;
+      left:-1.65rem;
+      top: 1.35rem;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 0 4px rgba(201,169,110,.3);
+      border: 2px solid rgba(10,26,58,.8);
+    }
+    .mono{
+      font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', ui-monospace, monospace;
+      font-size: .9rem;
+      line-height: 1.5;
+    }
+    pre{
+      white-space: pre-wrap;
+      word-break: break-word;
+      background: rgba(6,12,28,.8);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 12px;
+      padding: 1.25rem;
+      margin: 0;
+      overflow-x: auto;
+    }
+    code {
+      background: rgba(201,169,110,.1);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: inherit;
+      font-size: 0.9em;
+    }
+    .btn-gold{
+      background: linear-gradient(135deg, #c9a96e, #d4b57d);
+      border: 1px solid rgba(201,169,110,.8);
+      color: #0a1a3a;
+      font-weight: 600;
+      padding: 0.75rem 1.5rem;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+    }
+    .btn-gold:hover{
+      background: linear-gradient(135deg, #d4b57d, #e0c38c);
+      border-color: #e0c38c;
+      color: #0a1a3a;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(201,169,110,.3);
+    }
+    .btn-ghost{
+      border: 1px solid rgba(255,255,255,.25);
+      color: #e9eef8;
+      background: rgba(255,255,255,.08);
+      padding: 0.75rem 1.5rem;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+    }
+    .btn-ghost:hover{
+      background: rgba(255,255,255,.15);
+      border-color: rgba(255,255,255,.4);
+      color: #fff;
+      transform: translateY(-2px);
+    }
+    .table thead th{
+      background: linear-gradient(180deg, rgba(10,26,58,.8), rgba(10,26,58,.6));
+      color: #e9eef8;
+      border-color: rgba(255,255,255,.15);
+      font-weight: 600;
+      padding: 1rem;
+    }
+    .table td, .table th{
+      border-color: rgba(255,255,255,.1);
+      color: #e9eef8;
+      background: rgba(255,255,255,.05);
+      padding: 0.75rem 1rem;
+      vertical-align: middle;
+    }
+    .form-control, .form-select{
+      background: rgba(255,255,255,.09);
+      border: 1px solid rgba(255,255,255,.2);
+      color: #e9eef8;
+      border-radius: 10px;
+      padding: 0.75rem 1rem;
+      transition: all 0.3s ease;
+    }
+    .form-control:focus, .form-select:focus{
+      background: rgba(255,255,255,.12);
+      border-color: var(--gold);
+      color: #fff;
+      box-shadow: 0 0 0 3px rgba(201,169,110,.2);
+    }
+    .form-control::placeholder{
+      color: rgba(233,238,248,.6);
+    }
+    .progress{
+      background: rgba(255,255,255,.1);
+      height: 10px;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .progress-bar{
+      background: linear-gradient(90deg, var(--gold), var(--teal));
+      transition: width 0.6s ease;
+    }
+    .footer{
+      border-top: 1px solid rgba(255,255,255,.1);
+      color: rgba(233,238,248,.7);
+      background: rgba(10,26,58,.9);
+    }
+    .anchor{
+      scroll-margin-top: 100px;
+    }
+    .copy-row{
+      display:flex;
+      gap:.75rem;
+      align-items:center;
+      justify-content:flex-end;
+      margin-bottom:.75rem;
+    }
+    .small-help{
+      color: rgba(233,238,248,.7);
+      font-size: .9rem;
+      line-height: 1.5;
+    }
+    .accordion-button {
+      background: rgba(255,255,255,.05);
+      color: #e9eef8;
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 10px !important;
+      margin-bottom: 8px;
+      font-weight: 600;
+      padding: 1rem 1.25rem;
+    }
+    .accordion-button:not(.collapsed) {
+      background: rgba(201,169,110,.15);
+      color: #f7e7c8;
+      border-color: rgba(201,169,110,.3);
+    }
+    .accordion-button:focus {
+      box-shadow: 0 0 0 3px rgba(201,169,110,.2);
+      border-color: var(--gold);
+    }
+    .toast {
+      background: rgba(10,26,58,.95);
+      border: 1px solid rgba(201,169,110,.3);
+      border-radius: 12px;
+      backdrop-filter: blur(10px);
+    }
+    .pattern-card {
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255,255,255,.1);
+    }
+    .pattern-card:hover {
+      border-color: var(--gold);
+      transform: translateY(-3px);
+    }
+    .checklist-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,.05);
+    }
+    .checklist-item:last-child {
+      border-bottom: none;
+    }
+    .checklist-item input[type="checkbox"] {
+      margin-top: 4px;
+      accent-color: var(--gold);
+    }
+    .highlight-box {
+      background: linear-gradient(135deg, rgba(201,169,110,.1), rgba(56,178,172,.1));
+      border-left: 4px solid var(--gold);
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin: 1.5rem 0;
+    }
+    .metric-card {
+      border-top: 3px solid var(--teal);
+    }
+    .metric-card .card-header {
+      border-bottom: 2px solid rgba(56,178,172,.3);
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Topbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container py-2">
+      <div class="d-flex flex-column flex-md-row align-items-md-center gap-2 w-100">
+        <div class="d-flex align-items-center gap-2">
+          <span class="badge brand-badge rounded-pill px-3 py-2">FORMATION-IA-2026</span>
+          <span class="text-white-50 d-none d-md-inline">|</span>
+          <span class="text-white">Parcours Entreprise</span>
+        </div>
+        <div class="ms-md-auto d-flex flex-wrap gap-2 align-items-center">
+          <span class="badge badge-outline rounded-pill px-3 py-2" id="topbarWeek">Semaine 3</span>
+          <span class="text-white-50 d-none d-md-inline">|</span>
+          <span class="text-white fw-semibold" id="topbarTitle">Workflows et automatisation utile</span>
+          <div class="d-flex gap-2">
+            <a class="btn btn-sm btn-ghost ms-md-3" href="#demo">Voir la démo</a>
+            <a class="btn btn-sm btn-gold" href="#livrable">Livrables</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero py-5" style="padding-top: 100px !important;">
+    <div class="container">
+      <div class="row g-4 align-items-stretch">
+        <div class="col-lg-7">
+          <div class="hero-card p-4 p-lg-5 h-100">
+            <div class="d-flex flex-wrap gap-2 align-items-center mb-3">
+              <span class="badge kpi-pill rounded-pill px-3 py-2">Objectif principal</span>
+              <span class="soft">Passer du prompt ponctuel au process reproductible</span>
+            </div>
+            <h1 class="display-6 fw-bold mb-3">
+              <span id="heroTitle">Semaine 3 — Workflows et automatisation utile</span>
+            </h1>
+            <p class="lead soft mb-4">
+              Apprenez à standardiser vos processus, réduire les erreurs et documenter pour réutiliser efficacement l'IA dans vos workflows métier.
+            </p>
+
+            <div class="row g-3">
+              <div class="col-md-7">
+                <div class="cardx p-3 h-100">
+                  <div class="d-flex align-items-center justify-content-between gap-2 mb-2">
+                    <div class="fw-semibold">Objectifs d'apprentissage</div>
+                    <span class="badge badge-outline rounded-pill">3 compétences</span>
+                  </div>
+                  <ul class="mb-0 soft" style="list-style: none; padding-left: 0;">
+                    <li class="mb-2">✓ Passer du prompt ponctuel au process structuré</li>
+                    <li class="mb-2">✓ Standardiser et réduire les erreurs systématiques</li>
+                    <li>✓ Documenter pour réutiliser et partager</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-md-5">
+                <div class="cardx p-3 h-100">
+                  <div class="d-flex align-items-center justify-content-between gap-2 mb-2">
+                    <div class="fw-semibold">Votre KPI cible</div>
+                    <span class="badge kpi-pill rounded-pill" id="kpiTarget">{KPI_CIBLE}</span>
+                  </div>
+                  <div class="small-help">
+                    Définissez votre indicateur clé. Mesurez l'impact avant et après l'automatisation.
+                  </div>
+                  <div class="mt-3 d-grid gap-2">
+                    <a class="btn btn-gold" href="#mesure">Commencer la mesure</a>
+                    <a class="btn btn-ghost" href="#checklists">Voir les contrôles QA</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="highlight-box mt-4">
+              <h6 class="gold mb-2">Règles importantes</h6>
+              <ul class="mb-0 soft" style="list-style: none; padding-left: 0;">
+                <li class="mb-1">• Utilisez uniquement des exemples fictifs</li>
+                <li class="mb-1">• Zéro donnée sensible ou personnelle</li>
+                <li>• Workflow reproductible en 15 minutes max</li>
+              </ul>
+            </div>
+
+            <div class="mt-4 d-flex flex-wrap gap-2">
+              <a class="btn btn-gold" href="#agenda">Démarrer la formation</a>
+              <button class="btn btn-ghost" type="button" data-bs-toggle="modal" data-bs-target="#contextModal">Configurer votre contexte</button>
+              <a class="btn btn-ghost" href="#whatsapp">Fiche récapitulative</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-5">
+          <div class="hero-card p-4 p-lg-5 h-100">
+            <div class="d-flex align-items-center justify-content-between mb-3">
+              <div class="fw-semibold">Progression de la semaine</div>
+              <span class="badge badge-outline rounded-pill" id="progressLabel">0%</span>
+            </div>
+            <div class="progress mb-3" role="progressbar" aria-label="progression" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+              <div class="progress-bar" id="progressBar" style="width:0%"></div>
+            </div>
+
+            <div class="cardx p-3 mb-3">
+              <div class="fw-semibold mb-2">Configuration initiale</div>
+              <div class="small-help mb-2">Définissez vos objectifs métier</div>
+              <div class="row g-2">
+                <div class="col-12">
+                  <label class="form-label small mb-1">Objectif business prioritaire</label>
+                  <input class="form-control" id="ctxObjective" placeholder="Ex: Réduction du temps de traitement des tickets support" />
+                </div>
+                <div class="col-12">
+                  <label class="form-label small mb-1">KPI cible à améliorer</label>
+                  <input class="form-control" id="ctxKpi" placeholder="Ex: Temps moyen de résolution (de 4h à 2h)" />
+                </div>
+                <div class="col-12">
+                  <button class="btn btn-sm btn-gold w-100" id="saveContextBtn">Enregistrer la configuration</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="cardx p-3 mb-3">
+              <div class="fw-semibold mb-2">Critères de validation</div>
+              <ul class="mb-0 soft" style="list-style: none; padding-left: 0;">
+                <li class="mb-1">✓ Exemple fictif sans données sensibles</li>
+                <li class="mb-1">✓ Contrôles QA explicites et vérifiables</li>
+                <li class="mb-1">✓ Mesure avant/après documentée</li>
+                <li>✓ Reproductible par un collègue en 15 min</li>
+              </ul>
+            </div>
+
+            <div class="small-help">
+              <div class="fw-semibold mb-1">Ressources de référence</div>
+              <div class="mt-1 d-flex flex-wrap gap-1">
+                <span class="badge badge-outline rounded-pill">Guide formateur</span>
+                <span class="badge badge-outline rounded-pill">Pack workflows</span>
+                <span class="badge badge-outline rounded-pill">Templates SOP</span>
+                <span class="badge badge-outline rounded-pill">Évaluation</span>
+              </div>
+              <div class="mt-2">Statut : <span class="teal">Documents fournis ✓</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Objectifs et métriques -->
+  <section class="py-5 anchor" id="objectifs">
+    <div class="container">
+      <div class="d-flex align-items-end justify-content-between gap-2 mb-4">
+        <h2 class="h3 section-title m-0">Objectifs et métriques de performance</h2>
+        <span class="text-white-50">3 dimensions à mesurer</span>
+      </div>
+
+      <div class="row g-3">
+        <div class="col-lg-4">
+          <div class="cardx h-100 metric-card">
+            <div class="card-header px-3 py-3">
+              <div class="d-flex align-items-center justify-content-between">
+                <div class="fw-semibold">Efficacité temporelle</div>
+                <span class="badge kpi-pill rounded-pill">Métrique principale</span>
+              </div>
+              <div class="small-help mt-1">Temps de production end-to-end</div>
+            </div>
+            <div class="p-3">
+              <label class="form-label small">Temps avant automatisation (minutes)</label>
+              <input type="number" min="0" class="form-control" id="metricTimeBefore" placeholder="Ex : 45" />
+              <label class="form-label small mt-3">Temps après automatisation (minutes)</label>
+              <input type="number" min="0" class="form-control" id="metricTimeAfter" placeholder="Ex : 18" />
+              <div class="small-help mt-3">Mesurez le temps complet, de l'entrée à la sortie validée</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="cardx h-100 metric-card">
+            <div class="card-header px-3 py-3">
+              <div class="d-flex align-items-center justify-content-between">
+                <div class="fw-semibold">Qualité et fiabilité</div>
+                <span class="badge kpi-pill rounded-pill">Métrique qualité</span>
+              </div>
+              <div class="small-help mt-1">Erreurs et retours de correction</div>
+            </div>
+            <div class="p-3">
+              <label class="form-label small">Erreurs avant (nombre moyen)</label>
+              <input type="number" min="0" class="form-control" id="metricErrBefore" placeholder="Ex : 8" />
+              <label class="form-label small mt-3">Erreurs après (nombre moyen)</label>
+              <input type="number" min="0" class="form-control" id="metricErrAfter" placeholder="Ex : 2" />
+              <div class="small-help mt-3">Comptez les erreurs détectées en phase de validation</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="cardx h-100 metric-card">
+            <div class="card-header px-3 py-3">
+              <div class="d-flex align-items-center justify-content-between">
+                <div class="fw-semibold">Transfert de compétence</div>
+                <span class="badge kpi-pill rounded-pill">Métrique collaboration</span>
+              </div>
+              <div class="small-help mt-1">Reproductibilité par un collègue</div>
+            </div>
+            <div class="p-3">
+              <label class="form-label small">Temps pour reproduire (minutes)</label>
+              <input type="number" min="0" class="form-control" id="metricPeerTime" placeholder="Ex : 12" />
+              <label class="form-label small mt-3">Statut de reproductibilité</label>
+              <select class="form-select" id="metricRepro">
+                <option value="">Sélectionner</option>
+                <option value="OK">✅ OK - Reproductible en ≤15 min</option>
+                <option value="A_REVOIR">⚠️ À revoir - Difficultés rencontrées</option>
+                <option value="NON_TESTE">⏳ Non encore testé</option>
+              </select>
+              <div class="small-help mt-3">Critère clé : un collègue reproduit en 15 minutes max</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-4 d-flex flex-wrap gap-2 justify-content-center">
+        <button class="btn btn-gold px-4" id="saveMetricsBtn">
+          <i class="bi bi-save me-2"></i>Enregistrer les métriques
+        </button>
+        <button class="btn btn-ghost px-4" id="resetAllBtn">
+          <i class="bi bi-arrow-clockwise me-2"></i>Réinitialiser
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Agenda détaillé -->
+  <section class="py-5 anchor" id="agenda">
+    <div class="container">
+      <div class="d-flex align-items-end justify-content-between gap-2 mb-4">
+        <h2 class="h3 section-title m-0">Agenda de formation</h2>
+        <span class="text-white-50">Séance A (90 min) + Séance B (60 min)</span>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-lg-6">
+          <div class="cardx h-100">
+            <div class="card-header px-3 py-3">
+              <div class="d-flex align-items-center justify-content-between">
+                <div class="fw-semibold">Séance A — Atelier guidé (90 minutes)</div>
+                <span class="badge badge-outline rounded-pill">Pratique supervisée</span>
+              </div>
+            </div>
+            <div class="p-3">
+              <div class="timeline">
+                <div class="tl-item">
+                  <div class="fw-semibold">0 → 10 min : Cadrage opérationnel</div>
+                  <div class="soft">Définir l'objectif business et le KPI cible pour votre micro-processus</div>
+                </div>
+                <div class="tl-item">
+                  <div class="fw-semibold">10 → 30 min : Concepts fondamentaux</div>
+                  <div class="soft">Différence prompt ponctuel / workflow, erreurs fréquentes et bonnes pratiques</div>
+                </div>
+                <div class="tl-item">
+                  <div class="fw-semibold">30 → 50 min : Démonstration complète</div>
+                  <div class="soft">Cas fictif Extraction → Structuration → Tableau avec contrôles QA</div>
+                </div>
+                <div class="tl-item">
+                  <div class="fw-semibold">50 → 80 min : Pratique en binômes</div>
+                  <div class="soft">Création d'un workflow complet sur votre cas métier</div>
+                </div>
+                <div class="tl-item">
+                  <div class="fw-semibold">80 → 90 min : Consolidation</div>
+                  <div class="soft">Débriefing et planification du travail asynchrone</div>
+                </div>
+              </div>
+              <div class="mt-3 small-help">Chaque phase produit un livrable concret et vérifiable</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="cardx h-100">
+            <div class="card-header px-3 py-3">
+              <div class="d-flex align-items-center justify-content-between">
+                <div class="fw-semibold">Séance B — Lab pratique (60 minutes)</div>
+                <span class="badge badge-outline rounded-pill">Production autonome</span>
+              </div>
+            </div>
+            <div class="p-3">
+              <div class="timeline">
+                <div class="tl-item">
+                  <div class="fw-semibold">0 → 10 min : Rappel méthodologique</div>
+                  <div class="soft">Modèle Entrée-Transformation-Sortie-Validation et critères qualité</div>
+                </div>
+                <div class="tl-item">
+                  <div class="fw-semibold">10 → 50 min : Production intensive</div>
+                  <div class="soft">Création de 2 workflows complets sur cas réels (données non sensibles)</div>
+                </div>
+                <div class="tl-item">
+                  <div class="fw-semibold">50 → 60 min : Contrôle qualité</div>
+                  <div class="soft">Audit des workflows et plan de correction des écarts</div>
+                </div>
+              </div>
+              
+              <div class="highlight-box mt-3">
+                <h6 class="teal mb-2">🔄 Plan de suivi asynchrone (7 jours)</h6>
+                <ul class="mb-0 small-help" style="list-style: none; padding-left: 0;">
+                  <li class="mb-1"><strong>J+1 :</strong> Finalisation WF-01 + mesure avant/après</li>
+                  <li class="mb-1"><strong>J+2 :</strong> Application détecteur de trous + corrections</li>
+                  <li class="mb-1"><strong>J+3 :</strong> Finalisation WF-02 + mesure avant/après</li>
+                  <li class="mb-1"><strong>J+4 :</strong> Audit qualité workflow + corrections</li>
+                  <li class="mb-1"><strong>J+5 :</strong> Rédaction SOP avec/sans IA + versioning</li>
+                  <li><strong>J+7 :</strong> Test reproductibilité par un collègue</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Concepts fondamentaux -->
+  <section class="py-5 anchor" id="concepts">
+    <div class="container">
+      <div class="d-flex align-items-end justify-content-between gap-2 mb-4">
+        <h2 class="h3 section-title m-0">Concepts fondamentaux et erreurs à éviter</h2>
+        <span class="text-white-50">Le déclic de la semaine 3</span>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-lg-7">
+          <div class="cardx">
+            <div class="card-header px-3 py-3">
+              <div class="fw-semibold">Prompt ponctuel vs. Processus reproductible</div>
+              <div class="small-help mt-1">La différence qui change tout</div>
+            </div>
+            <div class="p-3">
+              <div class="accordion" id="accConcepts">
+                <div class="accordion-item bg-transparent border-0">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button collapsed bg-transparent text-white border-bottom" type="button" data-bs-toggle="collapse" data-bs-target="#c1">
+                      🔄 Ce qui change quand vous passez au process
+                    </button>
+                  </h2>
+                  <div id="c1" class="accordion-collapse collapse" data-bs-parent="#accConcepts">
+                    <div class="accordion-body soft">
+                      <ul>
+                        <li><strong>Entrée définie :</strong> Vous spécifiez exactement ce qui est autorisé et interdit</li>
+                        <li><strong>Sortie imposée :</strong> Format, structure et contraintes clairement définis</li>
+                        <li><strong>Contrôles intégrés :</strong> Vérifications automatisées à chaque étape</li>
+                        <li><strong>Mesure objective :</strong> Métriques avant/après quantifiables</li>
+                        <li><strong>Documentation systématique :</strong> Nommage, versioning et stockage standardisés</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="accordion-item bg-transparent border-0">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button collapsed bg-transparent text-white border-bottom" type="button" data-bs-toggle="collapse" data-bs-target="#c2">
+                      📊 Standardisation et réduction des erreurs
+                    </button>
+                  </h2>
+                  <div id="c2" class="accordion-collapse collapse" data-bs-parent="#accConcepts">
+                    <div class="accordion-body soft">
+                      <ul>
+                        <li><strong>Modèle stable :</strong> Réutilisation du même schéma pour des tâches similaires</li>
+                        <li><strong>Limitation des variations :</strong> Réduction de la dépendance à l'expertise individuelle</li>
+                        <li><strong>Qualité vérifiable :</strong> Critères de réussite objectifs et mesurables</li>
+                        <li><strong>Diminution des retours :</strong> Moins de corrections et d'allers-retours</li>
+                        <li><strong>Capitalisation :</strong> Accumulation d'optimisations au fil du temps</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="accordion-item bg-transparent border-0">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button collapsed bg-transparent text-white border-bottom" type="button" data-bs-toggle="collapse" data-bs-target="#c3">
+                      📚 Documentation et réutilisation
+                    </button>
+                  </h2>
+                  <div id="c3" class="accordion-collapse collapse" data-bs-parent="#accConcepts">
+                    <div class="accordion-body soft">
+                      <ul>
+                        <li><strong>Nommage standardisé :</strong> Format ENT-W3-WF-[INTENTION]-[NN]</li>
+                        <li><strong>Versioning :</strong> Suivi des améliorations (v1, v2, v3)</li>
+                        <li><strong>Exemple stocké :</strong> Sortie de référence pour validation</li>
+                        <li><strong>Indépendance :</strong> Un collègue peut exécuter sans votre présence</li>
+                        <li><strong>Évolutivité :</strong> Base pour l'automatisation complète (RPA, APIs)</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-5">
+          <div class="cardx h-100">
+            <div class="card-header px-3 py-3">
+              <div class="fw-semibold">🚫 Erreurs fréquentes à éliminer</div>
+              <div class="small-help mt-1">Check-list de vigilance</div>
+            </div>
+            <div class="p-3">
+              <div class="checklist-item">
+                <input type="checkbox" id="err1" disabled>
+                <label for="err1" class="soft"><strong>Entrée floue :</strong> Données d'entrée non définies ou mal délimitées</label>
+              </div>
+              <div class="checklist-item">
+                <input type="checkbox" id="err2" disabled>
+                <label for="err2" class="soft"><strong>Format libre :</strong> Sortie non imposée, variations incontrôlées</label>
+              </div>
+              <div class="checklist-item">
+                <input type="checkbox" id="err3" disabled>
+                <label for="err3" class="soft"><strong>QA implicite :</strong> Contrôles qualité non explicites ou non vérifiables</label>
+              </div>
+              <div class="checklist-item">
+                <input type="checkbox" id="err4" disabled>
+                <label for="err4" class="soft"><strong>Prompt unique :</strong> Tentative de tout faire en une seule étape</label>
+              </div>
+              <div class="checklist-item">
+                <input type="checkbox" id="err5" disabled>
+                <label for="err5" class="soft"><strong>Absence de mesure :</strong> Pas de quantification avant/après</label>
+              </div>
+              <div class="checklist-item">
+                <input type="checkbox" id="err6" disabled>
+                <label for="err6" class="soft"><strong>Exemple manquant :</strong> Pas de sortie de référence stockée</label>
+              </div>
+              <div class="checklist-item">
+                <input type="checkbox" id="err7" disabled>
+                <label for="err7" class="soft"><strong>Documentation absente :</strong> Pas de nommage ni versioning</label>
+              </div>
+              
+              <div class="highlight-box mt-3">
+                <h6 class="gold mb-2">✅ Mission cette semaine</h6>
+                <p class="mb-0 small-help">Identifiez 3 erreurs dans vos processus actuels et corrigez-les dans vos 2 workflows.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Méthode et patterns -->
+  <section class="py-5 anchor" id="methode">
+    <div class="container">
+      <div class="d-flex align-items-end justify-content-between gap-2 mb-4">
+        <h2 class="h3 section-title m-0">Méthodologie et patterns réutilisables</h2>
+        <span class="text-white-50">Entrée → Transformation → Sortie → Validation</span>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-lg-6">
+          <div class="cardx h-100">
+            <div class="card-header px-3 py-3">
+              <div class="fw-semibold">Cartographie process en 4 lignes</div>
+              <div class="small-help mt-1">Modèle universel applicable à tout micro-processus</div>
+            </div>
+            <div class="p-3">
+              <div class="row g-2">
+                <div class="col-12">
+                  <label class="form-label small mb-1">🎯 Entrée (Input)</label>
+                  <input class="form-control" id="mapInput" placeholder="Ex : Emails clients anonymisés, tickets support, demandes internes formulées..." />
+                </div>
+                <div class="col-12">
+                  <label class="form-label small mb-1">⚙️ Transformation (Processing)</label>
+                  <input class="form-control" id="mapTransform" placeholder="Ex : Extraction des faits essentiels, structuration, catégorisation, priorisation..." />
+                </div>
+                <div class="col-12">
+                  <label class="form-label small mb-1">📤 Sortie (Output)</label>
+                  <input class="form-control" id="mapOutput" placeholder="Ex : Tableau de suivi, brouillon structuré, plan d'action, email de réponse..." />
+                </div>
+                <div class="col-12">
+                  <label class="form-label small mb-1">✅ Validation (Quality Check)</label>
+                  <input class="form-control" id="mapValidation" placeholder="Ex : Checklist qualité, détecteur de trous, revue humaine, validation sémantique..." />
+                </div>
+              </div>
+
+              <div class="mt-4 d-flex flex-wrap gap-2">
+                <button class="btn btn-gold" id="saveMapBtn">
+                  <i class="bi bi-check-circle me-2"></i>Valider la cartographie
+                </button>
+                <button class="btn btn-ghost" id="copyMapBtn" data-copy-target="mapAsText">
+                  <i class="bi bi-clipboard me-2"></i>Copier le modèle
+                </button>
+              </div>
+
+              <div class="mt-4">
+                <div class="copy-row">
+                  <button class="btn btn-sm btn-ghost" data-copy-target="mapAsText">
+                    <i class="bi bi-clipboard-check me-1"></i>Copier
+                  </button>
+                </div>
+                <pre class="mono" id="mapAsText">🎯 Entrée : [À COMPLÉTER]
+⚙️ Transformation : [À COMPLÉTER]
+📤 Sortie : [À COMPLÉTER]
+✅ Validation : [À COMPLÉTER]</pre>
+              </div>
+
+              <div class="mt-3 small-help">
+                <i class="bi bi-lightbulb gold me-1"></i>
+                Contrôle : Votre cartographie doit tenir en 4 lignes maximum. Si c'est plus complexe, décomposez en sous-processus.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="cardx h-100">
+            <div class="card-header px-3 py-3">
+              <div class="fw-semibold">Patterns de workflows types</div>
+              <div class="small-help mt-1">3 modèles éprouvés pour démarrer rapidement</div>
+            </div>
+            <div class="p-3" id="patternsContainer">
+              <!-- Patterns injectés par JavaScript -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-4 mt-2">
+        <div class="col-lg-4">
+          <div class="cardx pattern-card h-100">
+            <div class="card-header px-3 py-3">
+              <div class="fw-semibold">Pattern 1 : Création de contenu</div>
+              <div class="small-help mt-1">Brouillon → Critique → Version finale</div>
+            </div>
+            <div class="p-3">
+              <ul class="soft mb-0">
+                <li class="mb-2"><strong>Étape 1 :</strong> Génération du brouillon initial</li>
+                <li class="mb-2"><strong>Étape 2 :</strong> Critique QA avec détection de trous</li>
+                <li><strong>Étape 3 :</strong> Version finale avec corrections</li>
+              </ul>
+              <div class="mt-3">
+                <span class="badge badge-outline rounded-pill">Idéal pour</span>
+                <span class="small-help">Rédaction d'emails, rapports, documentations</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="cardx pattern-card h-100">
+            <div class="card-header px-3 py-3">
+              <div class="fw-semibold">Pattern 2 : Structuration de données</div>
+              <div class="small-help mt-1">Extraction → Normalisation → Tableau</div>
+            </div>
+            <div class="p-3">
+              <ul class="soft mb-0">
+                <li class="mb-2"><strong>Étape 1 :</strong> Extraction JSON depuis texte libre</li>
+                <li class="mb-2"><strong>Étape 2 :</strong> Normalisation et enrichissement</li>
+                <li><strong>Étape 3 :</strong> Tableau final format imposé</li>
+              </ul>
+              <div class="mt-3">
+                <span class="badge badge-outline rounded-pill">Idéal pour</span>
+                <span class="small-help">Tickets support, feedbacks, notes de réunion</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="cardx pattern-card h-100">
+            <div class="card-header px-3 py-3">
+              <div class="fw-semibold">Pattern 3 : Prise de décision</div>
+              <div class="small-help mt-1">Triage → Priorisation → Plan d'action</div>
+            </div>
+            <div class="p-3">
+              <ul class="soft mb-0">
+                <li class="mb-2"><strong>Étape 1 :</strong> Triage et nettoyage des entrées</li>
+                <li class="mb-2"><strong>Étape 2 :</strong> Priorisation (P1, P2, P3)</li>
+                <li><strong>Étape 3 :</strong> Plan d'action avec responsables</li>
+              </ul>
+              <div class="mt-3">
+                <span class="badge badge-outline rounded-pill">Idéal pour</span>
+                <span class="small-help">Backlog produit, demandes clients, idées d'amélioration</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Démonstration complète -->
+  <section class="py-5 anchor" id="demo">
+    <div class="container">
+      <div class="d-flex align-items-end justify-content-between gap-2 mb-4">
+        <h2 class="h3 section-title m-0">Démonstration complète</h2>
+        <span class="text-white-50">Cas fictif - 3 étapes - Contrôles QA - Mesure d'impact</span>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-lg-5">
+          <div class="cardx h-100">
+            <div class="card-header px-3 py-3">
+              <div class="fw-semibold">📋 Cas entreprise fictif</div>
+              <div class="small-help mt-1">Secteur : Tech - Équipe : Support client & Produit</div>
+            </div>
+            <div class="p-3">
+              <div class="soft mb-3">
+                <p><strong>Contexte :</strong> L'équipe support reçoit des demandes mélangées (tickets, emails, notes internes) qu'elle doit transformer en tableau de suivi pour l'équipe produit.</p>
+                <p><strong>Objectif :</strong> Extraire, structurer et prioriser les demandes pour décision rapide.</p>
+              </div>
+
+              <div class="small-help mb-2">Corpus fictif (extrait - données anonymisées)</div>
+              <pre class="mono" id="demoCorpus">Ticket #A12 — "Client demande facture pro forma. Délai urgent 24h. Contact : service@client.com"
+Ticket #A13 — "Bug affichage sur mobile iOS. Impact faible. Reproduction aléatoire."
+Ticket #A14 — "Demande de devis projet X. Budget estimé 50k. Date souhaitée 15/10."
+Note interne — "Trois demandes similaires sur fonction Y. Regrouper et proposer un plan."
+Message — "Priorité : répondre sous 24h aux demandes urgentes. Clarifier les infos manquantes."</pre>
+
+              <div class="mt-4 d-flex flex-wrap gap-2">
+                <button class="btn btn-ghost" data-copy-target="demoCorpus">
+                  <i class="bi bi-clipboard me-2"></i>Copier le corpus
+                </button>
+                <button class="btn btn-gold" type="button" data-bs-toggle="modal" data-bs-target="#timerModal">
+                  <i class="bi bi-stopwatch me-2"></i>Chronomètre mesure
+                </button>
+              </div>
+
+              <div class="highlight-box mt-3">
+                <h6 class="teal mb-2">⏱️ Mesure d'impact</h6>
+                <p class="mb-0 small-help">Mesurez le temps manuel vs. temps avec workflow. Utilisez le chronomètre intégré, puis reportez les valeurs dans le tableau de mesure.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-7">
+          <div class="cardx">
+            <div class="card-header px-3 py-3">
+              <div class="fw-semibold">🔄 Workflow démonstration : Extraction → Structuration → Tableau</div>
+              <div class="small-help mt-1">3 prompts distincts - 3 formats imposés - 3 contrôles QA</div>
+            </div>
+            <div class="p-3">
+              <div class="accordion" id="accDemo">
+                <!-- Étape 1 -->
+                <div class="accordion-item bg-transparent border-0">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button bg-transparent text-white border-bottom" type="button" data-bs-toggle="collapse" data-bs-target="#d1" aria-expanded="true">
+                      <span class="badge bg-primary rounded-pill me-2">1</span>
+                      Étape 1 — Extraction des faits (sortie JSON stricte)
+                    </button>
+                  </h2>
+                  <div id="d1" class="accordion-collapse collapse show" data-bs-parent="#accDemo">
+                    <div class="accordion-body">
+                      <div class="copy-row">
+                        <button class="btn btn-sm btn-ghost" data-copy-target="pDemo1">
+                          <i class="bi bi-clipboard-check me-1"></i>Copier le prompt
+                        </button>
+                      </div>
+                      <pre class="mono" id="pDemo1">Rôle : Analyste process qualité
+Objectif : Extraire les faits objectifs d'un corpus de demandes sans interprétation ni invention
+
+=== RÈGLES STRICTES ===
+1. NE PAS DEVIER : Respecter scrupuleusement le corpus fourni
+2. INFO MANQUANTE : Écrire exactement "MANQUANT" si une information est absente
+3. PAS DE DONNÉES PERSONNELLES : Remplacer par "[ANONYME]" si présent
+4. FORMAT UNIQUE : Sortie exclusivement en JSON valide
+
+=== SCHÉMA JSON OBLIGATOIRE ===
+[
+  {
+    "id_reference": "texte exact de la référence",
+    "type_demande": "ticket|note|message|email",
+    "demande_principale": "phrase concise de la demande",
+    "urgence": "faible|moyenne|haute|MANQUANT",
+    "delai_exprime": "texte exact du délai ou MANQUANT",
+    "impact_client": "faible|moyen|fort|MANQUANT",
+    "informations_manquantes": ["liste", "des", "infos", "manquantes"]
+  }
+]
+
+=== CORPUS À TRAITER ===
+{{COLLER_LE_CORPUS_ICI}}</pre>
+
+                      <div class="mt-3 small-help">
+                        <i class="bi bi-shield-check gold me-1"></i>
+                        <strong>Contrôle QA :</strong> JSON valide (vérifiable avec JSONLint) • Zéro champ inventé • Présence de "MANQUANT" quand applicable
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Étape 2 -->
+                <div class="accordion-item bg-transparent border-0">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button collapsed bg-transparent text-white border-bottom" type="button" data-bs-toggle="collapse" data-bs-target="#d2">
+                      <span class="badge bg-warning rounded-pill me-2">2</span>
+                      Étape 2 — Structuration et normalisation
+                    </button>
+                  </h2>
+                  <div id="d2" class="accordion-collapse collapse" data-bs-parent="#accDemo">
+                    <div class="accordion-body">
+                      <div class="copy-row">
+                        <button class="btn btn-sm btn-ghost" data-copy-target="pDemo2">
+                          <i class="bi bi-clipboard-check me-1"></i>Copier le prompt
+                        </button>
+                      </div>
+                      <pre class="mono" id="pDemo2">Rôle : Contrôleur qualité processus
+Objectif : Normaliser, enrichir et préparer pour décision
+
+=== RÈGLES DE NORMALISATION ===
+1. URGENCE : Harmoniser sur {faible, moyenne, haute}
+2. IMPACT : Harmoniser sur {faible, moyen, fort}
+3. PRIORITÉ : Calculer automatiquement selon la matrice :
+   - Haute urgence + Fort impact = P1
+   - Haute urgence + Impact moyen/faible = P2
+   - Moyenne urgence + Impact fort/moyen = P2
+   - Autres combinaisons = P3
+   - Données insuffisantes = "A_REVOIR"
+4. ACTION IMMÉDIATE : Proposer une action concrète basée sur les champs présents
+
+=== FORMAT DE SORTIE ===
+JSON avec champs ajoutés :
+- "priorite_calculee": "P1|P2|P3|A_REVOIR"
+- "action_immediate": "texte de l'action proposée"
+- "statut_traitement": "en_attente|a_qualifier|a_planifier"
+
+=== DONNÉES D'ENTRÉE ===
+{{COLLER_LE_JSON_ETAPE_1}}</pre>
+
+                      <div class="mt-3 small-help">
+                        <i class="bi bi-shield-check gold me-1"></i>
+                        <strong>Contrôle QA :</strong> Règles de priorisation traçables • Cohérence des normalisations • "A_REVOIR" appliqué quand données insuffisantes
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Étape 3 -->
+                <div class="accordion-item bg-transparent border-0">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button collapsed bg-transparent text-white border-bottom" type="button" data-bs-toggle="collapse" data-bs-target="#d3">
+                      <span class="badge bg-success rounded-pill me-2">3</span>
+                      Étape 3 — Tableau final exploitable
+                    </button>
+                  </h2>
+                  <div id="d3" class="accordion-collapse collapse" data-bs-parent="#accDemo">
+                    <div class="accordion-body">
+                      <div class="copy-row">
+                        <button class="btn btn-sm btn-ghost" data-copy-target="pDemo3">
+                          <i class="bi bi-clipboard-check me-1"></i>Copier le prompt
+                        </button>
+                      </div>
+                      <pre class="mono" id="pDemo3">Rôle : Assistant opérationnel de production
+Objectif : Générer un tableau de suivi prêt à l'emploi pour l'équipe produit
+
+=== FORMAT IMPOSÉ ===
+Tableau Markdown avec colonnes exactes dans cet ordre :
+
+| ID | Type | Demande | Urgence | Impact | Priorité | Action immédiate | Infos manquantes | Assigné à |
+|---|---|---|---|---|---|---|---|---|
+
+=== RÈGLES DE PRÉSENTATION ===
+1. Une ligne par élément du JSON d'entrée
+2. "Infos manquantes" : liste à puces si plusieurs, "Aucune" si vide
+3. "Assigné à" : laisser vide ("") pour être rempli manuellement
+4. Ne pas ajouter de lignes, de colonnes ou de commentaires supplémentaires
+
+=== DONNÉES D'ENTRÉE ===
+{{COLLER_LE_JSON_ETAPE_2}}</pre>
+
+                      <div class="mt-4">
+                        <div class="copy-row">
+                          <button class="btn btn-sm btn-ghost" data-copy-target="demoOutput">
+                            <i class="bi bi-clipboard-check me-1"></i>Copier un exemple de sortie
+                          </button>
+                        </div>
+                        <pre class="mono" id="demoOutput">| ID | Type | Demande | Urgence | Impact | Priorité | Action immédiate | Infos manquantes | Assigné à |
+|---|---|---|---|---|---|---|---|---|
+| A12 | ticket | Facture pro forma | haute | MANQUANT | P1 | Contacter le client pour les infos manquantes et confirmer délai 24h | • Impact business<br>• Référence commande | |
+| A13 | ticket | Bug affichage mobile iOS | moyenne | faible | P3 | Demander captures d'écran et étapes de reproduction | • Appareil exact<br>• Version iOS<br>• Fréquence du bug | |
+| A14 | ticket | Devis projet X | moyenne | MANQUANT | P2 | Clarifier budget précis et périmètre fonctionnel | • Budget validé<br>• Périmètre détaillé | |
+| N1 | note | Regroupement demandes similaires | MANQUANT | MANQUANT | A_REVOIR | Définir règle de regroupement et identifier propriétaire | • Liste des demandes<br>• Critère de regroupement | |
+| M1 | message | Réponse sous 24h urgences | haute | MANQUANT | P1 | Appliquer SLA et lister les informations critiques manquantes | • SLA exact<br>• Canal de réponse prioritaire | |</pre>
+                      </div>
+
+                      <div class="mt-3 small-help">
+                        <i class="bi bi-shield-check gold me-1"></i>
+                        <strong>Contrôle QA :</strong> Colonnes exactes et dans l'ordre • Format Markdown valide • Sortie directement copiable dans un outil de suivi
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-4 d-flex flex-wrap gap-2">
+                <a class="btn btn-gold" href="#mesure">
+                  <i class="bi bi-graph-up me-2"></i>Saisir les mesures d'impact
+                </a>
+                <a class="btn btn-ghost" href="#checklists">
+                  <i class="bi bi-clipboard-check me-2"></i>Appliquer les contrôles QA
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pratique guidée -->
+  <section class="py-5 anchor" id="pratique">
+    <div class="container">
+      <div class="d-flex align-items-end justify-content-between gap-2 mb-4">
+        <h2 class="h3 section-title m-0">Pratique guidée en binômes</h2>
+        <span class="text-white-50">Consignes opérationnelles • Rôles alternés • Livrables concrets</span>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-lg-6">
+          <div class="cardx h-100">
+            <div class="card-header px-3 py-3">
+              <div class="fw-semibold">📋 Consignes détaillées</div>
+              <div class="small-help mt-1">Rôles : Producteur + Contrôleur QA</div>
+            </div>
+            <div class="p-3 soft">
+              <ol class="mb-0">
+                <li class="mb-2"><strong>Choisir un micro-processus :</strong> Sélectionnez une tâche répétitive qui prend 15-30 minutes manuellement</li>
+                <li class="mb-2"><strong>Cartographier en 4 lignes :</strong> Appliquez le modèle Entrée-Transformation-Sortie-Validation</li>
+                <li class="mb-2"><strong>Découper en 3 étapes max :</strong> Chaque étape doit avoir un objectif clair et un format imposé</li>
+                <li class="mb-2"><strong>Définir les contrôles :</strong> 1 contrôle vérifiable par étape (ex: JSON valide, colonnes exactes)</li>
+                <li class="mb-2"><strong>Produire une sortie :</strong> Générer un exemple fictif de sortie finale</li>
+                <li><strong>Mesurer l'impact :</strong> Noter le temps avant/après et les erreurs typiques</li>
+              </ol>
+              <div class="highlight-box mt-3">
+                <h6 class="gold mb-2">🎯 Objectif binôme</h6>
+                <p class="mb-0">Produire une fiche workflow complète prête à être exécutée par un collègue sans assistance.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3">
+          <div class="cardx h-100">
+            <div class="card-header px-3 py-3">
+              <div class="fw-semibold">📄 Livrables attendus</div>
+              <div class="small-help mt-1">Par binôme - Format standardisé</div>
+            </div>
+            <div class="p-3 soft">
+              <ul class="mb-0" style="list-style: none; padding-left: 0;">
+                <li class="mb-2">✓ Cartographie 4 lignes (modèle ETSV)</li>
+                <li class="mb-2">✓ 3 prompts distincts (1 par étape)</li>
+                <li class="mb-2">✓ Checklist QA complète</li>
+                <li class="mb-2">✓ Mesure avant/après quantifiée</li>
+                <li class="mb-2">✓ Exemple de sortie stocké</li>
+                <li>✓ Test de reproductibilité</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3">
+          <div class="cardx h-100">
+            <div class="card-header px-3 py-3">
+              <div class="fw-semibold">⭐ Critères qualité</div>
+              <div class="small-help mt-1">Vérifiables objectivement</div>
+            </div>
+            <div class="p-3 soft">
+              <ul class="mb-0" style="list-style: none; padding-left: 0;">
+                <li class="mb-2">✅ Format de sortie imposé</li>
+                <li class="mb-2">✅ Contrôles explicites et testables</li>
+                <li class="mb-2">✅ Sortie stockée et accessible</li>
+                <li class="mb-2">✅ Reproductible ≤15 minutes</li>
+                <li class="mb-2">✅ Documentation complète</li>
+                <li>✅ Zéro donnée sensible</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Exercices -->
+  <section class="py-5 anchor" id="exercices">
+    <div class="container">
+      <div class="d-flex align-items-end justify-content-between gap-2 mb-4">
+        <h2 class="h3 section-title m-0">Exercices d'application</h2>
+        <span class="text-white-50">3 scénarios pour maîtriser la méthode</span>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-lg-4">
+          <div class="cardx pattern-card h-100">
+            <div class="card-header px-3 py-3">
+              <div class="fw-semibold">Exercice 1 : Chaîne de production de contenu</div>
+              <div class="small-help mt-1">Brouillon → Critique QA → Version finale</div>
+            </div>
+            <div class="p-3">
+              <ul class="soft mb-0">
+                <li class="mb-2"><strong>Objectif :</strong> Produire un contenu opérationnel standardisé</li>
+                <li class="mb-2"><strong>Étape 1 :</strong> Génération du brouillon structuré</li>
+                <li class="mb-2"><strong>Étape 2 :</strong> Critique avec détecteur de trous</li>
+                <li><strong>Étape 3 :</strong> Version finale corrigée</li>
+              </ul>
+              <div class="mt-3">
+                <span class="badge badge-outline rounded-pill">Application</span>
+                <span class="small-help">Emails professionnels, rapports hebdomadaires, documentations</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="cardx pattern-card h-100">
+            <div class="card-header px-3 py-3">
+              <div class="fw-semibold">Exercice 2 : Structuration de données</div>
+              <div class="small-help mt-1">Extraction JSON → Normalisation → Tableau</div>
+            </div>
+            <div class="p-3">
+              <ul class="soft mb-0">
+                <li class="mb-2"><strong>Objectif :</strong> Transformer du texte libre en données exploitables</li>
+                <li class="mb-2"><strong>Étape 1 :</strong> Extraction en JSON avec schéma fixe</li>
+                <li class="mb-2"><strong>Étape 2 :</strong> Normalisation et enrichissement</li>
+                <li><strong>Étape 3 :</strong> Tableau final format imposé</li>
+              </ul>
+              <div class="mt-3">
+                <span class="badge badge-outline rounded-pill">Application</span>
+                <span class="small-help">Tickets support, feedbacks clients, notes de réunion</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="cardx pattern-card h-100">
+            <div class="card-header px-3 py-3">
+              <div class="fw-semibold">Exercice 3 : SOP avec/sans IA</div>
+              <div class="small-help mt-1">Procédure opérationnelle standardisée</div>
+            </div>
+            <div class="p-3">
+              <ul class="soft mb-0">
+                <li class="mb-2"><strong>Objectif :</strong> Documenter un processus pour transfert de compétence</li>
+                <li class="mb-2"><strong>Version IA :</strong> Workflow avec prompts intégrés</li>
+                <li class="mb-2"><strong>Version manuelle :</strong> Étapes et contrôles équivalents</li>
+                <li><strong>Résultat :</strong> SOP prête pour wiki interne</li>
+              </ul>
+              <div class="mt-3">
+                <span class="badge badge-outline rounded-pill">Application</span>
+                <span class="small-help">Onboarding, formations, documentation de processus</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="highlight-box mt-4">
+        <h6 class="teal mb-2">📦 Livrables attendus cette semaine</h6>
+        <p class="mb-0 small-help">Chaque participant doit produire <strong>2 workflows end-to-end documentés</strong> sur un cas réel (données fictives), avec mesures avant/après et tests de reproductibilité. Les workflows doivent utiliser les patterns 1 et 2.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Livrables -->
+  <section class="py-5 anchor" id="livrable">
+    <div class="container">
+      <div class="d-flex align-items-end justify-content-between gap-2 mb-4">
+        <h2 class="h3 section-title m-0">Livrables de la semaine</h2>
+        <span class="text-white-50">2 workflows documentés • Mesures • Tests • Documentation</span>
+      </div>
+
+      <div class="cardx">
+        <div class="card-header px-3 py-3">
+          <div class="fw-semibold">Production attendue - Critères d'acceptation</div>
+          <div class="small-help mt-1">Objectif clair • Temps mesurés • Étapes détaillées • Contrôles explicites</div>
+        </div>
+        <div class="p-3">
+          <div class="row g-4">
+            <div class="col-lg-6">
+              <div class="cardx p-3 h-100">
+                <div class="fw-semibold mb-2">Workflow 1 - Création de contenu</div>
+                <div class="soft mb-2">Pattern : Brouillon → Critique QA → Version finale</div>
+                <div class="small-help mb-2">
+                  <i class="bi bi-file-earmark-text gold me-1"></i>
+                  <strong>Nom attendu :</strong> ENT-W3-WF-BROUILLON-FINAL-01
+                </div>
+                <ul class="small-help mb-0" style="list-style: none; padding-left: 0;">
+                  <li class="mb-1">✓ 3 prompts distincts et documentés</li>
+                  <li class="mb-1">✓ Contrôles QA à chaque étape</li>
+                  <li>✓ Exemple de sortie stocké (fictif)</li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="cardx p-3 h-100">
+                <div class="fw-semibold mb-2">Workflow 2 - Structuration de données</div>
+                <div class="soft mb-2">Pattern : Extraction → Structuration → Tableau</div>
+                <div class="small-help mb-2">
+                  <i class="bi bi-table gold me-1"></i>
+                  <strong>Nom attendu :</strong> ENT-W3-WF-EXTRACTION-TABLEAU-01
+                </div>
+                <ul class="small-help mb-0" style="list-style: none; padding-left: 0;">
+                  <li class="mb-1">✓ JSON valide en sortie d'étape 1</li>
+                  <li class="mb-1">✓ Normalisation avec règles traçables</li>
+                  <li>✓ Tableau final format imposé</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4 d-flex flex-wrap gap-2">
+            <a class="btn btn-ghost" href="#">
+              <i class="bi bi-box-seam me-2"></i>Ouvrir le pack workflows
+            </a>
+            <a class="btn btn-ghost" href="#">
+              <i class="bi bi-file-earmark-ruled me-2"></i>Ouvrir les templates SOP
+            </a>
+            <a class="btn btn-ghost" href="#">
+              <i class="bi bi-clipboard-check me-2"></i>Ouvrir l'évaluation
+            </a>
+            <a class="btn btn-ghost" href="#">
+              <i class="bi bi-chat-square-text me-2"></i>Ouvrir le forum d'échange
+            </a>
+          </div>
+
+          <div class="highlight-box mt-4">
+            <h6 class="gold mb-2">🎯 Critère d'acceptation principal</h6>
+            <p class="mb-0 small-help">Un collègue (non formé sur ce workflow spécifique) doit pouvoir reproduire le processus complet en <strong>15 minutes maximum</strong>, en suivant uniquement la documentation fournie, et obtenir un résultat de qualité équivalente.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mesure avant/après -->
+  <section class="py-5 anchor" id="mesure">
+    <div class="container">
+      <div class="d-flex align-items-end justify-content-between gap-2 mb-4">
+        <h2 class="h3 section-title m-0">Mesure d'impact avant/après</h2>
+        <span class="text-white-50">Obligatoire pour validation • Données quantitatives • Analyse d'efficacité</span>
+      </div>
+
+      <div class="cardx">
+        <div class="card-header px-3 py-3">
+          <div class="fw-semibold">Tableau de mesure comparative</div>
+          <div class="small-help mt-1">Temps • Erreurs • Qualité • Reproductibilité</div>
+        </div>
+        <div class="p-3">
+          <div class="table-responsive">
+            <table class="table table-sm align-middle mb-0">
+              <thead>
+                <tr>
+                  <th>Workflow</th>
+                  <th>Temps avant<br><span class="small-help">(minutes)</span></th>
+                  <th>Temps après<br><span class="small-help">(minutes)</span></th>
+                  <th>Gain temps<br><span class="small-help">(Δ minutes)</span></th>
+                  <th>Erreurs avant<br><span class="small-help">(nombre)</span></th>
+                  <th>Erreurs après<br><span class="small-help">(nombre)</span></th>
+                  <th>Réduction erreurs<br><span class="small-help">(Δ)</span></th>
+                  <th>Contrôle QA<br><span class="small-help">appliqué</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="fw-semibold">WF-01<br><span class="small-help">Brouillon→Final</span></td>
+                  <td><input class="form-control form-control-sm" id="m_wf1_tb" type="number" min="0" placeholder="ex: 45" /></td>
+                  <td><input class="form-control form-control-sm" id="m_wf1_ta" type="number" min="0" placeholder="ex: 18" /></td>
+                  <td><input class="form-control form-control-sm" id="m_wf1_dt" type="number" readonly /></td>
+                  <td><input class="form-control form-control-sm" id="m_wf1_eb" type="number" min="0" placeholder="ex: 8" /></td>
+                  <td><input class="form-control form-control-sm" id="m_wf1_ea" type="number" min="0" placeholder="ex: 2" /></td>
+                  <td><input class="form-control form-control-sm" id="m_wf1_de" type="number" readonly /></td>
+                  <td>
+                    <select class="form-select form-select-sm" id="m_wf1_qa">
+                      <option value="">Sélectionner</option>
+                      <option value="OK">✅ OK - Appliqué et vérifié</option>
+                      <option value="PARTIEL">⚠️ Partiel - À compléter</option>
+                      <option value="NON">❌ Non appliqué</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="fw-semibold">WF-02<br><span class="small-help">Extraction→Tableau</span></td>
+                  <td><input class="form-control form-control-sm" id="m_wf2_tb" type="number" min="0" placeholder="ex: 60" /></td>
+                  <td><input class="form-control form-control-sm" id="m_wf2_ta" type="number" min="0" placeholder="ex: 22" /></td>
+                  <td><input class="form-control form-control-sm" id="m_wf2_dt" type="number" readonly /></td>
+                  <td><input class="form-control form-control-sm" id="m_wf2_eb" type="number" min="0" placeholder="ex: 12" /></td>
+                  <td><input class="form-control form-control-sm" id="m_wf2_ea" type="number" min="0" placeholder="ex: 3" /></td>
+                  <td><input class="form-control form-control-sm" id="m_wf2_de" type="number" readonly /></td>
+                  <td>
+                    <select class="form-select form-select-sm" id="m_wf2_qa">
+                      <option value="">Sélectionner</option>
+                      <option value="OK">✅ OK - Appliqué et vérifié</option>
+                      <option value="PARTIEL">⚠️ Partiel - À compléter</option>
+                      <option value="NON">❌ Non appliqué</option>
+                    </select>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="mt-4 d-flex flex-wrap gap-2">
+            <button class="btn btn-gold" id="computeMeasureBtn">
+              <i class="bi bi-calculator me-2"></i>Calculer les gains
+            </button>
+            <button class="btn btn-ghost" id="saveMeasureBtn">
+              <i class="bi bi-save me-2"></i>Enregistrer les mesures
+            </button>
+            <button class="btn btn-ghost" id="copyMeasureBtn">
+              <i class="bi bi-clipboard-data me-2"></i>Copier le tableau
+            </button>
+          </div>
+
+          <div class="mt-4">
+            <div class="copy-row">
+              <button class="btn btn-sm btn-ghost" data-copy-target="measureAsText">
+                <i class="bi bi-clipboard-check me-1"></i>Copier
+              </button>
+            </div>
+            <pre class="mono" id="measureAsText">📊 MESURE D'IMPACT - SEMAIRE 3
+
+WF-01 (Brouillon→Final) :
+• Temps avant : [À COMPLÉTER] min
+• Temps après : [À COMPLÉTER] min  
+• Gain temps : [À COMPLÉTER] min (Δ)
+• Erreurs avant : [À COMPLÉTER]
+• Erreurs après : [À COMPLÉTER]
+• Réduction erreurs : [À COMPLÉTER] (Δ)
+• Contrôle QA : [À COMPLÉTER]
+
+WF-02 (Extraction→Tableau) :
+• Temps avant : [À COMPLÉTER] min
+• Temps après : [À COMPLÉTER] min
+• Gain temps : [À COMPLÉTER] min (Δ)
+• Erreurs avant : [À COMPLÉTER]
+• Erreurs après : [À COMPLÉTER]
+• Réduction erreurs : [À COMPLÉTER] (Δ)
+• Contrôle QA : [À COMPLÉTER]
+
+🎯 SYNTHÈSE :
+• Gain temps total : [À COMPLÉTER] min
+• Réduction erreurs totale : [À COMPLÉTER]
+• Reproductibilité : [À COMPLÉTER]</pre>
+          </div>
+
+          <div class="mt-3 small-help">
+            <i class="bi bi-info-circle teal me-1"></i>
+            Les gains (Δ) sont calculés automatiquement. Assurez-vous que les contrôles QA sont appliqués et vérifiables pour chaque workflow.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Checklists et QA -->
+  <section class="py-5 anchor" id="checklists">
+    <div class="container">
+      <div class="d-flex align-items-end justify-content-between gap-2 mb-4">
+        <h2 class="h3 section-title m-0">Checklists et contrôles qualité</h2>
+        <span class="text-white-50">Explicites • Vérifiables • Actionnables • Standardisés</span>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-lg-6">
+          <div class="cardx h-100">
+            <div class="card-header px-3 py-3">
+              <div class="d-flex align-items-center justify-content-between">
+                <div class="fw-semibold">Checklist workflow complet</div>
+                <button class="btn btn-sm btn-ghost" id="copyChecklistWorkflowBtn">
+                  <i class="bi bi-clipboard-check me-1"></i>Copier
+                </button>
+              </div>
+              <div class="small-help mt-1">Critères de validation d'un workflow reproductible</div>
+            </div>
+            <div class="p-3" id="checklistWorkflowContainer"></div>
+            <div class="px-3 pb-3">
+              <pre class="mono d-none" id="checklistWorkflowText"></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="cardx h-100">
+            <div class="card-header px-3 py-3">
+              <div class="d-flex align-items-center justify-content-between">
+                <div class="fw-semibold">Checklist sortie finale</div>
+                <button class="btn btn-sm btn-ghost" id="copyChecklistOutputBtn">
+                  <i class="bi bi-clipboard-check me-1"></i>Copier
+                </button>
+              </div>
+              <div class="small-help mt-1">Critères de qualité d'une sortie exploitable</div>
+            </div>
+            <div class="p-3" id="checklistOutputContainer"></div>
+            <div class="px-3 pb-3">
+              <pre class="mono d-none" id="checklistOutputText"></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-4 mt-2">
+        <div class="col-lg-4">
+          <div class="cardx h-100">
+            <div class="card-header px-3 py-3">
+              <div class="d-flex align-items-center justify-content-between">
+                <div class="fw-semibold">Prompt : Détecteur de trous</div>
+                <button class="btn btn-sm btn-ghost" data-copy-target="pVerifier">
+                  <i class="bi bi-clipboard-check me-1"></i>Copier
+                </button>
+              </div>
+              <div class="small-help mt-1">Identification systématique des lacunes</div>
+            </div>
+            <div class="p-3">
+              <pre class="mono" id="pVerifier">Rôle : Contrôleur qualité expert
+Objectif : Détecter les trous, incohérences et points non vérifiables dans une sortie
+
+=== CONTEXTE ===
+Vous analysez une sortie produite par un workflow IA. Votre mission est d'identifier tout ce qui pourrait poser problème en production réelle.
+
+=== RÈGLES D'ANALYSE ===
+1. LISTER LES TROUS : Pointer chaque information manquante ou ambiguë
+2. EXPLIQUER LE RISQUE : Pour chaque trou, décrire l'impact potentiel
+3. PROPOSER UNE CORRECTION : Solution actionnable et concrète
+4. UTILISER "MANQUANT" : Quand une information est absente, le noter explicitement
+
+=== FORMAT DE SORTIE ===
+🔍 TROUS DÉTECTÉS :
+• [Description du trou 1]
+• [Description du trou 2]
+
+⚠️ RISQUES ASSOCIÉS :
+• [Risque 1 - Impact]
+• [Risque 2 - Impact]
+
+🛠️ CORRECTIONS PROPOSÉES :
+• [Correction 1 - Action concrète]
+• [Correction 2 - Action concrète]
+
+=== DONNÉES D'ENTRÉE ===
+• Workflow : [Nom + objectif]
+• Sortie à analyser : [Coller la sortie]</pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="cardx h-100">
+            <div class="card-header px-3 py-3">
+              <div class="d-flex align-items-center justify-content-between">
+                <div class="fw-semibold">Prompt : Audit qualité workflow</div>
+                <button class="btn btn-sm btn-ghost" data-copy-target="pAudit">
+                  <i class="bi bi-clipboard-check me-1"></i>Copier
+                </button>
+              </div>
+              <div class="small-help mt-1">Évaluation complète sur 10 points</div>
+            </div>
+            <div class="p-3">
+              <pre class="mono" id="pAudit">Rôle : Auditeur interne processus IA
+Objectif : Évaluer la qualité et la maturité d'un workflow IA selon une grille standard
+
+=== GRILLE D'ÉVALUATION (0-2 points par critère) ===
+1. REPRODUCTIBILITÉ (0-2) :
+   • 0 : Impossible à reproduire
+   • 1 : Reproduisible avec difficulté (>30 min)
+   • 2 : Reproduisible facilement (≤15 min)
+
+2. CONTRÔLES VÉRIFIABLES (0-2) :
+   • 0 : Aucun contrôle explicite
+   • 1 : Contrôles partiels ou ambigus
+   • 2 : Contrôles complets et testables
+
+3. FORMAT IMPOSÉ (0-2) :
+   • 0 : Format libre ou non spécifié
+   • 1 : Format partiellement défini
+   • 2 : Format strict et imposé
+
+4. ZÉRO INVENTION (0-2) :
+   • 0 : Beaucoup d'inventions ou hallucinations
+   • 1 : Quelques inventions mineures
+   • 2 : Strict respect des données sources
+
+5. DOCUMENTATION (0-2) :
+   • 0 : Documentation absente
+   • 1 : Documentation partielle
+   • 2 : Documentation complète et organisée
+
+=== FORMAT DE SORTIE ===
+📊 SCORE FINAL : X/10
+
+✅ 3 POINTS FORTS :
+1. [Point fort 1]
+2. [Point fort 2]
+3. [Point fort 3]
+
+⚠️ 3 CORRECTIONS PRIORITAIRES :
+1. [Correction 1 - Impact élevé]
+2. [Correction 2 - Impact moyen]
+3. [Correction 3 - Impact faible]
+
+=== DONNÉES D'ENTRÉE ===
+[Coller ici toutes les informations du workflow]</pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="cardx h-100">
+            <div class="card-header px-3 py-3">
+              <div class="d-flex align-items-center justify-content-between">
+                <div class="fw-semibold">Prompt : Amélioration de sortie</div>
+                <button class="btn btn-sm btn-ghost" data-copy-target="pReprise">
+                  <i class="bi bi-clipboard-check me-1"></i>Copier
+                </button>
+              </div>
+              <div class="small-help mt-1">Reprise contrôlée sans altération du fond</div>
+            </div>
+            <div class="p-3">
+              <pre class="mono" id="pReprise">Rôle : Expert en amélioration qualité
+Objectif : Reprendre une sortie de qualité insuffisante en conservant strictement le sens original
+
+=== PRINCIPE FONDAMENTAL ===
+NE PAS CHANGER LE FOND, uniquement la forme, la structure et la complétude.
+
+=== RÈGLES STRICTES ===
+1. CONSERVER LE SENS : Ne pas altérer le message, les données ou les conclusions
+2. CORRIGER LA FORME : Structure, clarté, mise en forme, organisation
+3. COMPLÉTER LES MANQUES : Ajouter "MANQUANT" explicitement là où une information est absente
+4. RESPECTER LE FORMAT : Sortie finale strictement conforme aux exigences
+
+=== PROCESSUS D'AMÉLIORATION ===
+1. Analyser la sortie actuelle
+2. Identifier les problèmes de forme et structure
+3. Réorganiser en respectant le format imposé
+4. Compléter les informations manquantes avec "MANQUANT"
+5. Vérifier la cohérence globale
+
+=== FORMAT DE SORTIE ===
+🔄 VERSION AMÉLIORÉE :
+[La sortie améliorée, strictement dans le format demandé]
+
+📝 CORRECTIONS EFFECTUÉES :
+• [Correction 1 - Description]
+• [Correction 2 - Description]
+• [Correction 3 - Description]
+
+=== DONNÉES D'ENTRÉE ===
+• Sortie actuelle : [Coller la sortie]
+• Exigences de format : [Décrire le format attendu]
+• Checklist qualité : [Coller la checklist applicable]</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="highlight-box mt-4">
+        <h6 class="gold mb-2">🛡️ Principe de vigilance qualité</h6>
+        <p class="mb-0 small-help">Tout workflow qui impacte une décision externe (client, partenaire, régulateur) doit inclure une <strong>validation humaine explicite</strong> avant mise en œuvre. L'IA assiste et accélère, mais la responsabilité décisionnelle reste humaine.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Évaluation -->
+  <section class="py-5 anchor" id="evaluation">
+    <div class="container">
+      <div class="d-flex align-items-end justify-content-between gap-2 mb-4">
+        <h2 class="h3 section-title m-0">Évaluation des connaissances</h2>
+        <span class="text-white-50">Quiz 12 questions + Mini-cas • Barème /16 • Seuil 12/16</span>
+      </div>
+
+      <div class="cardx">
+        <div class="card-header px-3 py-3">
+          <div class="fw-semibold">Quiz d'évaluation - Semaine 3</div>
+          <div class="small-help mt-1">Validation des concepts fondamentaux</div>
+        </div>
+        <div class="p-3">
+          <div class="row g-4">
+            <div class="col-lg-8">
+              <div class="cardx p-3 h-100">
+                <div class="fw-semibold mb-2">Structure de l'évaluation</div>
+                <div class="soft">
+                  <p class="mb-3">L'évaluation valide votre maîtrise des concepts clés de la semaine :</p>
+                  <ul class="mb-0">
+                    <li class="mb-2"><strong>Partie 1 : Quiz (12 questions)</strong> - 1 point par question</li>
+                    <li class="mb-2"><strong>Partie 2 : Mini-cas pratique</strong> - 4 points (choix + justification)</li>
+                    <li><strong>Total : 16 points</strong> - Seuil de réussite : 12/16</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="cardx p-3 h-100">
+                <div class="fw-semibold mb-2">Exemple de question</div>
+                <div class="soft">
+                  <p class="mb-2"><strong>Q1 :</strong> Quelles sont les 4 briques d'un workflow ?</p>
+                  <div class="small-help">
+                    A) Entrée, Transformation, Sortie, Validation<br>
+                    B) Sujet, Contexte, Conclusion, Annexe<br>
+                    C) Titre, Image, Couleur, Police
+                  </div>
+                  <div class="mt-2 gold fw-semibold">Réponse correcte : A</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="highlight-box mt-4">
+            <h6 class="teal mb-2">📝 Mini-cas pratique</h6>
+            <p class="mb-2 soft"><strong>Scénario :</strong> Vous recevez 12 messages internes non structurés. Vous devez en déduire les priorités et produire un plan d'action opérationnel.</p>
+            <p class="mb-2 soft"><strong>Patterns possibles :</strong></p>
+            <ul class="soft mb-0">
+              <li>A) Brouillon → Critique → Version finale</li>
+              <li>B) Extraction → Structuration → Tableau</li>
+              <li>C) Triage → Priorisation → Plan d'action</li>
+            </ul>
+            <div class="mt-2 gold fw-semibold">Réponse attendue : C (avec justification)</div>
+          </div>
+
+          <div class="mt-4 d-flex flex-wrap gap-2">
+            <button class="btn btn-gold">
+              <i class="bi bi-pencil-square me-2"></i>Commencer le quiz
+            </button>
+            <button class="btn btn-ghost">
+              <i class="bi bi-download me-2"></i>Télécharger l'évaluation complète
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ressources -->
+  <section class="py-5 anchor" id="ressources">
+    <div class="container">
+      <div class="d-flex align-items-end justify-content-between gap-2 mb-4">
+        <h2 class="h3 section-title m-0">Ressources complémentaires</h2>
+        <span class="text-white-50">Documents de référence • Templates • Outils</span>
+      </div>
+
+      <div class="cardx">
+        <div class="card-header px-3 py-3">
+          <div class="fw-semibold">Bibliothèque de ressources</div>
+          <div class="small-help mt-1">Documents officiels et templates réutilisables</div>
+        </div>
+        <div class="p-3">
+          <div class="row g-4">
+            <div class="col-md-6">
+              <div class="cardx p-3 h-100">
+                <div class="fw-semibold mb-2">📚 Documents pédagogiques</div>
+                <ul class="soft mb-0" style="list-style: none; padding-left: 0;">
+                  <li class="mb-2">
+                    <i class="bi bi-file-earmark-text gold me-2"></i>
+                    <strong>Guide formateur :</strong> Script détaillé et points de vigilance
+                  </li>
+                  <li class="mb-2">
+                    <i class="bi bi-journal-text gold me-2"></i>
+                    <strong>Workbook participant :</strong> Cahier d'exercices et feuilles de route
+                  </li>
+                  <li class="mb-2">
+                    <i class="bi bi-diagram-3 gold me-2"></i>
+                    <strong>Pack workflows :</strong> Templates et exemples complets
+                  </li>
+                  <li>
+                    <i class="bi bi-file-earmark-ruled gold me-2"></i>
+                    <strong>Templates SOP :</strong> Procédures avec et sans IA
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="cardx p-3 h-100">
+                <div class="fw-semibold mb-2">🛠️ Outils et références</div>
+                <ul class="soft mb-0" style="list-style: none; padding-left: 0;">
+                  <li class="mb-2">
+                    <i class="bi bi-tools gold me-2"></i>
+                    <strong>Atelier prompt engineering :</strong> Techniques avancées
+                  </li>
+                  <li class="mb-2">
+                    <i class="bi bi-cpu gold me-2"></i>
+                    <strong>Outils IA autorisés :</strong> Liste mise à jour (Août 2025)
+                  </li>
+                  <li>
+                    <i class="bi bi-shield-check gold me-2"></i>
+                    <strong>Permis de conduire IA :</strong> Règles éthiques et cadre d'usage
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4 small-help text-center">
+            <i class="bi bi-info-circle teal me-1"></i>
+            Tous les documents sont disponibles sur la plateforme de formation et dans les canaux de communication dédiés.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fiche récapitulative -->
+  <section class="py-5 anchor" id="whatsapp">
+    <div class="container">
+      <div class="d-flex align-items-end justify-content-between gap-2 mb-4">
+        <h2 class="h3 section-title m-0">Fiche récapitulative</h2>
+        <span class="text-white-50">Synthèse opérationnelle • Copiable en 1 clic • Partage rapide</span>
+      </div>
+
+      <div class="cardx">
+        <div class="card-header px-3 py-3">
+          <div class="d-flex align-items-center justify-content-between">
+            <div class="fw-semibold">📱 Synthèse WhatsApp/Teams</div>
+            <button class="btn btn-sm btn-gold" data-copy-target="whatsappText">
+              <i class="bi bi-clipboard-check me-1"></i>Copier la fiche
+            </button>
+          </div>
+          <div class="small-help mt-1">Décisions • Actions • Dates • Mesures • Suivi</div>
+        </div>
+        <div class="p-3">
+          <pre class="mono" id="whatsappText">FORMATION-IA-2026 | PARCOURS ENTREPRISE
+📅 SEMAINE 3 — WORKFLOWS & AUTOMATISATION UTILE
+
+🎯 OBJECTIFS PRINCIPAUX :
+1. Passer du prompt ponctuel au process reproductible
+2. Standardiser et réduire les erreurs systématiques  
+3. Documenter pour réutiliser et partager
+
+📊 CONFIGURATION INITIALE :
+• Objectif business : {OBJECTIF_BUSINESS}
+• KPI cible : {KPI_CIBLE}
+• Données autorisées : {DONNEES_AUTORISEES}
+• Données interdites : {DONNEES_INTERDITES}
+
+📦 LIVRABLES ATTENDUS (2 workflows) :
+1. ENT-W3-WF-BROUILLON-FINAL-01
+   Pattern : Brouillon → Critique QA → Version finale
+2. ENT-W3-WF-EXTRACTION-TABLEAU-01  
+   Pattern : Extraction → Structuration → Tableau
+
+🛡️ CRITÈRES QUALITÉ OBLIGATOIRES :
+✓ Exemples fictifs uniquement (zéro donnée sensible)
+✓ Contrôles explicites et vérifiables à chaque étape
+✓ Format de sortie imposé et respecté
+✓ Exemple de sortie stocké et accessible
+✓ Reproductible par un collègue en ≤15 minutes
+✓ Mesure avant/après documentée (temps + erreurs)
+
+📈 MESURE D'IMPACT :
+• Temps avant / Temps après (gain calculé)
+• Erreurs avant / Erreurs après (réduction)
+• Test reproductibilité (OK / À revoir)
+
+🗓️ SUIVI SUR 7 JOURS :
+J+1 → Finaliser WF-01 + mesure avant/après
+J+2 → Appliquer détecteur de trous + corriger 3 points
+J+3 → Finaliser WF-02 + mesure avant/après  
+J+4 → Audit qualité workflow + corriger 3 points
+J+5 → Rédiger SOP avec IA et sans IA + versioning
+J+7 → Test reproductibilité par un collègue
+
+⚠️ RÈGLES IMPORTANTES :
+• Validation humaine obligatoire si impact décision externe
+• Utiliser "MANQUANT" quand information absente
+• Documentation complète et organisée
+
+📚 RESSOURCES DISPONIBLES :
+• Guide formateur • Pack workflows • Templates SOP
+• Évaluation (quiz + mini-cas) • Forum d'échange
+
+✅ CRITÈRE D'ACCEPTATION FINAL :
+Un collègue reproduit le workflow en ≤15 min avec résultat équivalent</pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer py-4">
+    <div class="container">
+      <div class="d-flex flex-column flex-md-row gap-4 justify-content-between align-items-md-center">
+        <div>
+          <div class="fw-semibold mb-1">FORMATION-IA-2026 | Parcours Entreprise</div>
+          <div class="small-help">Semaine 3 — Workflows et automatisation utile</div>
+          <div class="mt-2 small-help">
+            <i class="bi bi-envelope me-1"></i> Contact : formation-ia@entreprise.com<br>
+            <i class="bi bi-headset me-1"></i> Support : +33 1 23 45 67 89 (9h-18h)
+          </div>
+        </div>
+        <div class="text-md-end">
+          <div class="fw-semibold mb-1">Informations techniques</div>
+          <div class="small-help" id="versionLabel">Version 2.1 — Mise à jour : Octobre 2025</div>
+          <div class="mt-2 small-help">
+            <i class="bi bi-shield-check me-1"></i> Conforme RGPD • Données hébergées UE<br>
+            <i class="bi bi-cc-circle me-1"></i> © 2025 Formation IA — Tous droits réservés
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modals et composants interactifs -->
+  <!-- Modal Contexte -->
+  <div class="modal fade" id="contextModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content" style="background:#071026;border:1px solid rgba(255,255,255,.15);border-radius:20px;backdrop-filter:blur(20px);">
+        <div class="modal-header border-0">
+          <h5 class="modal-title">⚙️ Configuration du contexte métier</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fermer"></button>
+        </div>
+        <div class="modal-body">
+          <p class="soft mb-4">Configurez votre environnement de travail pour personnaliser les exemples et exercices.</p>
+          
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label small mb-1">🏢 Secteur d'activité</label>
+              <input class="form-control" id="ctxSector" placeholder="Ex : Tech, Santé, Finance, Conseil..." />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label small mb-1">👥 Métiers présents dans l'équipe</label>
+              <input class="form-control" id="ctxJobs" placeholder="Ex : Support, Produit, Marketing, Sales..." />
+            </div>
+            <div class="col-12">
+              <label class="form-label small mb-1">🤖 Outils IA autorisés dans votre entreprise</label>
+              <input class="form-control" id="ctxTools" placeholder="Ex : ChatGPT Enterprise, Claude, Copilot, Midjourney..." />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label small mb-1">✅ Données autorisées pour l'IA</label>
+              <input class="form-control" id="ctxDataOk" placeholder="Ex : Données anonymisées, textes génériques, exemples fictifs..." />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label small mb-1">❌ Données interdites strictement</label>
+              <input class="form-control" id="ctxDataNo" placeholder="Ex : Données clients, informations financières, secrets métier..." />
+            </div>
+            <div class="col-12">
+              <label class="form-label small mb-1">🎯 Objectif business prioritaire cette semaine</label>
+              <input class="form-control" id="ctxObjective2" placeholder="Ex : Réduire de 50% le temps de traitement des demandes..." />
+            </div>
+            <div class="col-12">
+              <label class="form-label small mb-1">📊 KPI cible à améliorer</label>
+              <input class="form-control" id="ctxKpi2" placeholder="Ex : Temps moyen de réponse (de 4h à 2h)..." />
+            </div>
+          </div>
+
+          <div class="mt-4 d-flex flex-wrap gap-2">
+            <button class="btn btn-gold" id="saveContextBtn2">
+              <i class="bi bi-check-circle me-2"></i>Enregistrer la configuration
+            </button>
+            <button class="btn btn-ghost" id="copyContextBtn">
+              <i class="bi bi-clipboard me-2"></i>Copier le contexte
+            </button>
+          </div>
+
+          <div class="mt-4">
+            <div class="copy-row">
+              <button class="btn btn-sm btn-ghost" data-copy-target="contextAsText">
+                <i class="bi bi-clipboard-check me-1"></i>Copier
+              </button>
+            </div>
+            <pre class="mono" id="contextAsText">🏢 SECTEUR : {SECTEUR}
+👥 MÉTIERS : {METIERS}
+🤖 OUTILS IA AUTORISÉS : {OUTILS_AUTORISES}
+✅ DONNÉES AUTORISÉES : {DONNEES_AUTORISEES}
+❌ DONNÉES INTERDITES : {DONNEES_INTERDITES}
+🎯 OBJECTIF BUSINESS : {OBJECTIF_BUSINESS}
+📊 KPI CIBLE : {KPI_CIBLE}</pre>
+          </div>
+
+          <div class="mt-3 small-help">
+            <i class="bi bi-lightbulb gold me-1"></i>
+            Cette configuration sera utilisée pour personnaliser les exemples et exercices. Remplissez tous les champs avant de commencer les travaux pratiques.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Chronomètre -->
+  <div class="modal fade" id="timerModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content" style="background:#071026;border:1px solid rgba(255,255,255,.15);border-radius:20px;backdrop-filter:blur(20px);">
+        <div class="modal-header border-0">
+          <h5 class="modal-title">⏱️ Chronomètre de mesure d'impact</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fermer"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row g-4">
+            <div class="col-md-6">
+              <div class="cardx p-3 h-100">
+                <div class="fw-semibold mb-1">🕐 Avant automatisation</div>
+                <div class="small-help mb-3">Mesurez le temps d'exécution manuelle complète</div>
+                <div class="d-flex gap-2 mb-3">
+                  <button class="btn btn-ghost flex-fill" id="tBeforeStart">
+                    <i class="bi bi-play-fill me-2"></i>Démarrer
+                  </button>
+                  <button class="btn btn-ghost flex-fill" id="tBeforeStop">
+                    <i class="bi bi-pause-fill me-2"></i>Pause
+                  </button>
+                  <button class="btn btn-ghost flex-fill" id="tBeforeReset">
+                    <i class="bi bi-arrow-clockwise me-2"></i>Réinitialiser
+                  </button>
+                </div>
+                <div class="mt-4 text-center">
+                  <div class="fw-semibold mb-1">Temps écoulé</div>
+                  <div class="display-4 fw-bold gold" id="tBeforeDisplay">00:00</div>
+                  <div class="small-help mt-2">Copiez cette valeur dans la table "Temps avant"</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="cardx p-3 h-100">
+                <div class="fw-semibold mb-1">🚀 Après automatisation</div>
+                <div class="small-help mb-3">Mesurez le temps avec workflow en 3 étapes</div>
+                <div class="d-flex gap-2 mb-3">
+                  <button class="btn btn-ghost flex-fill" id="tAfterStart">
+                    <i class="bi bi-play-fill me-2"></i>Démarrer
+                  </button>
+                  <button class="btn btn-ghost flex-fill" id="tAfterStop">
+                    <i class="bi bi-pause-fill me-2"></i>Pause
+                  </button>
+                  <button class="btn btn-ghost flex-fill" id="tAfterReset">
+                    <i class="bi bi-arrow-clockwise me-2"></i>Réinitialiser
+                  </button>
+                </div>
+                <div class="mt-4 text-center">
+                  <div class="fw-semibold mb-1">Temps écoulé</div>
+                  <div class="display-4 fw-bold teal" id="tAfterDisplay">00:00</div>
+                  <div class="small-help mt-2">Copiez cette valeur dans la table "Temps après"</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="highlight-box mt-4">
+            <h6 class="gold mb-2">📋 Instructions de mesure</h6>
+            <ul class="mb-0 small-help" style="list-style: none; padding-left: 0;">
+              <li class="mb-1">1. Mesurez <strong>exactement la même tâche</strong> pour les deux chronomètres</li>
+              <li class="mb-1">2. Incluez <strong>tout le processus</strong> de l'entrée à la sortie validée</li>
+              <li class="mb-1">3. Notez également le <strong>nombre d'erreurs</strong> détectées</li>
+              <li>4. Utilisez des <strong>données fictives comparables</strong> pour les deux mesures</li>
+            </ul>
+          </div>
+
+          <div class="mt-4 d-flex flex-wrap gap-2">
+            <button class="btn btn-gold" id="copyTimerBtn">
+              <i class="bi bi-clipboard-data me-2"></i>Copier les résultats
+            </button>
+            <button class="btn btn-ghost" id="saveTimerBtn">
+              <i class="bi bi-save me-2"></i>Enregistrer les mesures
+            </button>
+          </div>
+
+          <div class="mt-4">
+            <div class="copy-row">
+              <button class="btn btn-sm btn-ghost" data-copy-target="timerAsText">
+                <i class="bi bi-clipboard-check me-1"></i>Copier
+              </button>
+            </div>
+            <pre class="mono" id="timerAsText">⏱️ MESURE TEMPS - SEMAINE 3
+
+🕐 AVANT AUTOMATISATION (manuel) :
+• Temps total : [À COMPLÉTER] (mm:ss)
+• Commentaire : [Description de la méthode manuelle]
+
+🚀 APRÈS AUTOMATISATION (workflow) :
+• Temps total : [À COMPLÉTER] (mm:ss)  
+• Commentaire : [Description du workflow utilisé]
+
+📊 ANALYSE COMPARATIVE :
+• Gain de temps : [À CALCULER] (mm:ss)
+• Gain relatif : [À CALCULER] %
+• Nombre d'étapes : 3 (Extraction → Structuration → Tableau)
+• Contrôles QA appliqués : [Oui/Non]</pre>
+          </div>
+
+          <div class="mt-3 small-help text-center">
+            <i class="bi bi-info-circle teal me-1"></i>
+            Ces mesures sont essentielles pour quantifier l'impact réel de l'automatisation sur votre productivité et qualité.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast de confirmation -->
+  <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1080">
+    <div id="copyToast" class="toast text-bg-dark border-0" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex align-items-center">
+        <div class="toast-body d-flex align-items-center">
+          <i class="bi bi-check-circle-fill gold me-2"></i>
+          <span>Contenu copié dans le presse-papiers</span>
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Fermer"></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    // Configuration du module
+    const MODULE = {
+      programme: "FORMATION-IA-2026",
+      parcours: "Parcours Entreprise",
+      semaine: 3,
+      titre: "Workflows et automatisation utile",
+      objectifs: [
+        "Passer du prompt ponctuel au process",
+        "Standardiser et réduire les erreurs",
+        "Documenter pour réutiliser"
+      ],
+      patterns: [
+        {
+          name: "Création de contenu avec contrôle qualité",
+          tag: "Pattern 1",
+          diagram: "Entrée → Brouillon initial → Critique QA → Version finale validée",
+          usage: "Production de contenu opérationnel (emails, rapports, documentations) avec risque d'erreurs ou d'omissions",
+          controle: "Critique QA obligatoire avant validation finale • Détecteur de trous appliqué"
+        },
+        {
+          name: "Structuration de données non organisées",
+          tag: "Pattern 2",
+          diagram: "Corpus texte → Extraction JSON → Normalisation → Tableau format imposé",
+          usage: "Transformation de textes libres (tickets, feedbacks, notes) en données structurées exploitables",
+          controle: "JSON valide en sortie d'étape 1 • Colonnes exactes imposées en sortie finale"
+        },
+        {
+          name: "Prise de décision et planification",
+          tag: "Pattern 3",
+          diagram: "Backlog demandes → Triage → Priorisation (P1/P2/P3) → Plan d'action (actions + owners + dates)",
+          usage: "Gestion de flux de demandes nécessitant décision rapide et exécution coordonnée",
+          controle: "Priorités traçables (règles explicites) • Plan actionnable avec responsables et échéances"
+        }
+      ],
+      checklists: {
+        workflow: [
+          "Nom unique au format ENT-W3-WF-[INTENTION]-[NN] (ex: ENT-W3-WF-EXTRACTION-TABLEAU-01)",
+          "Objectif en 1 phrase mesurable (temps, qualité, erreurs)",
+          "Entrées définies explicitement (données autorisées et interdites)",
+          "3 étapes maximum • 1 prompt par étape • Séparation claire des responsabilités",
+          "Format de sortie imposé à chaque étape (JSON, Markdown, CSV, etc.)",
+          "1 contrôle qualité vérifiable par étape (testable objectivement)",
+          "Exemple de sortie stocké (fictif, sans données sensibles)",
+          "Mesure avant/après renseignée (temps et erreurs quantifiés)",
+          "Reproductible par un collègue en ≤15 minutes (testé et validé)"
+        ],
+        output: [
+          "Respect strict du format demandé (structure, colonnes, syntaxe)",
+          "Zéro invention ou hallucination • 'MANQUANT' utilisé si information absente",
+          "Clarté et lisibilité (une lecture suffit pour comprendre)",
+          "Champs complets et cohérents (pas de contradictions internes)",
+          "Contrôles QA appliqués et tracés (preuve de validation)",
+          "Sortie stockée avec métadonnées (date, version, auteur)"
+        ]
+      },
+      stockage: {
+        metricsKey: "ENT_W3_METRICS",
+        mapKey: "ENT_W3_MAP",
+        measureKey: "ENT_W3_MEASURE",
+        checklistKey: "ENT_W3_CHECKLISTS",
+        contextKey: "ENT_W3_CONTEXT",
+        timerKey: "ENT_W3_TIMER"
+      }
+    };
+
+    // Initialisation Bootstrap Toast
+    const toastEl = document.getElementById("copyToast");
+    const toast = new bootstrap.Toast(toastEl, { delay: 1800 });
+
+    // Fonctions utilitaires
+    function showToast(msg, icon = "check-circle") {
+      const toastBody = toastEl.querySelector(".toast-body");
+      toastBody.innerHTML = `<i class="bi bi-${icon}-fill gold me-2"></i><span>${msg}</span>`;
+      toast.show();
+    }
+
+    async function copyText(text) {
+      try {
+        await navigator.clipboard.writeText(text);
+        showToast("Contenu copié dans le presse-papiers");
+      } catch (err) {
+        console.error("Erreur lors de la copie :", err);
+        showToast("Erreur lors de la copie", "exclamation-triangle");
+      }
+    }
+
+    function pickTextFromTargetId(id) {
+      const el = document.getElementById(id);
+      if (!el) return "";
+      return (el.tagName === "INPUT" || el.tagName === "TEXTAREA") ? el.value : el.textContent;
+    }
+
+    function fmtMMSS(ms) {
+      const totalSeconds = Math.max(0, Math.floor(ms / 1000));
+      const minutes = String(Math.floor(totalSeconds / 60)).padStart(2, "0");
+      const seconds = String(totalSeconds % 60).padStart(2, "0");
+      return `${minutes}:${seconds}`;
+    }
+
+    function loadJSON(key, fallback) {
+      try {
+        const raw = localStorage.getItem(key);
+        return raw ? JSON.parse(raw) : fallback;
+      } catch (e) {
+        console.warn(`Erreur de lecture ${key}:`, e);
+        return fallback;
+      }
+    }
+
+    function saveJSON(key, value) {
+      try {
+        localStorage.setItem(key, JSON.stringify(value));
+        return true;
+      } catch (e) {
+        console.error(`Erreur d'écriture ${key}:`, e);
+        showToast("Erreur d'enregistrement", "exclamation-triangle");
+        return false;
+      }
+    }
+
+    // Gestion des patterns
+    function renderPatterns() {
+      const container = document.getElementById("patternsContainer");
+      if (!container) return;
+      
+      container.innerHTML = "";
+      
+      MODULE.patterns.forEach((pattern, index) => {
+        const patternCard = document.createElement("div");
+        patternCard.className = "cardx p-3 mb-3 pattern-card";
+        patternCard.innerHTML = `
+          <div class="d-flex align-items-start justify-content-between gap-2">
+            <div class="flex-grow-1">
+              <div class="d-flex gap-2 align-items-center mb-2">
+                <span class="badge badge-outline rounded-pill">${pattern.tag}</span>
+                <div class="fw-semibold">${pattern.name}</div>
+              </div>
+              <div class="small-help mb-2">${pattern.usage}</div>
+            </div>
+            <button class="btn btn-sm btn-ghost" data-copy-pattern="${index}" title="Copier le pattern">
+              <i class="bi bi-clipboard"></i>
+            </button>
+          </div>
+          <div class="mt-3">
+            <div class="fw-semibold small mb-1">📋 Schéma :</div>
+            <pre class="mono mb-2" style="background: rgba(0,0,0,.2); padding: 8px; border-radius: 6px;">${pattern.diagram}</pre>
+            <div class="fw-semibold small mb-1">🛡️ Contrôles :</div>
+            <div class="small-help">${pattern.controle}</div>
+          </div>
+        `;
+        container.appendChild(patternCard);
+      });
+
+      // Ajout des événements de copie
+      container.querySelectorAll("[data-copy-pattern]").forEach(btn => {
+        btn.addEventListener("click", async () => {
+          const index = parseInt(btn.getAttribute("data-copy-pattern"));
+          const pattern = MODULE.patterns[index];
+          const text = `PATTERN : ${pattern.name}\n\nSCHÉMA :\n${pattern.diagram}\n\nUTILISATION :\n${pattern.usage}\n\nCONTRÔLES :\n${pattern.controle}`;
+          await copyText(text);
+        });
+      });
+    }
+
+    // Gestion des checklists
+    function renderChecklist(containerId, items, textId, storeObj, keyPath) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+      
+      container.innerHTML = "";
+      
+      const state = storeObj[keyPath] || {};
+      
+      items.forEach((item, index) => {
+        const itemId = `${containerId.replace("Container", "")}_${index}`;
+        const itemDiv = document.createElement("div");
+        itemDiv.className = "checklist-item";
+        itemDiv.innerHTML = `
+          <input class="form-check-input" type="checkbox" id="${itemId}" ${state[index] ? "checked" : ""}>
+          <label class="form-check-label soft" for="${itemId}">${item}</label>
+        `;
+        
+        const checkbox = itemDiv.querySelector("input");
+        checkbox.addEventListener("change", () => {
+          state[index] = checkbox.checked;
+          storeObj[keyPath] = state;
+          saveJSON(MODULE.stockage.checklistKey, storeObj);
+          updateProgress();
+        });
+        
+        container.appendChild(itemDiv);
+      });
+      
+      // Mise à jour du texte pour copie
+      const textElement = document.getElementById(textId);
+      if (textElement) {
+        textElement.textContent = items.map((item, idx) => {
+          const check = state[idx] ? "✓" : "☐";
+          return `${check} ${item}`;
+        }).join("\n");
+      }
+    }
+
+    function computeProgress(storeObj) {
+      const wf = storeObj.workflow || {};
+      const out = storeObj.output || {};
+      const total = MODULE.checklists.workflow.length + MODULE.checklists.output.length;
+      let done = 0;
+      
+      MODULE.checklists.workflow.forEach((_, i) => { if (wf[i]) done++; });
+      MODULE.checklists.output.forEach((_, i) => { if (out[i]) done++; });
+      
+      const pct = total ? Math.round((done / total) * 100) : 0;
+      return { done, total, pct };
+    }
+
+    function updateProgress() {
+      const storeObj = loadJSON(MODULE.stockage.checklistKey, { workflow: {}, output: {} });
+      const { pct } = computeProgress(storeObj);
+      
+      const progressBar = document.getElementById("progressBar");
+      const progressLabel = document.getElementById("progressLabel");
+      
+      if (progressBar) {
+        progressBar.style.width = pct + "%";
+        progressBar.parentElement.setAttribute("aria-valuenow", pct);
+      }
+      
+      if (progressLabel) {
+        progressLabel.textContent = pct + "%";
+      }
+    }
+
+    // Initialisation des données
+    function hydrateMapText() {
+      const map = loadJSON(MODULE.stockage.mapKey, null);
+      const text = `🎯 Entrée : ${map?.input || "[À COMPLÉTER]"}\n⚙️ Transformation : ${map?.transform || "[À COMPLÉTER]"}\n📤 Sortie : ${map?.output || "[À COMPLÉTER]"}\n✅ Validation : ${map?.validation || "[À COMPLÉTER]"}`;
+      
+      const mapTextEl = document.getElementById("mapAsText");
+      if (mapTextEl) mapTextEl.textContent = text;
+    }
+
+    function hydrateMetrics() {
+      const m = loadJSON(MODULE.stockage.metricsKey, {});
+      
+      const fields = [
+        { id: "metricTimeBefore", key: "timeBefore" },
+        { id: "metricTimeAfter", key: "timeAfter" },
+        { id: "metricErrBefore", key: "errBefore" },
+        { id: "metricErrAfter", key: "errAfter" },
+        { id: "metricPeerTime", key: "peerTime" },
+        { id: "metricRepro", key: "repro" }
+      ];
+      
+      fields.forEach(({ id, key }) => {
+        const el = document.getElementById(id);
+        if (el && m[key] !== undefined) el.value = m[key];
+      });
+    }
+
+    function computeDeltas() {
+      // WF-01
+      const wf1_tb = parseInt(document.getElementById("m_wf1_tb")?.value || 0);
+      const wf1_ta = parseInt(document.getElementById("m_wf1_ta")?.value || 0);
+      const wf1_eb = parseInt(document.getElementById("m_wf1_eb")?.value || 0);
+      const wf1_ea = parseInt(document.getElementById("m_wf1_ea")?.value || 0);
+      
+      // WF-02
+      const wf2_tb = parseInt(document.getElementById("m_wf2_tb")?.value || 0);
+      const wf2_ta = parseInt(document.getElementById("m_wf2_ta")?.value || 0);
+      const wf2_eb = parseInt(document.getElementById("m_wf2_eb")?.value || 0);
+      const wf2_ea = parseInt(document.getElementById("m_wf2_ea")?.value || 0);
+      
+      // Calcul des deltas
+      const dt1 = document.getElementById("m_wf1_dt");
+      const de1 = document.getElementById("m_wf1_de");
+      const dt2 = document.getElementById("m_wf2_dt");
+      const de2 = document.getElementById("m_wf2_de");
+      
+      if (dt1) dt1.value = wf1_tb - wf1_ta;
+      if (de1) de1.value = wf1_eb - wf1_ea;
+      if (dt2) dt2.value = wf2_tb - wf2_ta;
+      if (de2) de2.value = wf2_eb - wf2_ea;
+      
+      // Mise à jour du texte
+      hydrateMeasureText();
+    }
+
+    function hydrateMeasure() {
+      const m = loadJSON(MODULE.stockage.measureKey, {});
+      
+      const fields = [
+        "m_wf1_tb", "m_wf1_ta", "m_wf1_eb", "m_wf1_ea", "m_wf1_qa",
+        "m_wf2_tb", "m_wf2_ta", "m_wf2_eb", "m_wf2_ea", "m_wf2_qa"
+      ];
+      
+      fields.forEach(id => {
+        const el = document.getElementById(id);
+        if (el && m[id] !== undefined) el.value = m[id];
+      });
+      
+      computeDeltas();
+    }
+
+    function hydrateMeasureText() {
+      const getValue = (id) => document.getElementById(id)?.value || "[À COMPLÉTER]";
+      
+      const text = `📊 MESURE D'IMPACT - SEMAIRE 3\n\n` +
+                  `WF-01 (Brouillon→Final) :\n` +
+                  `• Temps avant : ${getValue("m_wf1_tb")} min\n` +
+                  `• Temps après : ${getValue("m_wf1_ta")} min\n` +
+                  `• Gain temps : ${getValue("m_wf1_dt")} min (Δ)\n` +
+                  `• Erreurs avant : ${getValue("m_wf1_eb")}\n` +
+                  `• Erreurs après : ${getValue("m_wf1_ea")}\n` +
+                  `• Réduction erreurs : ${getValue("m_wf1_de")} (Δ)\n` +
+                  `• Contrôle QA : ${getValue("m_wf1_qa")}\n\n` +
+                  `WF-02 (Extraction→Tableau) :\n` +
+                  `• Temps avant : ${getValue("m_wf2_tb")} min\n` +
+                  `• Temps après : ${getValue("m_wf2_ta")} min\n` +
+                  `• Gain temps : ${getValue("m_wf2_dt")} min (Δ)\n` +
+                  `• Erreurs avant : ${getValue("m_wf2_eb")}\n` +
+                  `• Erreurs après : ${getValue("m_wf2_ea")}\n` +
+                  `• Réduction erreurs : ${getValue("m_wf2_de")} (Δ)\n` +
+                  `• Contrôle QA : ${getValue("m_wf2_qa")}\n\n` +
+                  `🎯 SYNTHÈSE :\n` +
+                  `• Gain temps total : ${(parseInt(getValue("m_wf1_dt")) || 0) + (parseInt(getValue("m_wf2_dt")) || 0)} min\n` +
+                  `• Réduction erreurs totale : ${(parseInt(getValue("m_wf1_de")) || 0) + (parseInt(getValue("m_wf2_de")) || 0)}\n` +
+                  `• Reproductibilité : ${getValue("metricRepro") || "[À COMPLÉTER]"}`;
+      
+      const measureTextEl = document.getElementById("measureAsText");
+      if (measureTextEl) measureTextEl.textContent = text;
+    }
+
+    // Gestion du contexte
+    function updateHeroFromContext(ctx) {
+      const kpiTarget = document.getElementById("kpiTarget");
+      if (kpiTarget) kpiTarget.textContent = ctx?.kpi || "{KPI_CIBLE}";
+      
+      // Mise à jour des champs de formulaire
+      const fields = [
+        { id: "ctxObjective", key: "objective" },
+        { id: "ctxKpi", key: "kpi" },
+        { id: "ctxSector", key: "sector" },
+        { id: "ctxJobs", key: "jobs" },
+        { id: "ctxTools", key: "tools" },
+        { id: "ctxDataOk", key: "dataOk" },
+        { id: "ctxDataNo", key: "dataNo" },
+        { id: "ctxObjective2", key: "objective" },
+        { id: "ctxKpi2", key: "kpi" }
+      ];
+      
+      fields.forEach(({ id, key }) => {
+        const el = document.getElementById(id);
+        if (el) el.value = ctx?.[key] || "";
+      });
+    }
+
+    function hydrateContextText(ctx) {
+      const text = `🏢 SECTEUR : ${ctx?.sector || "{SECTEUR}"}\n` +
+                  `👥 MÉTIERS : ${ctx?.jobs || "{METIERS}"}\n` +
+                  `🤖 OUTILS IA AUTORISÉS : ${ctx?.tools || "{OUTILS_AUTORISES}"}\n` +
+                  `✅ DONNÉES AUTORISÉES : ${ctx?.dataOk || "{DONNEES_AUTORISEES}"}\n` +
+                  `❌ DONNÉES INTERDITES : ${ctx?.dataNo || "{DONNEES_INTERDITES}"}\n` +
+                  `🎯 OBJECTIF BUSINESS : ${ctx?.objective || "{OBJECTIF_BUSINESS}"}\n` +
+                  `📊 KPI CIBLE : ${ctx?.kpi || "{KPI_CIBLE}"}`;
+      
+      const contextTextEl = document.getElementById("contextAsText");
+      if (contextTextEl) contextTextEl.textContent = text;
+      
+      // Mise à jour de la fiche WhatsApp
+      const whatsappTextEl = document.getElementById("whatsappText");
+      if (whatsappTextEl) {
+        let content = whatsappTextEl.textContent;
+        content = content.replace(/\{OBJECTIF_BUSINESS\}/g, ctx?.objective || "{OBJECTIF_BUSINESS}");
+        content = content.replace(/\{KPI_CIBLE\}/g, ctx?.kpi || "{KPI_CIBLE}");
+        content = content.replace(/\{DONNEES_AUTORISEES\}/g, ctx?.dataOk || "{DONNEES_AUTORISEES}");
+        content = content.replace(/\{DONNEES_INTERDITES\}/g, ctx?.dataNo || "{DONNEES_INTERDITES}");
+        whatsappTextEl.textContent = content;
+      }
+    }
+
+    // Gestion des chronomètres
+    function makeTimer(displayId) {
+      let startTime = null;
+      let elapsed = 0;
+      let intervalId = null;
+      const displayEl = document.getElementById(displayId);
+      
+      function updateDisplay() {
+        if (displayEl) displayEl.textContent = fmtMMSS(elapsed);
+      }
+      
+      function start() {
+        if (intervalId !== null) return;
+        startTime = Date.now() - elapsed;
+        intervalId = setInterval(() => {
+          elapsed = Date.now() - startTime;
+          updateDisplay();
+        }, 100);
+      }
+      
+      function stop() {
+        if (intervalId === null) return;
+        clearInterval(intervalId);
+        intervalId = null;
+      }
+      
+      function reset() {
+        stop();
+        elapsed = 0;
+        updateDisplay();
+      }
+      
+      function setElapsed(ms) {
+        elapsed = ms || 0;
+        updateDisplay();
+      }
+      
+      function getElapsed() {
+        return elapsed;
+      }
+      
+      updateDisplay();
+      
+      return { start, stop, reset, setElapsed, getElapsed };
+    }
+
+    let timerBefore, timerAfter;
+
+    function hydrateTimers() {
+      timerBefore = makeTimer("tBeforeDisplay");
+      timerAfter = makeTimer("tAfterDisplay");
+      
+      const saved = loadJSON(MODULE.stockage.timerKey, null);
+      if (saved) {
+        timerBefore.setElapsed(saved.beforeMs || 0);
+        timerAfter.setElapsed(saved.afterMs || 0);
+        
+        const timerTextEl = document.getElementById("timerAsText");
+        if (timerTextEl) {
+          timerTextEl.textContent = `⏱️ MESURE TEMPS - SEMAINE 3\n\n` +
+                                   `🕐 AVANT AUTOMATISATION (manuel) :\n` +
+                                   `• Temps total : ${fmtMMSS(saved.beforeMs || 0)}\n\n` +
+                                   `🚀 APRÈS AUTOMATISATION (workflow) :\n` +
+                                   `• Temps total : ${fmtMMSS(saved.afterMs || 0)}`;
+        }
+      }
+      
+      // Liaison des boutons
+      document.getElementById("tBeforeStart")?.addEventListener("click", () => timerBefore.start());
+      document.getElementById("tBeforeStop")?.addEventListener("click", () => timerBefore.stop());
+      document.getElementById("tBeforeReset")?.addEventListener("click", () => timerBefore.reset());
+      
+      document.getElementById("tAfterStart")?.addEventListener("click", () => timerAfter.start());
+      document.getElementById("tAfterStop")?.addEventListener("click", () => timerAfter.stop());
+      document.getElementById("tAfterReset")?.addEventListener("click", () => timerAfter.reset());
+      
+      document.getElementById("saveTimerBtn")?.addEventListener("click", () => {
+        const data = { 
+          beforeMs: timerBefore.getElapsed(), 
+          afterMs: timerAfter.getElapsed() 
+        };
+        if (saveJSON(MODULE.stockage.timerKey, data)) {
+          showToast("Mesures enregistrées avec succès");
+        }
+      });
+      
+      document.getElementById("copyTimerBtn")?.addEventListener("click", async () => {
+        const text = document.getElementById("timerAsText")?.textContent || "";
+        await copyText(text);
+      });
+    }
+
+    // Initialisation principale
+    function init() {
+      // Mise à jour des éléments de titre
+      document.getElementById("topbarWeek").textContent = `Semaine ${MODULE.semaine}`;
+      document.getElementById("topbarTitle").textContent = MODULE.titre;
+      document.getElementById("heroTitle").textContent = `Semaine ${MODULE.semaine} — ${MODULE.titre}`;
+      
+      // Rendu des patterns
+      renderPatterns();
+      
+      // Initialisation des checklists
+      const checklistState = loadJSON(MODULE.stockage.checklistKey, { workflow: {}, output: {} });
+      renderChecklist("checklistWorkflowContainer", MODULE.checklists.workflow, "checklistWorkflowText", checklistState, "workflow");
+      renderChecklist("checklistOutputContainer", MODULE.checklists.output, "checklistOutputText", checklistState, "output");
+      updateProgress();
+      
+      // Boutons de copie des checklists
+      document.getElementById("copyChecklistWorkflowBtn")?.addEventListener("click", async () => {
+        const text = document.getElementById("checklistWorkflowText")?.textContent || "";
+        await copyText(text);
+      });
+      
+      document.getElementById("copyChecklistOutputBtn")?.addEventListener("click", async () => {
+        const text = document.getElementById("checklistOutputText")?.textContent || "";
+        await copyText(text);
+      });
+      
+      // Hydratation des données
+      hydrateMetrics();
+      hydrateMapText();
+      hydrateMeasure();
+      hydrateTimers();
+      
+      // Contexte
+      const ctx = loadJSON(MODULE.stockage.contextKey, null);
+      updateHeroFromContext(ctx);
+      hydrateContextText(ctx);
+      
+      // Gestionnaires d'événements
+      setupEventListeners();
+      
+      // Boutons de copie génériques
+      document.querySelectorAll("[data-copy-target]").forEach(btn => {
+        btn.addEventListener("click", async () => {
+          const targetId = btn.getAttribute("data-copy-target");
+          const text = pickTextFromTargetId(targetId);
+          await copyText(text);
+        });
+      });
+      
+      // Initialisation des tooltips Bootstrap
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+      if (tooltipTriggerList.length > 0) {
+        new bootstrap.Tooltip(tooltipTriggerList);
+      }
+    }
+
+    function setupEventListeners() {
+      // Contexte
+      document.getElementById("saveContextBtn")?.addEventListener("click", () => {
+        const ctx = loadJSON(MODULE.stockage.contextKey, {}) || {};
+        ctx.objective = document.getElementById("ctxObjective")?.value || "{OBJECTIF_BUSINESS}";
+        ctx.kpi = document.getElementById("ctxKpi")?.value || "{KPI_CIBLE}";
+        
+        if (saveJSON(MODULE.stockage.contextKey, ctx)) {
+          updateHeroFromContext(ctx);
+          hydrateContextText(ctx);
+          showToast("Configuration enregistrée");
+        }
+      });
+      
+      document.getElementById("saveContextBtn2")?.addEventListener("click", () => {
+        const ctx = {
+          sector: document.getElementById("ctxSector")?.value || "{SECTEUR}",
+          jobs: document.getElementById("ctxJobs")?.value || "{METIERS}",
+          tools: document.getElementById("ctxTools")?.value || "{OUTILS_AUTORISES}",
+          dataOk: document.getElementById("ctxDataOk")?.value || "{DONNEES_AUTORISEES}",
+          dataNo: document.getElementById("ctxDataNo")?.value || "{DONNEES_INTERDITES}",
+          objective: document.getElementById("ctxObjective2")?.value || "{OBJECTIF_BUSINESS}",
+          kpi: document.getElementById("ctxKpi2")?.value || "{KPI_CIBLE}"
+        };
+        
+        if (saveJSON(MODULE.stockage.contextKey, ctx)) {
+          updateHeroFromContext(ctx);
+          hydrateContextText(ctx);
+          showToast("Configuration complète enregistrée");
+        }
+      });
+      
+      document.getElementById("copyContextBtn")?.addEventListener("click", async () => {
+        const text = document.getElementById("contextAsText")?.textContent || "";
+        await copyText(text);
+      });
+      
+      // Métriques
+      document.getElementById("saveMetricsBtn")?.addEventListener("click", () => {
+        const m = {
+          timeBefore: document.getElementById("metricTimeBefore")?.value,
+          timeAfter: document.getElementById("metricTimeAfter")?.value,
+          errBefore: document.getElementById("metricErrBefore")?.value,
+          errAfter: document.getElementById("metricErrAfter")?.value,
+          peerTime: document.getElementById("metricPeerTime")?.value,
+          repro: document.getElementById("metricRepro")?.value
+        };
+        
+        if (saveJSON(MODULE.stockage.metricsKey, m)) {
+          showToast("Métriques enregistrées");
+        }
+      });
+      
+      // Cartographie
+      document.getElementById("saveMapBtn")?.addEventListener("click", () => {
+        const map = {
+          input: document.getElementById("mapInput")?.value,
+          transform: document.getElementById("mapTransform")?.value,
+          output: document.getElementById("mapOutput")?.value,
+          validation: document.getElementById("mapValidation")?.value
+        };
+        
+        if (saveJSON(MODULE.stockage.mapKey, map)) {
+          hydrateMapText();
+          showToast("Cartographie enregistrée");
+        }
+      });
+      
+      document.getElementById("copyMapBtn")?.addEventListener("click", async () => {
+        const text = document.getElementById("mapAsText")?.textContent || "";
+        await copyText(text);
+      });
+      
+      // Mesures
+      document.getElementById("computeMeasureBtn")?.addEventListener("click", () => {
+        computeDeltas();
+        showToast("Gains calculés");
+      });
+      
+      document.getElementById("saveMeasureBtn")?.addEventListener("click", () => {
+        const fields = [
+          "m_wf1_tb", "m_wf1_ta", "m_wf1_eb", "m_wf1_ea", "m_wf1_qa",
+          "m_wf2_tb", "m_wf2_ta", "m_wf2_eb", "m_wf2_ea", "m_wf2_qa"
+        ];
+        
+        const m = {};
+        fields.forEach(id => {
+          const el = document.getElementById(id);
+          if (el) m[id] = el.value;
+        });
+        
+        if (saveJSON(MODULE.stockage.measureKey, m)) {
+          hydrateMeasureText();
+          showToast("Mesures enregistrées");
+        }
+      });
+      
+      document.getElementById("copyMeasureBtn")?.addEventListener("click", async () => {
+        const text = document.getElementById("measureAsText")?.textContent || "";
+        await copyText(text);
+      });
+      
+      // Mise à jour automatique des deltas
+      ["m_wf1_tb", "m_wf1_ta", "m_wf1_eb", "m_wf1_ea", "m_wf2_tb", "m_wf2_ta", "m_wf2_eb", "m_wf2_ea"].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.addEventListener("input", () => {
+            computeDeltas();
+            hydrateMeasureText();
+          });
+        }
+      });
+      
+      ["m_wf1_qa", "m_wf2_qa"].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.addEventListener("change", hydrateMeasureText);
+        }
+      });
+      
+      // Réinitialisation
+      document.getElementById("resetAllBtn")?.addEventListener("click", () => {
+        if (confirm("Êtes-vous sûr de vouloir réinitialiser toutes les données ? Cette action est irréversible.")) {
+          Object.values(MODULE.stockage).forEach(key => {
+            localStorage.removeItem(key);
+          });
+          location.reload();
+        }
+      });
+      
+      // Navigation fluide
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function(e) {
+          const href = this.getAttribute("href");
+          if (href === "#" || href === "#!") return;
+          
+          e.preventDefault();
+          const target = document.querySelector(href);
+          if (target) {
+            window.scrollTo({
+              top: target.offsetTop - 80,
+              behavior: "smooth"
+            });
+          }
+        });
+      });
+    }
+
+    // Démarrage lorsque le DOM est chargé
+    document.addEventListener("DOMContentLoaded", init);
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

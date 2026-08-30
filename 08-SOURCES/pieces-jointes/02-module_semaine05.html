@@ -1,0 +1,1767 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Formation IA 2026 | Parcours Entreprise — Module 5 : Pédagogie Formateur</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+  
+  <style>
+    :root {
+      --night: #0a1a3a;
+      --gold: #c9a96e;
+      --ink: #0b1220;
+      --muted: #6b7280;
+      --card: #ffffff;
+      --bg: #f6f7fb;
+      --line: #e7e9f2;
+      --success: #16a34a;
+      --warning: #f59e0b;
+      --danger: #dc2626;
+    }
+    
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+    }
+    
+    /* Header */
+    .topbar {
+      background: linear-gradient(90deg, var(--night), #0f2a5c);
+      color: #fff;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .brand-badge {
+      border: 1px solid rgba(255, 255, 255, .25);
+      background: rgba(255, 255, 255, .1);
+      font-size: 0.8rem;
+    }
+    
+    /* Hero Section */
+    .hero {
+      background: radial-gradient(1200px 600px at 15% 15%, rgba(201, 169, 110, .25), transparent 55%),
+                  radial-gradient(1200px 600px at 80% 20%, rgba(255, 255, 255, .12), transparent 50%),
+                  linear-gradient(180deg, #0a1a3a 0%, #0b214b 100%);
+      color: #fff;
+      border-bottom: 1px solid rgba(255, 255, 255, .12);
+    }
+    
+    .hero .kpi {
+      background: rgba(255, 255, 255, .10);
+      border: 1px solid rgba(255, 255, 255, .16);
+      backdrop-filter: blur(10px);
+    }
+    
+    /* Pills */
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .25rem .75rem;
+      border-radius: 999px;
+      font-size: .85rem;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, .1);
+      color: rgba(255, 255, 255, .9);
+    }
+    
+    .pill .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--gold);
+    }
+    
+    /* Typography */
+    .section-title {
+      letter-spacing: .2px;
+      border-bottom: 2px solid var(--gold);
+      padding-bottom: .5rem;
+      display: inline-block;
+    }
+    
+    /* Cards */
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(10, 26, 58, .06);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(10, 26, 58, .12);
+    }
+    
+    .card-header {
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      border-radius: 16px 16px 0 0 !important;
+      padding: 1.25rem;
+    }
+    
+    /* Badges */
+    .badge-tag {
+      background: rgba(201, 169, 110, .14);
+      color: #6a4b10;
+      border: 1px solid rgba(201, 169, 110, .35);
+    }
+    
+    .badge-ex {
+      background: rgba(15, 42, 92, .08);
+      color: #0f2a5c;
+      border: 1px solid rgba(15, 42, 92, .20);
+    }
+    
+    .badge-corr {
+      background: rgba(16, 185, 129, .10);
+      color: #065f46;
+      border: 1px solid rgba(16, 185, 129, .25);
+    }
+    
+    .badge-crit {
+      background: rgba(239, 68, 68, .08);
+      color: #7f1d1d;
+      border: 1px solid rgba(239, 68, 68, .20);
+    }
+    
+    /* Timeline */
+    .timeline {
+      position: relative;
+      padding-left: 1.25rem;
+    }
+    
+    .timeline:before {
+      content: "";
+      position: absolute;
+      left: .4rem;
+      top: .25rem;
+      bottom: .25rem;
+      width: 2px;
+      background: var(--line);
+    }
+    
+    .t-item {
+      position: relative;
+      padding: .6rem .75rem;
+      margin: .35rem 0;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+    }
+    
+    .t-item:before {
+      content: "";
+      position: absolute;
+      left: -.92rem;
+      top: 1.05rem;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 0 5px rgba(201, 169, 110, .18);
+    }
+    
+    /* Code Blocks */
+    pre.copybox {
+      background: #0b1220;
+      color: #e5e7eb;
+      padding: 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, .08);
+      white-space: pre-wrap;
+      word-break: break-word;
+      margin: 0;
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+    
+    /* Buttons */
+    .btn-gold {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: #1f2937;
+      font-weight: 500;
+    }
+    
+    .btn-gold:hover {
+      filter: brightness(.96);
+      background: var(--gold);
+      border-color: var(--gold);
+    }
+    
+    /* Tables */
+    .table thead th {
+      background: #fbfbfe;
+      border-top: none;
+      font-weight: 600;
+    }
+    
+    /* Sticky Actions */
+    .sticky-actions {
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      z-index: 1040;
+      display: flex;
+      flex-direction: column;
+      gap: .5rem;
+    }
+    
+    .progress-mini {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: .6rem .75rem;
+      min-width: 260px;
+      box-shadow: 0 10px 28px rgba(10, 26, 58, .10);
+    }
+    
+    /* Links */
+    .link-fake {
+      color: #0f2a5c;
+      text-decoration: none;
+      border-bottom: 1px dashed rgba(15, 42, 92, .35);
+      transition: all 0.2s;
+    }
+    
+    .link-fake:hover {
+      border-bottom-style: solid;
+      color: #0a1a3a;
+    }
+    
+    /* Form Elements */
+    textarea.form-control {
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      resize: vertical;
+    }
+    
+    .form-check-input {
+      cursor: pointer;
+    }
+    
+    /* Footer */
+    .footer {
+      border-top: 1px solid var(--line);
+      background: #fff;
+      color: var(--muted);
+    }
+    
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .fade-in {
+      animation: fadeIn 0.3s ease-out;
+    }
+    
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+      
+      .sticky-actions {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar py-2">
+    <div class="container d-flex flex-wrap justify-content-between align-items-center gap-2">
+      <div class="d-flex align-items-center gap-2">
+        <span class="fw-semibold">FORMATION IA 2026</span>
+        <span class="badge rounded-pill brand-badge">Parcours Entreprise</span>
+        <span class="badge rounded-pill brand-badge">Module 5</span>
+      </div>
+      <div class="small opacity-75">Pédagogie formateur et design de formation interne</div>
+    </div>
+  </header>
+
+  <section class="hero py-5">
+    <div class="container">
+      <div class="row g-4 align-items-center">
+        <div class="col-lg-7">
+          <div class="d-flex flex-wrap gap-2 mb-3">
+            <span class="pill"><span class="dot"></span>Pack complet prêt à animer</span>
+            <span class="pill"><span class="dot"></span>Évaluation sans flou</span>
+            <span class="pill"><span class="dot"></span>Corrigés + grille de notation</span>
+          </div>
+
+          <h1 class="display-6 fw-semibold mb-3">Module 5 — Pédagogie formateur et design de formation interne</h1>
+          <p class="lead mb-4">Formation pratique pour concevoir et animer des modules internes 90 minutes, gérer l'hétérogénéité des groupes et évaluer avec des critères testables.</p>
+
+          <div class="row g-3">
+            <div class="col-md-6">
+              <div class="p-3 rounded-4 kpi">
+                <div class="small opacity-75 mb-1">Objectifs pédagogiques</div>
+                <div class="fw-semibold">• Animer en contexte entreprise</div>
+                <div class="fw-semibold">• Gérer les profils hétérogènes</div>
+                <div class="fw-semibold">• Évaluer avec critères objectifs</div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="p-3 rounded-4 kpi">
+                <div class="small opacity-75 mb-1">Indicateurs de performance</div>
+                <div class="fw-semibold">KPI: Module 90min déroulé sans improvisation</div>
+                <div class="small opacity-75 mt-2">
+                  <i class="bi bi-building"></i> Secteur : Entreprise<br>
+                  <i class="bi bi-people"></i> Public : Formateurs internes<br>
+                  <i class="bi bi-laptop"></i> Format : Hybride recommandé
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="d-flex flex-wrap gap-2 mt-4">
+            <a href="#agenda" class="btn btn-gold btn-lg px-4">
+              <i class="bi bi-calendar-week"></i> Voir l'agenda
+            </a>
+            <a href="#lab" class="btn btn-outline-light btn-lg px-4">
+              <i class="bi bi-code-slash"></i> Lab production
+            </a>
+            <a href="#checklists" class="btn btn-outline-light btn-lg px-4">
+              <i class="bi bi-check-circle"></i> Checklists
+            </a>
+          </div>
+
+          <div class="small opacity-75 mt-3">
+            <i class="bi bi-tools"></i> Outils autorisés : Suite Office, Miro, ChatGPT Professionnel<br>
+            <i class="bi bi-exclamation-triangle"></i> Contraintes : Budget limité, délais serrés
+          </div>
+        </div>
+
+        <div class="col-lg-5">
+          <div class="card bg-white fade-in">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <div class="fw-semibold"><i class="bi bi-download"></i> Ressources pédagogiques</div>
+              <span class="badge rounded-pill badge-tag">Pack complet</span>
+            </div>
+            <div class="card-body">
+              <div class="d-grid gap-2">
+                <a href="./docs/guide_formateur.md" class="link-fake d-flex align-items-center gap-2">
+                  <i class="bi bi-journal-text"></i> Guide formateur
+                </a>
+                <a href="./docs/module_90min.md" class="link-fake d-flex align-items-center gap-2">
+                  <i class="bi bi-clock"></i> Module 90 minutes
+                </a>
+                <a href="./docs/slides_outline.md" class="link-fake d-flex align-items-center gap-2">
+                  <i class="bi bi-easel"></i> Plan slides (12-15)
+                </a>
+                <a href="./docs/evaluation_questions.md" class="link-fake d-flex align-items-center gap-2">
+                  <i class="bi bi-question-circle"></i> Questions + mises en situation
+                </a>
+                <a href="./docs/grille_notation.md" class="link-fake d-flex align-items-center gap-2">
+                  <i class="bi bi-clipboard-check"></i> Grille de notation
+                </a>
+                <a href="./docs/corrige_type.md" class="link-fake d-flex align-items-center gap-2">
+                  <i class="bi bi-check-square"></i> Corrigé type
+                </a>
+              </div>
+
+              <hr class="my-3">
+
+              <div class="small muted mb-2"><i class="bi bi-star"></i> Critères qualité</div>
+              <ul class="small mb-0">
+                <li>Objectifs mesurables et SMART</li>
+                <li>Exercices avec critères de réussite</li>
+                <li>Barème clair (sur 100 ou 20 points)</li>
+                <li>Reproductibilité par tout animateur</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main class="container py-5">
+    <!-- Module Configuration -->
+    <section id="config" class="mb-5">
+      <div class="d-flex justify-content-between align-items-end flex-wrap gap-2 mb-3">
+        <h2 class="h4 section-title m-0">Configuration du module</h2>
+        <span class="small muted">Paramètres pédagogiques</span>
+      </div>
+      
+      <div class="card">
+        <div class="card-body">
+          <div class="row g-3">
+            <div class="col-md-4">
+              <div class="p-3 rounded-3 border h-100">
+                <div class="small muted mb-1"><i class="bi bi-people"></i> Public cible</div>
+                <div class="fw-semibold">Formateurs internes</div>
+                <div class="small mt-1">Prérequis : expérience animation basique</div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="p-3 rounded-3 border h-100">
+                <div class="small muted mb-1"><i class="bi bi-clock"></i> Durée totale</div>
+                <div class="fw-semibold">2 sessions : 90min + 60min</div>
+                <div class="small mt-1">+ travail asynchrone 7 jours</div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="p-3 rounded-3 border h-100">
+                <div class="small muted mb-1"><i class="bi bi-bullseye"></i> Objectif principal</div>
+                <div class="fw-semibold">Module 90min prêt à dérouler</div>
+                <div class="small mt-1">Critères : testable, reproductible, évaluable</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Objectives Section -->
+    <section id="objectifs" class="mb-5">
+      <div class="d-flex justify-content-between align-items-end flex-wrap gap-2 mb-3">
+        <h2 class="h4 section-title m-0">1) Objectifs pédagogiques</h2>
+        <span class="small muted">3 blocs • métriques mesurables</span>
+      </div>
+
+      <div class="row g-3">
+        <div class="col-lg-4">
+          <div class="card h-100">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <div class="fw-semibold"><i class="bi bi-megaphone"></i> Animation entreprise</div>
+                <span class="badge rounded-pill badge-ex">EXERCICE</span>
+              </div>
+              <div class="muted small mb-2">Indicateurs</div>
+              <ul class="mb-0">
+                <li>Objectif SMART en 2 lignes</li>
+                <li>Règles de séance en 5 points</li>
+                <li>Timeline minute par minute</li>
+              </ul>
+              <hr>
+              <div class="small text-muted">
+                <i class="bi bi-lightbulb"></i> <strong>Sortie :</strong> Fiche d'animation complète
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="card h-100">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <div class="fw-semibold"><i class="bi bi-graph-up"></i> Gestion hétérogénéité</div>
+                <span class="badge rounded-pill badge-crit">CRITÈRES</span>
+              </div>
+              <div class="muted small mb-2">Indicateurs</div>
+              <ul class="mb-0">
+                <li>Consignes sans ambiguïté</li>
+                <li>Exemples "attendu vs non attendu"</li>
+                <li>Variantes avancées + débutantes</li>
+              </ul>
+              <hr>
+              <div class="small text-muted">
+                <i class="bi bi-lightbulb"></i> <strong>Sortie :</strong> Adaptations pédagogiques
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="card h-100">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <div class="fw-semibold"><i class="bi bi-clipboard-check"></i> Évaluation objective</div>
+                <span class="badge rounded-pill badge-corr">CORRIGÉ</span>
+              </div>
+              <div class="muted small mb-2">Indicateurs</div>
+              <ul class="mb-0">
+                <li>12 questions corrigées</li>
+                <li>3 mises en situation avec critères</li>
+                <li>Barème sur 100 et 20 points</li>
+              </ul>
+              <hr>
+              <div class="small text-muted">
+                <i class="bi bi-lightbulb"></i> <strong>Sortie :</strong> Kit évaluation complet
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Agenda Section -->
+    <section id="agenda" class="mb-5">
+      <div class="d-flex justify-content-between align-items-end flex-wrap gap-2 mb-3">
+        <h2 class="h4 section-title m-0">2) Agenda des sessions</h2>
+        <span class="small muted">Séance A 90 min • Séance B 60 min</span>
+      </div>
+
+      <div class="row g-3">
+        <div class="col-lg-6">
+          <div class="card h-100">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <div class="fw-semibold"><i class="bi bi-play-circle"></i> Séance A — Atelier guidé (90 minutes)</div>
+              <span class="badge rounded-pill badge-ex">Timeline</span>
+            </div>
+            <div class="card-body">
+              <div class="timeline" id="timelineA"></div>
+
+              <hr class="my-3">
+
+              <div class="d-flex flex-wrap gap-2">
+                <button class="btn btn-sm btn-outline-secondary" data-copy="#plan90">
+                  <i class="bi bi-copy"></i> Copier le plan
+                </button>
+                <button class="btn btn-sm btn-outline-secondary" data-copy="#objectifMesurable">
+                  <i class="bi bi-target"></i> Copier objectif
+                </button>
+              </div>
+
+              <div class="d-none">
+                <pre class="copybox" id="plan90">SÉANCE A - ATELIER GUIDÉ (90 MINUTES)
+0-10  : Cadrage + objectif mesurable (KPI) + règles
+10-30 : Concepts clés + erreurs fréquentes
+30-50 : Démonstration courte sur cas fictif
+50-80 : Pratique guidée (binômes)
+80-90 : Débrief + consignes asynchrones</pre>
+
+                <pre class="copybox" id="objectifMesurable">OBJECTIF MESURABLE
+À la fin de la séance, chaque binôme produit une fiche "module interne 90 min" complète comprenant :
+1. Plan minute par minute
+2. 2 exercices avec consignes, critères et corrigé type
+3. Évaluation (12 questions + barème)
+
+KPI : Module déroulable sans improvisation par tout animateur formé</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="card h-100">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <div class="fw-semibold"><i class="bi bi-code-square"></i> Séance B — Lab pratique (60 minutes)</div>
+              <span class="badge rounded-pill badge-ex">Timeline</span>
+            </div>
+            <div class="card-body">
+              <div class="timeline" id="timelineB"></div>
+
+              <hr class="my-3">
+
+              <div class="d-flex flex-wrap gap-2">
+                <button class="btn btn-sm btn-outline-secondary" data-copy="#plan60">
+                  <i class="bi bi-copy"></i> Copier le plan
+                </button>
+                <button class="btn btn-sm btn-outline-secondary" data-copy="#qa60">
+                  <i class="bi bi-check-circle"></i> Copier QA lab
+                </button>
+              </div>
+
+              <div class="d-none">
+                <pre class="copybox" id="plan60">SÉANCE B - LAB PRATIQUE (60 MINUTES)
+0-10  : Rappel méthode + critères qualité
+10-50 : Production sur cas réel
+50-60 : Contrôle qualité + plan correction</pre>
+
+                <pre class="copybox" id="qa60">CHECKLIST QUALITÉ LAB (60 MIN)
+1. Objectif mesurable visible
+2. Exercice 1 : consignes + temps + livrable + critères
+3. Exercice 2 : consignes + temps + livrable + critères
+4. Évaluation : 8 QCM + 4 cas + barème
+5. Corrigé : réponses + justification courte
+6. Traçabilité : hypothèses + sources + limites</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Concepts Section -->
+    <section id="concepts" class="mb-5">
+      <div class="d-flex justify-content-between align-items-end flex-wrap gap-2 mb-3">
+        <h2 class="h4 section-title m-0">3) Concepts clés & erreurs</h2>
+        <span class="small muted">Structure atelier • erreurs d'animation • résistances</span>
+      </div>
+
+      <div class="row g-3 mb-3">
+        <div class="col-lg-6">
+          <div class="card h-100">
+            <div class="card-header fw-semibold"><i class="bi bi-diagram-3"></i> Structure d'un atelier (modèle stable)</div>
+            <div class="card-body">
+              <ol class="mb-0">
+                <li><strong>Objectif mesurable</strong> - Livrable + barème + seuil</li>
+                <li><strong>Démonstration courte</strong> - 3 minutes max, 1 exemple</li>
+                <li><strong>Pratique guidée</strong> - Binômes, template imposé</li>
+                <li><strong>Pratique autonome</strong> - Cas proche réel, durcissement</li>
+                <li><strong>Débrief</strong> - Ce qui marche/ne marche pas, prochain test</li>
+              </ol>
+              <hr>
+              <div class="small muted"><i class="bi bi-info-circle"></i> Règle d'or</div>
+              <div>Chaque étape doit produire une preuve observable et évaluable</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="card h-100">
+            <div class="card-header fw-semibold"><i class="bi bi-exclamation-triangle"></i> Erreurs fréquentes d'animation</div>
+            <div class="card-body">
+              <div class="accordion" id="accErreurs">
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#e1">
+                      Erreur 1 — Objectif flou
+                    </button>
+                  </h2>
+                  <div id="e1" class="accordion-collapse collapse" data-bs-parent="#accErreurs">
+                    <div class="accordion-body">
+                      <strong>Symptôme :</strong> "On va comprendre / découvrir / explorer"<br>
+                      <strong>Correction :</strong> Écrire un livrable + un barème + un seuil de réussite
+                    </div>
+                  </div>
+                </div>
+
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#e2">
+                      Erreur 2 — Démo trop longue
+                    </button>
+                  </h2>
+                  <div id="e2" class="accordion-collapse collapse" data-bs-parent="#accErreurs">
+                    <div class="accordion-body">
+                      <strong>Symptôme :</strong> 20 minutes de démonstration passive<br>
+                      <strong>Correction :</strong> 3 minutes maximum, puis passage immédiat à la pratique
+                    </div>
+                  </div>
+                </div>
+
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#e3">
+                      Erreur 3 — Consignes ambiguës
+                    </button>
+                  </h2>
+                  <div id="e3" class="accordion-collapse collapse" data-bs-parent="#accErreurs">
+                    <div class="accordion-body">
+                      <strong>Symptôme :</strong> "Faites un prompt propre"<br>
+                      <strong>Correction :</strong> Imposer un format de sortie (titre, étapes, critères, exemple)
+                    </div>
+                  </div>
+                </div>
+
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#e4">
+                      Erreur 4 — Évaluation sans critères
+                    </button>
+                  </h2>
+                  <div id="e4" class="accordion-collapse collapse" data-bs-parent="#accErreurs">
+                    <div class="accordion-body">
+                      <strong>Symptôme :</strong> Note "au feeling" ou subjective<br>
+                      <strong>Correction :</strong> Grille explicite (compréhension, méthode, qualité, validation, traçabilité)
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+          <div class="fw-semibold"><i class="bi bi-people"></i> Gestion des résistances en formation</div>
+          <button class="btn btn-sm btn-outline-secondary" data-copy="#resistancesCopy">
+            <i class="bi bi-copy"></i> Copier réponses formateur
+          </button>
+        </div>
+        <div class="card-body">
+          <div class="row g-3">
+            <div class="col-lg-4">
+              <div class="card h-100">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                    <div class="fw-semibold text-danger">Peur / Anxiété</div>
+                    <span class="badge rounded-pill badge-crit">réponse</span>
+                  </div>
+                  <div class="small muted mb-2">Phrase type</div>
+                  <div class="mb-3">"Vous ne risquez rien. On teste sur un cas fictif. On mesure. On ajuste."</div>
+                  <hr>
+                  <div class="small muted mb-2">Action concrète</div>
+                  <div>Réduire le périmètre • Donner un template • Valider une première sortie en 3 minutes</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-4">
+              <div class="card h-100">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                    <div class="fw-semibold text-warning">Scepticisme</div>
+                    <span class="badge rounded-pill badge-crit">réponse</span>
+                  </div>
+                  <div class="small muted mb-2">Phrase type</div>
+                  <div class="mb-3">"On ne croit pas. On compare avant/après sur un même livrable."</div>
+                  <hr>
+                  <div class="small muted mb-2">Action concrète</div>
+                  <div>Définir un test simple • Chronométrer • Comparer qualité • Garder uniquement ce qui améliore</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-4">
+              <div class="card h-100">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                    <div class="fw-semibold text-success">Surconfiance</div>
+                    <span class="badge rounded-pill badge-crit">réponse</span>
+                  </div>
+                  <div class="small muted mb-2">Phrase type</div>
+                  <div class="mb-3">"Parfait. Montrez une preuve. Ensuite on durcit les critères."</div>
+                  <hr>
+                  <div class="small muted mb-2">Action concrète</div>
+                  <div>Ajouter des contraintes • Noter avec la grille • Exiger reproductibilité + traçabilité</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="d-none">
+            <pre class="copybox" id="resistancesCopy">GESTION DES RÉSISTANCES - PHRASES & ACTIONS
+
+1. PEUR / ANXIÉTÉ
+Phrase : "Vous ne risquez rien. On teste sur un cas fictif. On mesure. On ajuste."
+Action : réduire le périmètre, fournir un template, valider une première sortie en 3 minutes.
+
+2. SCEPTICISME
+Phrase : "On ne croit pas. On compare avant/après sur un même livrable."
+Action : test simple, chrono, comparaison qualité, garder uniquement ce qui améliore.
+
+3. SURCONFIANCE
+Phrase : "Parfait. Montrez une preuve. Ensuite on durcit les critères."
+Action : contraintes plus dures, notation grille, exigence reproductibilité + traçabilité.</pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Methodology Section -->
+    <section id="methode" class="mb-5">
+      <div class="d-flex justify-content-between align-items-end flex-wrap gap-2 mb-3">
+        <h2 class="h4 section-title m-0">4) Méthodologie pédagogique</h2>
+        <span class="small muted">Pipeline stable • Critères qualité</span>
+      </div>
+
+      <div class="row g-3">
+        <div class="col-lg-7">
+          <div class="card h-100">
+            <div class="card-header fw-semibold"><i class="bi bi-diagram-3"></i> Pipeline pédagogique (modèle stable)</div>
+            <div class="card-body">
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <div class="p-3 rounded-4 border h-100">
+                    <div class="fw-semibold mb-1"><i class="bi bi-1-circle"></i> Objectif mesurable</div>
+                    <div class="small muted">Livrable + barème + seuil de réussite</div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="p-3 rounded-4 border h-100">
+                    <div class="fw-semibold mb-1"><i class="bi bi-2-circle"></i> Démonstration courte</div>
+                    <div class="small muted">3 minutes maximum • 1 seul exemple</div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="p-3 rounded-4 border h-100">
+                    <div class="fw-semibold mb-1"><i class="bi bi-3-circle"></i> Pratique guidée</div>
+                    <div class="small muted">Binômes • Template imposé • Correction immédiate</div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="p-3 rounded-4 border h-100">
+                    <div class="fw-semibold mb-1"><i class="bi bi-4-circle"></i> Pratique autonome</div>
+                    <div class="small muted">Cas proche réel • Durcissement progressif</div>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="p-3 rounded-4 border">
+                    <div class="fw-semibold mb-1"><i class="bi bi-5-circle"></i> Débrief structuré</div>
+                    <div class="small muted">Ce qui marche / Ce qui ne marche pas / Prochain test</div>
+                  </div>
+                </div>
+              </div>
+
+              <hr class="my-3">
+
+              <div class="d-flex flex-wrap gap-2">
+                <button class="btn btn-sm btn-outline-secondary" data-copy="#pipelineCopy">
+                  <i class="bi bi-copy"></i> Copier la méthode
+                </button>
+              </div>
+
+              <div class="d-none">
+                <pre class="copybox" id="pipelineCopy">MÉTHODE ATELIER (PIPELINE STABLE)
+1. OBJECTIF MESURABLE
+   - Livrable observable
+   - Barème de notation
+   - Seuil de réussite
+
+2. DÉMONSTRATION COURTE
+   - 3 minutes maximum
+   - 1 exemple complet
+   - Focus sur la structure
+
+3. PRATIQUE GUIDÉE
+   - Travail en binômes
+   - Template imposé
+   - Correction immédiate
+
+4. PRATIQUE AUTONOME
+   - Cas proche du réel
+   - Contraintes ajoutées
+   - Auto-évaluation
+
+5. DÉBRIFF STRUCTURÉ
+   - Ce qui marche
+   - Ce qui ne marche pas
+   - Prochain test concret</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-5">
+          <div class="card h-100">
+            <div class="card-header fw-semibold"><i class="bi bi-check-circle"></i> Critères qualité (checklist)</div>
+            <div class="card-body">
+              <ul class="mb-0">
+                <li class="mb-2"><i class="bi bi-check text-success"></i> Consigne commence par un verbe d'action</li>
+                <li class="mb-2"><i class="bi bi-check text-success"></i> Format de sortie imposé et explicite</li>
+                <li class="mb-2"><i class="bi bi-check text-success"></i> Critères testables (oui/non ou points)</li>
+                <li class="mb-2"><i class="bi bi-check text-success"></i> Corrigé type fourni et aligné</li>
+                <li class="mb-2"><i class="bi bi-check text-success"></i> Traçabilité obligatoire (sources, hypothèses, limites)</li>
+                <li class="mb-2"><i class="bi bi-check text-success"></i> Barème clair (100 ou 20 points)</li>
+                <li class="mb-2"><i class="bi bi-check text-success"></i> Seuil de réussite explicite</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Demonstration Section -->
+    <section id="demo" class="mb-5">
+      <div class="d-flex justify-content-between align-items-end flex-wrap gap-2 mb-3">
+        <h2 class="h4 section-title m-0">5) Démonstration guidée</h2>
+        <span class="small muted">Mini-atelier modèle • 10 minutes</span>
+      </div>
+
+      <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+          <div class="fw-semibold"><i class="bi bi-play-btn"></i> Mini-atelier "modèle" (10 minutes)</div>
+          <button class="btn btn-sm btn-outline-secondary" data-copy="#demo10">
+            <i class="bi bi-copy"></i> Copier le scénario
+          </button>
+        </div>
+        <div class="card-body">
+          <div class="row g-3">
+            <div class="col-lg-4">
+              <div class="p-3 rounded-4 border h-100">
+                <div class="fw-semibold mb-2"><i class="bi bi-clock"></i> 0-2 minutes</div>
+                <div class="muted small mb-2">Objectif mesurable</div>
+                <div>"Produire une consigne d'exercice + 3 critères de réussite en 6 lignes maximum."</div>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="p-3 rounded-4 border h-100">
+                <div class="fw-semibold mb-2"><i class="bi bi-easel"></i> 2-5 minutes</div>
+                <div class="muted small mb-2">Démonstration courte</div>
+                <div>Montrer un exemple complet. Commenter uniquement la structure (pas le contenu).</div>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="p-3 rounded-4 border h-100">
+                <div class="fw-semibold mb-2"><i class="bi bi-people"></i> 5-10 minutes</div>
+                <div class="muted small mb-2">Pratique guidée</div>
+                <div>Binômes • Même template • Correction rapide avec 3 critères testables</div>
+              </div>
+            </div>
+          </div>
+
+          <hr class="my-3">
+
+          <div class="small muted mb-2"><i class="bi bi-lightbulb"></i> Cas fictif utilisé dans la démo</div>
+          <div class="p-3 rounded-4 border">
+            <div class="fw-semibold">Cas : compte-rendu interne "Décision IA"</div>
+            <div class="small-note muted">Objectif : produire une note claire pour validation manager</div>
+            <div class="mt-2">
+              <span class="badge rounded-pill badge-ex">EXERCICE</span>
+              <span class="badge rounded-pill badge-crit">CRITÈRES</span>
+              <span class="badge rounded-pill badge-corr">CORRIGÉ</span>
+            </div>
+          </div>
+
+          <div class="d-none">
+            <pre class="copybox" id="demo10">MINI-ATELIER "MODÈLE" (10 MINUTES)
+
+0-2 : OBJECTIF MESURABLE
+"Produire une consigne d'exercice + 3 critères de réussite en 6 lignes maximum."
+
+2-5 : DÉMONSTRATION COURTE
+- Montrer un exemple complet
+- Commenter uniquement la structure :
+  1. Objectif (verbe d'action)
+  2. Consigne (format imposé)
+  3. Livrable attendu
+  4. Critères de réussite
+  5. Temps alloué
+
+5-10 : PRATIQUE GUIDÉE
+- Travail en binômes
+- Utiliser le même template
+- Correction rapide avec 3 critères :
+  1. Consigne commence par un verbe
+  2. Format de sortie imposé
+  3. Critères testables (oui/non)
+
+CAS FICTIF : Note interne "Décision IA" (1 page)</pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Guided Practice Section -->
+    <section id="pratique" class="mb-5">
+      <div class="d-flex justify-content-between align-items-end flex-wrap gap-2 mb-3">
+        <h2 class="h4 section-title m-0">6) Pratique guidée (binômes)</h2>
+        <span class="small muted">Séquence • Consignes • Critères de réussite</span>
+      </div>
+
+      <div class="row g-3">
+        <div class="col-lg-6">
+          <div class="card h-100">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <div class="fw-semibold"><i class="bi bi-pencil"></i> Exercice — Construire une séquence</div>
+              <span class="badge rounded-pill badge-ex">EXERCICE</span>
+            </div>
+            <div class="card-body">
+              <div class="muted small mb-2"><i class="bi bi-chat-text"></i> Consigne</div>
+              <div class="mb-3">En 12 minutes, écrivez le plan minute par minute d'un module interne de 90 minutes. Conservez la structure stable (objectif, démo, pratique, débrief).</div>
+              
+              <hr class="my-2">
+              
+              <div class="muted small mb-2"><i class="bi bi-file-earmark-text"></i> Livrable attendu</div>
+              <div class="mb-3">Tableau 90 minutes + 2 exercices + critères + corrigé type</div>
+              
+              <hr class="my-2">
+              
+              <div class="muted small mb-2"><i class="bi bi-check-circle"></i> Critères de réussite</div>
+              <ul class="mb-0">
+                <li>Chaque bloc produit une preuve observable</li>
+                <li>Temps total exact = 90 minutes</li>
+                <li>Consignes testables (zéro mot flou)</li>
+                <li>Évaluation intégrée dans le timing</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="card h-100">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <div class="fw-semibold"><i class="bi bi-file-earmark"></i> Template de séquence (copiable)</div>
+              <button class="btn btn-sm btn-outline-secondary" data-copy="#templateSequence">
+                <i class="bi bi-copy"></i> Copier
+              </button>
+            </div>
+            <div class="card-body">
+              <pre class="copybox" id="templateSequence">TEMPLATE SÉQUENCE 90 MINUTES
+
+1. OBJECTIF MESURABLE (2 lignes)
+   - [Verbe d'action] + [livrable] + [critère de réussite]
+
+2. KPI DE FORMATION (1 ligne)
+   - [Indicateur mesurable] : [valeur cible]
+
+3. PLAN MINUTE PAR MINUTE
+   - 0-5   : Ouverture + règles
+   - 5-10  : Objectif + KPI
+   - 10-18 : Concepts clés (5 max)
+   - 18-25 : Erreurs fréquentes (4 max)
+   - 25-35 : Démonstration courte (3 min)
+   - 35-55 : Exercice 1 guidé
+   - 55-70 : Exercice 2 autonome
+   - 70-80 : Évaluation (extrait)
+   - 80-90 : Débrief + plan 7 jours
+
+4. EXERCICE 1 (pratique guidée)
+   - Consigne : [ ]
+   - Temps : [ ] minutes
+   - Livrable : [ ]
+   - Critères : 1. [ ] 2. [ ] 3. [ ]
+   - Corrigé type : [ ]
+
+5. EXERCICE 2 (pratique autonome)
+   - Consigne : [ ]
+   - Temps : [ ] minutes
+   - Livrable : [ ]
+   - Critères : 1. [ ] 2. [ ] 3. [ ]
+   - Corrigé type : [ ]
+
+6. ÉVALUATION
+   - 8 QCM + 4 cas courts
+   - Barème : /100 ou /20
+   - Seuil réussite : [ ]
+
+7. TRAÇABILITÉ
+   - Hypothèses : [ ]
+   - Sources : [ ]
+   - Limites : [ ]</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Lab Section -->
+    <section id="lab" class="mb-5">
+      <div class="d-flex justify-content-between align-items-end flex-wrap gap-2 mb-3">
+        <h2 class="h4 section-title m-0">7) Lab production</h2>
+        <span class="small muted">Module 90min • 12 questions • 3 mises en situation</span>
+      </div>
+
+      <div class="card mb-3">
+        <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+          <div class="fw-semibold"><i class="bi bi-clock"></i> Plan minute par minute (module 90 minutes)</div>
+          <button class="btn btn-sm btn-outline-secondary" data-copy="#table90Copy">
+            <i class="bi bi-copy"></i> Copier la structure
+          </button>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-sm align-middle">
+              <thead>
+                <tr>
+                  <th style="width:100px;">Minute</th>
+                  <th>Segment</th>
+                  <th>Sortie attendue</th>
+                  <th style="width:200px;">Contrôle qualité</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>0–5</td><td>Ouverture + règles</td><td>Règles visibles + objectif compris</td><td>Objectif testable</td></tr>
+                <tr><td>5–10</td><td>Objectif mesurable + KPI</td><td>KPI clair + seuil de réussite</td><td>Barème annoncé</td></tr>
+                <tr><td>10–18</td><td>Concepts clés</td><td>5 concepts maximum en 5 phrases</td><td>Zéro jargon</td></tr>
+                <tr><td>18–25</td><td>Erreurs fréquentes</td><td>4 erreurs + antidotes concrets</td><td>Exemples concrets</td></tr>
+                <tr><td>25–35</td><td>Démonstration courte</td><td>Exemple complet montré</td><td>3 minutes chrono</td></tr>
+                <tr><td>35–55</td><td>Pratique guidée (binômes)</td><td>Exercice 1 rendu + corrigé</td><td>3 critères rapides</td></tr>
+                <tr><td>55–70</td><td>Pratique autonome (durcissement)</td><td>Exercice 2 rendu + auto-évaluation</td><td>Contraintes respectées</td></tr>
+                <tr><td>70–80</td><td>Évaluation (extrait)</td><td>4 QCM + 1 cas corrigé</td><td>Corrigé immédiat</td></tr>
+                <tr><td>80–90</td><td>Débrief + plan 7 jours</td><td>Actions asynchrones définies</td><td>1 engagement/personne</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="d-none">
+            <pre class="copybox" id="table90Copy">PLAN 90 MINUTES (STRUCTURE)
+0-5   : Ouverture + règles
+5-10  : Objectif mesurable + KPI
+10-18 : Concepts clés (5 max)
+18-25 : Erreurs fréquentes (4 max)
+25-35 : Démonstration courte (3 min)
+35-55 : Pratique guidée (exercice 1)
+55-70 : Pratique autonome (exercice 2)
+70-80 : Évaluation (extrait)
+80-90 : Débrief + plan 7 jours</pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-3">
+        <div class="col-lg-7">
+          <div class="card h-100">
+            <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+              <div class="fw-semibold"><i class="bi bi-question-circle"></i> 12 questions + 3 mises en situation</div>
+              <button class="btn btn-sm btn-outline-secondary" data-copy="#qCopy">
+                <i class="bi bi-copy"></i> Copier
+              </button>
+            </div>
+            <div class="card-body">
+              <pre class="copybox" id="qCopy">ÉVALUATION - 12 QUESTIONS
+
+QCM (8 questions)
+1. Objectif mesurable : quel élément est obligatoire ?
+2. Démonstration : durée recommandée en atelier ?
+3. Consigne : comment réduire l'ambiguïté ?
+4. Critères : quel type est le plus testable ?
+5. Hétérogénéité : quelle stratégie est correcte ?
+6. Traçabilité : que doit-on noter obligatoirement ?
+7. Validation humaine : quand l'exiger ?
+8. Qualité sortie : quel contrôle appliquer ?
+
+CAS COURTS (4 questions)
+9. Objectif flou : réécrire en objectif mesurable + KPI
+10. Démo trop longue : re-séquencer 90 minutes
+11. Critères absents : écrire une grille simple sur 20
+12. Résistance sceptique : définir un test avant/après
+
+MISES EN SITUATION (3 métiers)
+A) RH : "Procédure de tri CV avec IA" (cas fictif)
+B) Finance : "Note de synthèse mensuelle assistée IA"
+C) Support IT : "Base de connaissances interne assistée IA"</pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-5">
+          <div class="card h-100">
+            <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+              <div class="fw-semibold"><i class="bi bi-clipboard-check"></i> Grille de notation (options)</div>
+              <div class="d-flex gap-2">
+                <button class="btn btn-sm btn-outline-secondary" data-copy="#grille100">
+                  <i class="bi bi-copy"></i> /100
+                </button>
+                <button class="btn btn-sm btn-outline-secondary" data-copy="#grille20">
+                  <i class="bi bi-copy"></i> /20
+                </button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="muted small mb-2">Option A : notation sur 100 points</div>
+              <pre class="copybox mb-3" id="grille100">GRILLE /100 (SEUIL : 70/100)
+Compréhension concepts      : 20 pts
+Méthode atelier             : 20 pts
+Qualité consignes + formats : 20 pts
+Évaluation + corrigés       : 20 pts
+Validation + traçabilité    : 20 pts
+____________________________
+TOTAL                       : 100 pts</pre>
+
+              <div class="muted small mt-3 mb-2">Option B : notation sur 20 points</div>
+              <pre class="copybox" id="grille20">GRILLE /20 (SEUIL : 14/20)
+Compréhension               : 4 pts
+Méthode                     : 4 pts
+Qualité consignes           : 4 pts
+Évaluation                  : 4 pts
+Validation + traçabilité    : 4 pts
+____________________________
+TOTAL                       : 20 pts</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Evaluation Section -->
+    <section id="evaluation" class="mb-5">
+      <div class="d-flex justify-content-between align-items-end flex-wrap gap-2 mb-3">
+        <h2 class="h4 section-title m-0">8) Évaluation & corrigés</h2>
+        <span class="small muted">QCM + Cas • Barèmes • Corrigés types</span>
+      </div>
+
+      <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+          <div class="fw-semibold"><i class="bi bi-check-square"></i> Corrigé type (extrait)</div>
+          <button class="btn btn-sm btn-outline-secondary" data-copy="#corrigeExtrait">
+            <i class="bi bi-copy"></i> Copier
+          </button>
+        </div>
+        <div class="card-body">
+          <div class="accordion" id="accCorrige">
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#c1">
+                  QCM — Réponses attendues
+                </button>
+              </h2>
+              <div id="c1" class="accordion-collapse collapse show" data-bs-parent="#accCorrige">
+                <div class="accordion-body">
+                  1) Livrable observable + barème + seuil<br>
+                  2) 3 minutes maximum<br>
+                  3) Imposer un format de sortie + exemple attendu/non attendu<br>
+                  4) Critères testables (oui/non ou points)<br>
+                  5) Template commun + durcissement progressif<br>
+                  6) Hypothèses + sources + limites<br>
+                  7) Pour tout document sensible ou communication externe<br>
+                  8) Vérification sur critères + revue par pair
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c2">
+                  Cas courts — Principes de correction
+                </button>
+              </h2>
+              <div id="c2" class="accordion-collapse collapse" data-bs-parent="#accCorrige">
+                <div class="accordion-body">
+                  Chaque cas se corrige avec la grille standard :<br>
+                  • Objectif mesurable présent<br>
+                  • Timeline réaliste (90 min)<br>
+                  • Consignes sans ambiguïté<br>
+                  • Critères testables<br>
+                  • Corrigé aligné<br>
+                  • Traçabilité mentionnée
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#c3">
+                  Mises en situation — Critères
+                </button>
+              </h2>
+              <div id="c3" class="accordion-collapse collapse" data-bs-parent="#accCorrige">
+                <div class="accordion-body">
+                  <strong>RH (tri CV) :</strong> Données sensibles interdites + validation humaine déclenchée<br>
+                  <strong>Finance (synthèse) :</strong> Faits/écarts/actions/risques clairement séparés<br>
+                  <strong>Support IT (KB) :</strong> Diagnostic étape par étape + conditions d'escalade
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="d-none">
+            <pre class="copybox" id="corrigeExtrait">CORRIGÉ TYPE (EXTRAIT)
+
+QCM - RÉPONSES
+1. Élément obligatoire : livrable observable + barème + seuil
+2. Durée démo : 3 minutes maximum
+3. Réduire ambiguïté : imposer un format de sortie + exemple attendu/non attendu
+4. Critères testables : oui/non ou points attribuables
+5. Hétérogénéité : template commun + contraintes progressives
+6. Traçabilité : hypothèses + sources + limites obligatoires
+7. Validation humaine : documents sensibles ou communication externe
+8. Contrôle qualité : revue par pair + test sur critères définis
+
+CAS - PRINCIPES
+• Un cas = une application de la grille
+• Exiger : objectif mesurable, timeline, consignes claires, critères testables, corrigé, traçabilité
+• Notation proportionnelle au respect des consignes</pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Deliverables Section -->
+    <section id="livrables" class="mb-5">
+      <div class="d-flex justify-content-between align-items-end flex-wrap gap-2 mb-3">
+        <h2 class="h4 section-title m-0">9) Livrables de la semaine</h2>
+        <span class="small muted">Pack complet prêt à livrer</span>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <ul class="mb-0">
+                <li class="mb-2"><i class="bi bi-check-circle-fill text-success"></i> Module interne 90 minutes</li>
+                <li class="mb-2"><i class="bi bi-check-circle-fill text-success"></i> Slides (12-15) + fiche animation</li>
+                <li class="mb-2"><i class="bi bi-check-circle-fill text-success"></i> 2 exercices + critères + corrigés</li>
+                <li class="mb-2"><i class="bi bi-check-circle-fill text-success"></i> Guide formateur complet</li>
+              </ul>
+            </div>
+            <div class="col-md-6">
+              <ul class="mb-0">
+                <li class="mb-2"><i class="bi bi-check-circle-fill text-success"></i> Évaluation (12 questions)</li>
+                <li class="mb-2"><i class="bi bi-check-circle-fill text-success"></i> 3 mises en situation par métier</li>
+                <li class="mb-2"><i class="bi bi-check-circle-fill text-success"></i> Grille notation /100 et /20</li>
+                <li class="mb-2"><i class="bi bi-check-circle-fill text-success"></i> Mapping Moodle complet</li>
+              </ul>
+            </div>
+          </div>
+          
+          <hr class="my-3">
+          
+          <div class="alert alert-light border">
+            <div class="d-flex align-items-center">
+              <i class="bi bi-info-circle-fill text-primary fs-5 me-3"></i>
+              <div>
+                <strong>Critère d'acceptation principal :</strong> Un animateur formé peut dérouler le module sans improviser, avec tous les supports nécessaires.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Checklists Section -->
+    <section id="checklists" class="mb-5">
+      <div class="d-flex justify-content-between align-items-end flex-wrap gap-2 mb-3">
+        <h2 class="h4 section-title m-0">10) Checklists & Assurance Qualité</h2>
+        <span class="small muted">Animateur • Évaluation • Prompts QA</span>
+      </div>
+
+      <div class="row g-3">
+        <div class="col-lg-6">
+          <div class="card h-100">
+            <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+              <div class="fw-semibold"><i class="bi bi-list-check"></i> Checklist animateur</div>
+              <button class="btn btn-sm btn-outline-secondary" data-copy="#checklistAnimateurText">
+                <i class="bi bi-copy"></i> Copier
+              </button>
+            </div>
+            <div class="card-body" id="checklistAnimateur"></div>
+
+            <div class="d-none">
+              <pre class="copybox" id="checklistAnimateurText">CHECKLIST ANIMATEUR
+☐ Objectif mesurable affiché et expliqué
+☐ KPI + seuil de réussite annoncés
+☐ Démo courte préparée (≤ 3 minutes)
+☐ Pratique guidée (template imposé prêt)
+☐ Pratique autonome (cas réel préparé)
+☐ Débrief structuré (points clés prêts)
+☐ Traçabilité vérifiée (hypothèses, sources, limites)
+☐ Évaluation prête (12 questions + corrigé)
+☐ Plan 7 jours préparé
+☐ Supports techniques vérifiés</pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="card h-100">
+            <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+              <div class="fw-semibold"><i class="bi bi-clipboard-check"></i> Checklist évaluation</div>
+              <button class="btn btn-sm btn-outline-secondary" data-copy="#checklistEvalText">
+                <i class="bi bi-copy"></i> Copier
+              </button>
+            </div>
+            <div class="card-body" id="checklistEval"></div>
+
+            <div class="d-none">
+              <pre class="copybox" id="checklistEvalText">CHECKLIST ÉVALUATION
+☐ 8 QCM avec bonne réponse + justification
+☐ 4 cas courts avec corrigé type détaillé
+☐ 3 mises en situation avec critères métiers
+☐ Barème global clair (100 ou 20 points)
+☐ Seuil de réussite explicite
+☐ Erreurs fréquentes listées + corrections
+☐ Grille de notation alignée avec exercices
+☐ Traçabilité exigée et vérifiable
+☐ Validation humaine définie (quand, comment)
+☐ Consignes sans ambiguïté (test oui/non)</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card mt-3">
+        <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+          <div class="fw-semibold"><i class="bi bi-robot"></i> Prompts Assurance Qualité</div>
+          <button class="btn btn-sm btn-outline-secondary" data-copy="#promptsQA">
+            <i class="bi bi-copy"></i> Copier
+          </button>
+        </div>
+        <div class="card-body">
+          <pre class="copybox" id="promptsQA">PROMPT 1 — VÉRIFICATION QUALITÉ
+Contexte : Formation entreprise. Module interne 90 minutes.
+Tâche : Détecter tout flou et toute absence de critères testables.
+Contraintes : Zéro invention. Si manque : [À COMPLÉTER].
+Sortie imposée :
+1. Liste des phrases floues (copier-coller exact)
+2. Remplacement concret proposé pour chaque phrase
+3. Critères manquants (liste)
+4. Critères testables proposés (format points / oui-non)
+5. Corrigés manquants (liste)
+6. Risques d'animation identifiés
+7. Score qualité /100 + actions prioritaires (max 3)
+
+PROMPT 2 — REPRISE AMÉLIORATION
+Contexte : Le module est jugé "trop vague" par les testeurs.
+Tâche : Réécrire uniquement les consignes, critères et barèmes pour les rendre testables.
+Contraintes : Conserver la structure et le contenu. Ne pas ajouter de nouveaux thèmes.
+Sortie imposée :
+• Version réécrite (consignes + critères + barèmes)
+• Tableau comparatif "Avant → Après" (3 exemples)
+• Justification pédagogique pour chaque changement</pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Resources Section -->
+    <section id="ressources" class="mb-5">
+      <div class="d-flex justify-content-between align-items-end flex-wrap gap-2 mb-3">
+        <h2 class="h4 section-title m-0">11) Ressources pédagogiques</h2>
+        <span class="small muted">Références internes et outils</span>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <div class="row g-3">
+            <div class="col-md-4">
+              <div class="p-3 rounded-3 border h-100">
+                <div class="fw-semibold mb-2"><i class="bi bi-journal-text"></i> Guides</div>
+                <ul class="small mb-0">
+                  <li>Guide formateur complet</li>
+                  <li>Template module 90min</li>
+                  <li>Grilles d'évaluation</li>
+                </ul>
+              </div>
+            </div>
+            
+            <div class="col-md-4">
+              <div class="p-3 rounded-3 border h-100">
+                <div class="fw-semibold mb-2"><i class="bi bi-tools"></i> Outils IA</div>
+                <ul class="small mb-0">
+                  <li>ChatGPT Professionnel</li>
+                  <li>Copilot Enterprise</li>
+                  <li>Midjourney pour visuels</li>
+                </ul>
+              </div>
+            </div>
+            
+            <div class="col-md-4">
+              <div class="p-3 rounded-3 border h-100">
+                <div class="fw-semibold mb-2"><i class="bi bi-shield-check"></i> Cadre légal</div>
+                <ul class="small mb-0">
+                  <li>RGPD formation</li>
+                  <li>Éthique IA entreprise</li>
+                  <li>Validation juridique</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WhatsApp Section -->
+    <section id="whatsapp" class="mb-5">
+      <div class="d-flex justify-content-between align-items-end flex-wrap gap-2 mb-3">
+        <h2 class="h4 section-title m-0">12) Communication WhatsApp</h2>
+        <span class="small muted">Messages prêts à copier • Décisions + Suivi</span>
+      </div>
+
+      <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+          <div class="fw-semibold"><i class="bi bi-whatsapp"></i> Message prêt à coller</div>
+          <button class="btn btn-sm btn-outline-secondary" data-copy="#waText">
+            <i class="bi bi-copy"></i> Copier
+          </button>
+        </div>
+        <div class="card-body">
+          <textarea class="form-control" id="waText" rows="10" style="font-family: monospace;">FORMATION IA 2026 | Parcours Entreprise
+Module 5 — Pédagogie formateur & design de formation interne
+
+📋 DÉCISIONS
+• Objectif : Livrer un module interne 90min déroulable sans improviser
+• Sorties obligatoires :
+  - Plan 90min minute par minute
+  - 2 exercices complets (consignes + critères + corrigé)
+  - Évaluation 12 questions (8 QCM + 4 cas)
+  - 3 mises en situation métier
+  - Grille notation /100 et /20
+• Règle : Tout doit être testable. Zéro flou.
+
+✅ SUIVI (à cocher)
+☐ Objectif mesurable + KPI finalisés
+☐ Plan minute par minute validé
+☐ 2 exercices finalisés (consignes + critères + corrigé)
+☐ 12 questions finalisées (8 QCM + 4 cas) + corrigé
+☐ 3 mises en situation métier + critères
+☐ Grille notation /100 et /20 + seuil réussite
+☐ Assurance qualité finalisée (flou + manques corrigés)
+
+🔗 Lien dossier : [À COMPLÉTER]
+📅 Deadline : [À COMPLÉTER]</textarea>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer py-4">
+    <div class="container d-flex flex-wrap justify-content-between align-items-center gap-2">
+      <div class="small muted">
+        <i class="bi bi-envelope"></i> Contact : formation-ia@entreprise.com<br>
+        <i class="bi bi-telephone"></i> Support : +33 1 23 45 67 89
+      </div>
+      <div class="small muted">
+        <i class="bi bi-tag"></i> Version : v1.0 • Module 5<br>
+        <i class="bi bi-calendar"></i> Mise à jour : Octobre 2025
+      </div>
+    </div>
+  </footer>
+
+  <!-- Sticky Actions Panel -->
+  <div class="sticky-actions">
+    <div class="progress-mini">
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="fw-semibold"><i class="bi bi-graph-up"></i> Progression</div>
+        <div class="small muted" id="progressPct">0%</div>
+      </div>
+      <div class="progress mt-2" role="progressbar" aria-label="Progression" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+        <div class="progress-bar bg-gold" id="progressBar" style="width:0%; background-color: var(--gold);"></div>
+      </div>
+      <div class="small muted mt-2" id="progressHint">Cochez les checklists pour suivre votre progression</div>
+    </div>
+
+    <div class="d-flex flex-column gap-2">
+      <button class="btn btn-gold" data-copy="#waText">
+        <i class="bi bi-whatsapp"></i> Copier WhatsApp
+      </button>
+      <a class="btn btn-outline-secondary" href="#objectifs">
+        <i class="bi bi-arrow-up"></i> Remonter
+      </a>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="position-fixed bottom-0 end-0 p-3" style="z-index:1080">
+    <div id="toastCopied" class="toast align-items-center text-bg-dark border-0" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body">
+          <i class="bi bi-check-circle me-2"></i> Contenu copié dans le presse-papiers
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // Module Configuration
+    const MODULE = {
+      program: "FORMATION IA 2026",
+      track: "Parcours Entreprise",
+      week: 5,
+      title: "Pédagogie formateur et design de formation interne",
+      context: {
+        secteur: "Entreprise (tous secteurs)",
+        public: "Formateurs internes, responsables formation",
+        taille_groupe: "6-12 participants",
+        format: "Hybride (présentiel recommandé)",
+        outils_autorises: "Suite Office, Miro, ChatGPT Professionnel",
+        contraintes: "Budget limité, délais serrés, contraintes RGPD",
+        kpi: "Module 90min déroulé sans improvisation par tout animateur formé"
+      },
+      sessions: {
+        A_90: [
+          {t:"0–10", label:"Cadrage + objectif mesurable", out:"Objectif + KPI + règles explicites"},
+          {t:"10–30", label:"Concepts clés + erreurs fréquentes", out:"Liste d'erreurs + antidotes concrets"},
+          {t:"30–50", label:"Démonstration courte sur cas fictif", out:"Mini-atelier modèle complet"},
+          {t:"50–80", label:"Pratique guidée (binômes)", out:"Séquence + consignes + critères"},
+          {t:"80–90", label:"Débrief + consignes asynchrones", out:"Plan d'actions 7 jours"}
+        ],
+        B_60: [
+          {t:"0–10", label:"Rappel méthode + critères qualité", out:"Checklist QA complète"},
+          {t:"10–50", label:"Production sur cas réel", out:"Module 90min + 12 questions + 3 mises en situation"},
+          {t:"50–60", label:"Contrôle qualité + plan correction", out:"Corrections prioritaires identifiées"}
+        ]
+      },
+      deliverables: [
+        "Module interne 90 minutes prêt à animer (slides + fiche animation + exercices)",
+        "12 questions d'évaluation (8 QCM + 4 cas courts) avec corrigés",
+        "3 mises en situation par métier avec critères spécifiques",
+        "Grille de notation simple (sur 100 et sur 20 points)"
+      ],
+      acceptance: [
+        "Un animateur formé peut dérouler sans improviser",
+        "Exercices et corrigés fournis et alignés",
+        "Grille de notation claire et objective",
+        "Critères de réussite explicites et testables"
+      ]
+    };
+
+    // Local Storage Key
+    const LS_KEY = "formation_ia_2026_week5_checklists_v2";
+
+    // Render Timeline
+    function renderTimeline(targetId, items) {
+      const el = document.getElementById(targetId);
+      if (!el) return;
+      
+      el.innerHTML = items.map(x => `
+        <div class="t-item fade-in">
+          <div class="d-flex justify-content-between align-items-center gap-2">
+            <div class="fw-semibold">${x.t} — ${x.label}</div>
+            <span class="badge rounded-pill bg-light text-dark border">${x.t.split('–')[1] - x.t.split('–')[0]} min</span>
+          </div>
+          <div class="small muted mt-1"><i class="bi bi-arrow-return-right"></i> Sortie : ${x.out}</div>
+        </div>
+      `).join("");
+    }
+
+    // Checklist Management
+    function getState() {
+      try {
+        return JSON.parse(localStorage.getItem(LS_KEY)) || { animateur: {}, eval: {} };
+      } catch(e) {
+        return { animateur: {}, eval: {} };
+      }
+    }
+
+    function setState(state) {
+      localStorage.setItem(LS_KEY, JSON.stringify(state));
+    }
+
+    function renderChecklist(containerId, groupKey, items) {
+      const state = getState();
+      const container = document.getElementById(containerId);
+      if (!container) return;
+
+      container.innerHTML = items.map((label, idx) => {
+        const id = `${groupKey}_${idx}`;
+        const checked = !!(state[groupKey] && state[groupKey][id]);
+        return `
+          <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="${id}" ${checked ? "checked" : ""}>
+            <label class="form-check-label" for="${id}">${label}</label>
+          </div>
+        `;
+      }).join("");
+
+      // Add event listeners
+      container.querySelectorAll("input[type=checkbox]").forEach(cb => {
+        cb.addEventListener("change", () => {
+          const st = getState();
+          st[groupKey] = st[groupKey] || {};
+          st[groupKey][cb.id] = cb.checked;
+          setState(st);
+          updateProgress();
+        });
+      });
+    }
+
+    function updateProgress() {
+      const st = getState();
+      const a = st.animateur || {};
+      const e = st.eval || {};
+      
+      const totalItems = CHECK_ITEMS_ANIMATEUR.length + CHECK_ITEMS_EVAL.length;
+      const checkedItems = Object.values(a).filter(Boolean).length + Object.values(e).filter(Boolean).length;
+      
+      const pct = Math.round((checkedItems / totalItems) * 100);
+      
+      const progressPct = document.getElementById("progressPct");
+      const progressBar = document.getElementById("progressBar");
+      const progressHint = document.getElementById("progressHint");
+      
+      if (progressPct) progressPct.textContent = `${pct}%`;
+      if (progressBar) {
+        progressBar.style.width = `${pct}%`;
+        progressBar.setAttribute("aria-valuenow", pct);
+      }
+      if (progressHint) {
+        progressHint.textContent = pct >= 70 
+          ? "✅ Seuil qualité atteint ! Faites un QA final." 
+          : `⏳ Objectif : atteindre 70% (${checkedItems}/${totalItems} items cochés)`;
+      }
+    }
+
+    // Copy Function
+    async function copyFromSelector(sel) {
+      const el = document.querySelector(sel);
+      if (!el) return;
+      
+      let text = "";
+      if (el.tagName === "TEXTAREA" || el.tagName === "INPUT") {
+        text = el.value;
+      } else {
+        text = el.textContent || el.innerText;
+      }
+      
+      try {
+        await navigator.clipboard.writeText(text);
+        showToast();
+      } catch (err) {
+        console.error("Erreur de copie:", err);
+      }
+    }
+
+    function showToast() {
+      const toastEl = document.getElementById("toastCopied");
+      if (!toastEl) return;
+      
+      const toast = bootstrap.Toast.getOrCreateInstance(toastEl, { delay: 2000 });
+      toast.show();
+    }
+
+    // Checklist Items
+    const CHECK_ITEMS_ANIMATEUR = [
+      "Objectif mesurable affiché et expliqué",
+      "KPI + seuil de réussite annoncés",
+      "Démo courte préparée (≤ 3 minutes)",
+      "Pratique guidée (template imposé prêt)",
+      "Pratique autonome (cas réel préparé)",
+      "Débrief structuré (points clés prêts)",
+      "Traçabilité vérifiée (hypothèses, sources, limites)"
+    ];
+
+    const CHECK_ITEMS_EVAL = [
+      "8 QCM avec bonne réponse + justification",
+      "4 cas courts avec corrigé type détaillé",
+      "3 mises en situation avec critères métiers",
+      "Barème global clair (100 ou 20 points)",
+      "Seuil de réussite explicite",
+      "Erreurs fréquentes listées + corrections"
+    ];
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      // Render timelines
+      renderTimeline("timelineA", MODULE.sessions.A_90);
+      renderTimeline("timelineB", MODULE.sessions.B_60);
+      
+      // Initialize checklist state
+      (function initStateWithKeys() {
+        const st = getState();
+        st.animateur = st.animateur || {};
+        st.eval = st.eval || {};
+        
+        CHECK_ITEMS_ANIMATEUR.forEach((_, idx) => {
+          const id = `animateur_${idx}`;
+          if (!(id in st.animateur)) st.animateur[id] = false;
+        });
+        
+        CHECK_ITEMS_EVAL.forEach((_, idx) => {
+          const id = `eval_${idx}`;
+          if (!(id in st.eval)) st.eval[id] = false;
+        });
+        
+        setState(st);
+      })();
+      
+      // Render checklists
+      renderChecklist("checklistAnimateur", "animateur", CHECK_ITEMS_ANIMATEUR);
+      renderChecklist("checklistEval", "eval", CHECK_ITEMS_EVAL);
+      
+      // Update progress
+      updateProgress();
+      
+      // Add copy event listeners
+      document.querySelectorAll("[data-copy]").forEach(btn => {
+        btn.addEventListener("click", async () => {
+          const sel = btn.getAttribute("data-copy");
+          await copyFromSelector(sel);
+        });
+      });
+      
+      // Smooth scroll for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          const href = this.getAttribute('href');
+          if (href === '#') return;
+          
+          const target = document.querySelector(href);
+          if (target) {
+            e.preventDefault();
+            target.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

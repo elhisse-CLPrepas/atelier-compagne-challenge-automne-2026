@@ -1,0 +1,21 @@
+# Système et éditeurs
+.DS_Store
+Thumbs.db
+Desktop.ini
+.vscode/
+.idea/
+*.swp
+*.tmp
+*.bak
+~$*
+
+# Journaux et fichiers locaux
+*.log
+.env
+.env.*
+!.env.example
+
+# Sorties temporaires
+tmp/
+temp/
+

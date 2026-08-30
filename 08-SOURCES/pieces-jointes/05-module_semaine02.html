@@ -1,0 +1,924 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FORMATION-IA-2026 | Parcours Entreprise | Semaine 2 — Prompt engineering opérationnel</title>
+  <meta name="description" content="Semaine 2. Prompt engineering opérationnel. Méthode en 6 blocs. Atelier + lab. Bibliothèque de prompts. QA et checklists.">
+  <meta property="og:title" content="Semaine 2 — Prompt engineering opérationnel">
+  <meta property="og:description" content="Cadrer une demande. Produire une bibliothèque de prompts. Contrôler la qualité.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="[À COMPLÉTER]">
+  <link rel="icon" href="[À COMPLÉTER]">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    :root{
+      --bn:#0a1a3a;
+      --gd:#c9a96e;
+      --wc:#f7f5ef;
+    }
+    body{background:var(--wc); color:#0b1220;}
+    .topbar{
+      background:linear-gradient(90deg, var(--bn), #07122a);
+      color:#fff;
+      border-bottom: 3px solid var(--gd);
+    }
+    .brand-badge{
+      background:rgba(201,169,110,.15);
+      color:var(--gd);
+      border:1px solid rgba(201,169,110,.35);
+    }
+    .hero{
+      background: radial-gradient(1200px 500px at 20% 0%, rgba(10,26,58,.10), transparent),
+                  radial-gradient(900px 450px at 80% 20%, rgba(201,169,110,.10), transparent);
+      border-bottom:1px solid rgba(10,26,58,.12);
+    }
+    .kpi{
+      border-left:4px solid var(--gd);
+      background:#fff;
+    }
+    .section-title{
+      color:var(--bn);
+      letter-spacing:.2px;
+    }
+    .card{
+      border:1px solid rgba(10,26,58,.12);
+      box-shadow: 0 6px 18px rgba(10,26,58,.06);
+      border-radius: 14px;
+    }
+    .callout{
+      background:#fff;
+      border:1px solid rgba(10,26,58,.12);
+      border-left:4px solid var(--bn);
+      border-radius: 14px;
+      padding:14px;
+    }
+    .callout.gold{border-left-color:var(--gd);}
+    .timeline{
+      position:relative;
+      padding-left:20px;
+      margin:0;
+    }
+    .timeline:before{
+      content:"";
+      position:absolute;
+      left:7px;
+      top:0;
+      bottom:0;
+      width:2px;
+      background:rgba(10,26,58,.15);
+    }
+    .timeline li{
+      position:relative;
+      list-style:none;
+      padding:10px 0 10px 16px;
+      border-bottom:1px dashed rgba(10,26,58,.10);
+    }
+    .timeline li:last-child{border-bottom:none;}
+    .timeline li:before{
+      content:"";
+      position:absolute;
+      left:1px;
+      top:16px;
+      width:12px;
+      height:12px;
+      border-radius:50%;
+      background:var(--gd);
+      border:2px solid #fff;
+      box-shadow:0 0 0 2px rgba(201,169,110,.35);
+    }
+    .small-muted{color:#52607a;}
+    pre{
+      background:#0b1220;
+      color:#e9eef7;
+      border-radius:14px;
+      padding:14px;
+      overflow:auto;
+      margin:0;
+    }
+    .btn-gold{
+      background:var(--gd);
+      border-color:var(--gd);
+      color:#1a1a1a;
+    }
+    .btn-gold:hover{filter:brightness(.95);}
+    .footer{
+      background: #fff;
+      border-top:1px solid rgba(10,26,58,.12);
+    }
+    .sticky-actions{
+      position: sticky;
+      top: 10px;
+      z-index: 100;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- TOPBAR -->
+  <header class="topbar py-3">
+    <div class="container">
+      <div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
+        <div>
+          <div class="fw-semibold">FORMATION-IA-2026</div>
+          <div class="small opacity-75">Parcours Entreprise | Module Semaine 2</div>
+        </div>
+        <div class="text-end">
+          <span class="badge brand-badge rounded-pill px-3 py-2">Prompt engineering opérationnel</span>
+          <div class="fw-semibold">Produire du fiable. Livrer une bibliothèque v1.</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero py-4">
+    <div class="container">
+      <div class="row g-3 align-items-stretch">
+        <div class="col-lg-8">
+          <div class="p-4 bg-white rounded-4 border" style="border-color:rgba(10,26,58,.12)!important;">
+            <h1 class="h3 mb-2 section-title">Semaine 2 – Prompt engineering opérationnel</h1>
+            <p class="mb-3">Vous adoptez une méthode unique pour cadrer les demandes IA et obtenir des sorties fiables. Vous livrez une bibliothèque de prompts réutilisables par métier.</p>
+
+            <div class="row g-2">
+              <div class="col-md-4">
+                <div class="callout">
+                  <div class="fw-semibold">Objectif principal</div>
+                  <div class="small-muted">Produire du fiable avec une méthode structurée en 6 blocs.</div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="callout">
+                  <div class="fw-semibold">Livrable attendu</div>
+                  <div class="small-muted">Bibliothèque v1 avec 30 prompts métiers + outils de contrôle.</div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="callout">
+                  <div class="fw-semibold">Méthode imposée</div>
+                  <div class="small-muted">Données autorisées/interdites + format de sortie imposé.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="kpi mt-3 p-3 rounded-4">
+              <div class="fw-semibold">KPI de la semaine</div>
+              <div class="small-muted">30 prompts métiers • 10 anti-prompts • 1 prompt détecteur de trous • 1 prompt de reprise • Protocole de test avec scoring</div>
+            </div>
+
+            <div class="d-flex flex-wrap gap-2 mt-3">
+              <a class="btn btn-gold" href="#telechargements">📥 Télécharger les templates</a>
+              <a class="btn btn-outline-dark" href="#moodle" role="button">🎓 Accéder à Moodle</a>
+              <a class="btn btn-outline-primary" href="#fiche-whatsapp">💬 Copier la fiche WhatsApp</a>
+            </div>
+
+            <div id="moodle" class="mt-3 small-muted">
+              🔗 Lien Moodle module : <span class="fw-semibold">[À COMPLÉTER]</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="sticky-actions">
+            <div class="card">
+              <div class="card-body">
+                <div class="fw-semibold section-title">📋 Règles qualité obligatoires</div>
+                <ul class="mt-2 mb-0 small">
+                  <li>✅ Un prompt = 6 blocs complets</li>
+                  <li>✅ Données autorisées ET interdites listées</li>
+                  <li>✅ Format de sortie imposé et strict</li>
+                  <li>✅ Zéro invention - [À COMPLÉTER] si manque</li>
+                  <li>✅ Nommage unique : ENT-W2-[METIER]-[INTENTION]-[NN]</li>
+                  <li>✅ Sources internes uniquement (DOC_1, DOC_2, HTML_1)</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="card mt-3">
+              <div class="card-body">
+                <div class="fw-semibold section-title">📚 Sources internes obligatoires</div>
+                <div class="small-muted">DOC_1 “ATELIER PERSONNALISE prompt ingineering”</div>
+                <div class="small-muted">DOC_2 “OUTILS IA 25 Août 2025”</div>
+                <div class="small-muted">HTML_1 “PERMIS DE CONDUIRE IA”</div>
+                <div class="small-muted mt-2">📍 Accès : [À COMPLÉTER]</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OBJECTIFS DÉTAILLÉS -->
+  <section id="objectifs" class="py-4">
+    <div class="container">
+      <h2 class="h4 section-title mb-3">🎯 Objectifs détaillés de la semaine</h2>
+      <div class="row g-3">
+        <div class="col-md-4">
+          <div class="card h-100">
+            <div class="card-body">
+              <div class="badge text-bg-dark rounded-pill mb-2">Objectif 1</div>
+              <div class="fw-semibold">Maîtriser la méthode 6 blocs</div>
+              <div class="small-muted mt-2">Rôle • Objectif • Contexte • Données • Contraintes • Format de sortie</div>
+              <div class="small-muted">Appliquer systématiquement pour chaque prompt métier.</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card h-100">
+            <div class="card-body">
+              <div class="badge text-bg-dark rounded-pill mb-2">Objectif 2</div>
+              <div class="fw-semibold">Produire une bibliothèque opérationnelle</div>
+              <div class="small-muted mt-2">30 prompts organisés par métier (RH, Vente, Support, Finance, Direction)</div>
+              <div class="small-muted">Avec anti-prompts, détecteur de trous et prompt de reprise.</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card h-100">
+            <div class="card-body">
+              <div class="badge text-bg-dark rounded-pill mb-2">Objectif 3</div>
+              <div class="fw-semibold">Implémenter les contrôles qualité</div>
+              <div class="small-muted mt-2">Reformulation • Checklists • Références internes • Détection de trous</div>
+              <div class="small-muted">Garantir la fiabilité et la réutilisabilité des prompts.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AGENDA DES SÉANCES -->
+  <section id="agenda" class="py-4">
+    <div class="container">
+      <h2 class="h4 section-title mb-3">📅 Agenda des séances</h2>
+
+      <div class="row g-3">
+        <div class="col-lg-6">
+          <div class="card h-100">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-start gap-2">
+                <div>
+                  <div class="fw-semibold">Séance A - Atelier guidé (90 min)</div>
+                  <div class="small-muted">Introduction méthodologique et pratique encadrée</div>
+                </div>
+                <span class="badge text-bg-secondary rounded-pill">90 min</span>
+              </div>
+
+              <ul class="timeline mt-3 mb-0">
+                <li><span class="fw-semibold">0-10 min</span> Cadrage et objectif mesurable</li>
+                <li><span class="fw-semibold">10-30 min</span> Concepts clés et erreurs fréquentes</li>
+                <li><span class="fw-semibold">30-50 min</span> Démonstration sur cas RH (tri CV)</li>
+                <li><span class="fw-semibold">50-80 min</span> Pratique guidée en binômes</li>
+                <li><span class="fw-semibold">80-90 min</span> Débrief et travail asynchrone assigné</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="card h-100">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-start gap-2">
+                <div>
+                  <div class="fw-semibold">Séance B - Lab pratique (60 min)</div>
+                  <div class="small-muted">Production sur cas réels et contrôle qualité</div>
+                </div>
+                <span class="badge text-bg-secondary rounded-pill">60 min</span>
+              </div>
+
+              <ul class="timeline mt-3 mb-0">
+                <li><span class="fw-semibold">0-10 min</span> Rappel méthode + critères qualité</li>
+                <li><span class="fw-semibold">10-50 min</span> Production sur cas réel anonymisé</li>
+                <li><span class="fw-semibold">50-60 min</span> QA avec détecteur de trous + plan correction</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- MÉTHODE 6 BLOCS -->
+  <section id="methode" class="py-4">
+    <div class="container">
+      <h2 class="h4 section-title mb-3">⚙️ Méthode : le prompt en 6 blocs</h2>
+
+      <div class="row g-3">
+        <div class="col-lg-7">
+          <div class="card">
+            <div class="card-body">
+              <div class="fw-semibold mb-2">Structure obligatoire pour chaque prompt</div>
+              <div class="row g-2">
+                <div class="col-md-6"><div class="callout gold"><div class="fw-semibold">1. Rôle</div><div class="small-muted">Qui parle. Quel périmètre métier.</div></div></div>
+                <div class="col-md-6"><div class="callout gold"><div class="fw-semibold">2. Objectif</div><div class="small-muted">Résultat attendu. Mesurable et concret.</div></div></div>
+                <div class="col-md-6"><div class="callout gold"><div class="fw-semibold">3. Contexte</div><div class="small-muted">Situation, public, enjeu, contraintes.</div></div></div>
+                <div class="col-md-6"><div class="callout gold"><div class="fw-semibold">4. Données</div><div class="small-muted">Autorisées vs interdites. Sensibilité.</div></div></div>
+                <div class="col-md-6"><div class="callout gold"><div class="fw-semibold">5. Contraintes</div><div class="small-muted">Règles, ton, longueur, sources imposées.</div></div></div>
+                <div class="col-md-6"><div class="callout gold"><div class="fw-semibold">6. Format de sortie</div><div class="small-muted">Structure imposée (tableau, puces, etc.).</div></div></div>
+              </div>
+              <div class="small-muted mt-2">📌 Règle absolue : si une info manque → écrire [À COMPLÉTER]</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-5">
+          <div class="card">
+            <div class="card-body">
+              <div class="fw-semibold mb-2">🛡️ Méthodes de contrôle qualité</div>
+              <div class="callout">
+                <div class="fw-semibold">Reformulation</div>
+                <div class="small-muted mt-1">L’IA reformule la demande, liste les trous et demande des compléments.</div>
+              </div>
+              <div class="callout mt-2">
+                <div class="fw-semibold">Checklists</div>
+                <div class="small-muted mt-1">Validation systématique des 6 blocs, données autorisées/interdites, format.</div>
+              </div>
+              <div class="callout mt-2">
+                <div class="fw-semibold">Références internes</div>
+                <div class="small-muted mt-1">Usage obligatoire des DOC_1, DOC_2, HTML_1. Interdiction des sources externes.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- DÉMONSTRATION PRATIQUE -->
+  <section id="demo" class="py-4">
+    <div class="container">
+      <h2 class="h4 section-title mb-3">🎬 Démonstration pratique</h2>
+
+      <div class="row g-3">
+        <div class="col-lg-6">
+          <div class="card h-100">
+            <div class="card-body">
+              <div class="fw-semibold">Cas entreprise : RH - Tri de CV</div>
+              <div class="small-muted mt-2">Cas concret, anonymisé, sans données sensibles.</div>
+
+              <div class="callout mt-3">
+                <div class="fw-semibold">📋 Contexte</div>
+                <div class="small-muted">Poste : [À COMPLÉTER]</div>
+                <div class="small-muted">CV anonymisés : 3 profils</div>
+                <div class="small-muted">Références internes : DOC_1, DOC_2, HTML_1</div>
+              </div>
+
+              <div class="mt-3">
+                <div class="fw-semibold">🎯 Sortie attendue (format imposé)</div>
+                <div class="small-muted">Tableau de comparaison + décision OUI/NON + justification structurée</div>
+              </div>
+
+              <pre class="mt-2"><code>FORMAT DE SORTIE IMPOSÉ :
+1) Tableau comparatif
+   Candidat | Match (0-100) | Forces (3 max) | Risques (2 max) | Questions entretien (3)
+
+2) Décision
+   Shortlist : OUI / NON
+   Justification : 3 puces maximum
+
+3) Références internes citées
+   [DOC_1] [DOC_2] [HTML_1] + [À COMPLÉTER]</code></pre>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="card h-100">
+            <div class="card-body">
+              <div class="fw-semibold">📝 Prompt complet (6 blocs)</div>
+              <div class="small-muted mt-2">Exemple de prompt structuré selon la méthode</div>
+
+              <pre class="mt-3"><code>RÔLE
+Vous êtes un analyste RH spécialisé dans le tri de CV. Vous appliquez strictement une grille interne.
+
+OBJECTIF
+Trier 3 CV anonymisés pour le poste [À COMPLÉTER] et proposer une shortlist justifiée.
+
+CONTEXTE
+Entreprise : [À COMPLÉTER]
+Poste à pourvoir : [À COMPLÉTER]
+Sources autorisées : DOC_1, DOC_2, HTML_1 uniquement
+
+DONNÉES
+Autorisées :
+- CV anonymisés (sans nom, coordonnées, photo)
+- Fiche de poste interne
+- Critères fournis par le manager
+Interdites :
+- Données sensibles (origine, santé, etc.)
+- Identifiants et mots de passe
+- Documents externes non fournis
+
+CONTRAINTES
+- Utiliser uniquement les informations fournies
+- Si une info manque → écrire [À COMPLÉTER]
+- Zéro invention de données
+- Ton neutre et professionnel
+- Respect strict du format de sortie ci-dessous
+
+FORMAT DE SORTIE
+1) Tableau (Candidat | Match 0-100 | Forces | Risques | Questions)
+2) Décision (Shortlist OUI/NON + 3 puces de justification)
+3) Références internes ([DOC_1] [DOC_2] [HTML_1] + [À COMPLÉTER])</code></pre>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PRATIQUE GUIDÉE -->
+  <section id="pratique-guidee" class="py-4">
+    <div class="container">
+      <h2 class="h4 section-title mb-3">👥 Pratique guidée en binômes</h2>
+
+      <div class="row g-3">
+        <div class="col-lg-8">
+          <div class="card">
+            <div class="card-body">
+              <div class="fw-semibold">Exercices collaboratifs</div>
+              <div class="small-muted mt-2">Binôme A écrit, Binôme B contrôle → puis inversion des rôles.</div>
+
+              <div class="row g-2 mt-2">
+                <div class="col-md-6">
+                  <div class="callout">
+                    <div class="fw-semibold">Exercice 1 : Écrire un prompt métier</div>
+                    <div class="small-muted mt-1">Choisir un métier (RH, Vente, Support, Finance, Direction)</div>
+                    <div class="small-muted">Objectif : produire un prompt complet avec format de sortie strict.</div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="callout">
+                    <div class="fw-semibold">Exercice 2 : Créer un contrôle qualité</div>
+                    <div class="small-muted mt-1">Reformulation + détection de trous + checklist</div>
+                    <div class="small-muted">Sortie : score 0-100 + plan de correction.</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="callout gold mt-3">
+                <div class="fw-semibold">✅ Grille qualité rapide (vérification)</div>
+                <div class="small-muted mt-1">Nom unique • Intention claire • Données autorisées/interdites • Contraintes • Format imposé • Sources internes • Zéro invention</div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="card h-100">
+            <div class="card-body">
+              <div class="fw-semibold">🚫 Consignes strictes</div>
+              <ul class="small mt-2 mb-0">
+                <li>Refuser un prompt sans section DONNÉES</li>
+                <li>Refuser un prompt sans FORMAT DE SORTIE</li>
+                <li>Refuser un prompt sans nom unique</li>
+                <li>Appliquer systématiquement le prompt de reprise si sortie faible</li>
+                <li>Anonymiser tout cas réel avant test</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- MISSION DE LA SEMAINE -->
+  <section id="mission" class="py-4">
+    <div class="container">
+      <h2 class="h4 section-title mb-3">📋 Mission de la semaine</h2>
+
+      <div class="card">
+        <div class="card-body">
+          <div class="row g-3">
+            <div class="col-lg-6">
+              <div class="fw-semibold">🎯 Objectifs à réaliser</div>
+              <ul class="small mt-2 mb-0">
+                <li>Créer 10 prompts métiers (parmi les 30 requis)</li>
+                <li>Tester chaque prompt sur un cas réel anonymisé</li>
+                <li>Créer 1 prompt détecteur de trous</li>
+                <li>Créer 1 prompt de reprise pour corriger les sorties faibles</li>
+                <li>Produire une synthèse avec citations des DOC_1, DOC_2, HTML_1</li>
+              </ul>
+            </div>
+            <div class="col-lg-6">
+              <div class="fw-semibold">🧪 Protocole de test obligatoire</div>
+              <ol class="small mt-2 mb-0">
+                <li>Choisir 1 cas réel par métier (anonymisé)</li>
+                <li>Lancer le prompt v1 et conserver la sortie</li>
+                <li>Noter un score selon la grille d'évaluation</li>
+                <li>Appliquer le prompt de reprise si score < 80/100</li>
+                <li>Itérer jusqu'à atteindre le score cible</li>
+                <li>Archiver toutes les versions (v1, v2, v3)</li>
+              </ol>
+            </div>
+          </div>
+
+          <div class="callout gold mt-3">
+            <div class="fw-semibold">✅ Critères de réussite (validation)</div>
+            <ul class="small mt-2 mb-0">
+              <li>Nom unique au format ENT-W2-[METIER]-[INTENTION]-[NN]</li>
+              <li>Intention claire et mesurable</li>
+              <li>Données autorisées ET interdites listées</li>
+              <li>Format de sortie imposé et respecté</li>
+              <li>Prompt détecteur de trous inclus</li>
+              <li>Prompt de reprise inclus</li>
+              <li>Zéro invention → [À COMPLÉTER] si manque</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIVRABLES ATTENDUS -->
+  <section id="livrables" class="py-4">
+    <div class="container">
+      <h2 class="h4 section-title mb-3">📦 Livrables attendus</h2>
+
+      <div class="row g-3">
+        <div class="col-lg-7">
+          <div class="card">
+            <div class="card-body">
+              <div class="fw-semibold">Bibliothèque v1 complète</div>
+              <div class="small-muted mt-2">Structure pack de prompts organisé par métier</div>
+
+              <div class="callout mt-3">
+                <div class="fw-semibold">📁 Contenu obligatoire :</div>
+                <ul class="small mt-2 mb-0">
+                  <li>30 prompts métiers (6 par métier : RH, Vente, Support, Finance, Direction)</li>
+                  <li>10 anti-prompts avec correction immédiate</li>
+                  <li>1 prompt détecteur de trous (auditeur qualité)</li>
+                  <li>1 prompt de reprise (éditeur)</li>
+                  <li>Règles de nommage strictes</li>
+                  <li>Critères qualité checklist</li>
+                  <li>Protocole de test + scoring 0-100</li>
+                </ul>
+              </div>
+
+              <div class="callout mt-2">
+                <div class="fw-semibold">🏷️ Règles de nommage (obligatoire)</div>
+                <div class="small-muted mt-1">Format : ENT-W2-[METIER]-[INTENTION]-[NN]</div>
+                <div class="small-muted">Exemple : ENT-W2-RH-TRI-CV-01</div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-5">
+          <div class="card h-100">
+            <div class="card-body">
+              <div class="fw-semibold">🔐 Règles de données (impératif)</div>
+              <ul class="small mt-2 mb-0">
+                <li><strong>Autorisées :</strong> sources fournies (DOC_1, DOC_2, HTML_1) • textes anonymisés • données métier fournies</li>
+                <li><strong>Interdites :</strong> données sensibles • données personnelles inutiles • secrets • identifiants • mots de passe • documents externes</li>
+                <li><strong>Règle absolue :</strong> si info manque → [À COMPLÉTER] (jamais inventer)</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CHECKLISTS & QA -->
+  <section id="qa" class="py-4">
+    <div class="container">
+      <h2 class="h4 section-title mb-3">🛡️ Checklists & Contrôles qualité</h2>
+
+      <div class="accordion" id="qaAccordion">
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#qa1">
+              ✅ Checklist avant livraison (vérification manuelle)
+            </button>
+          </h2>
+          <div id="qa1" class="accordion-collapse collapse show" data-bs-parent="#qaAccordion">
+            <div class="accordion-body">
+              <ul class="small mb-0">
+                <li>Chaque prompt a un nom unique au format imposé</li>
+                <li>Chaque prompt a une intention claire et mesurable</li>
+                <li>Chaque prompt contient les 6 blocs complets</li>
+                <li>Chaque prompt liste données autorisées ET interdites</li>
+                <li>Chaque prompt impose un format de sortie exact</li>
+                <li>10 anti-prompts présents avec correction</li>
+                <li>1 prompt détecteur de trous inclus</li>
+                <li>1 prompt de reprise inclus</li>
+                <li>Protocole de test documenté</li>
+                <li>Scoring rempli pour chaque prompt testé</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#qa2">
+              🔍 Prompt de vérification (détecteur de trous)
+            </button>
+          </h2>
+          <div id="qa2" class="accordion-collapse collapse" data-bs-parent="#qaAccordion">
+            <div class="accordion-body">
+              <pre><code>RÔLE
+Vous êtes un auditeur qualité spécialisé en prompt engineering. Vous détectez les trous et non-conformités.
+
+OBJECTIF
+Contrôler un prompt existant. Lister les éléments manquants. Proposer des corrections minimales.
+
+CONTEXTE
+Entrée : un prompt complet ou partiel à auditer.
+Références autorisées : DOC_1, DOC_2, HTML_1 uniquement.
+
+DONNÉES
+Autorisées :
+- Le prompt à auditer
+- Les critères d'acceptation de la Semaine 2
+Interdites :
+- Toute donnée sensible
+- Toute invention de contenu métier non fourni
+
+CONTRAINTES
+- Vérifier la présence des 6 blocs
+- Vérifier la liste des données autorisées et interdites
+- Vérifier le format de sortie imposé
+- Si une info manque → signaler "[À COMPLÉTER]"
+- Sortie strictement structurée comme ci-dessous
+
+FORMAT DE SORTIE
+1) Score de conformité (0-100)
+2) Trous détectés (liste numérotée)
+3) Corrections minimales proposées (liste)
+4) Risques identifiés (liste)
+5) Verdict final : OK / À CORRIGER</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#qa3">
+              ✏️ Prompt de reprise (correction sortie faible)
+            </button>
+          </h2>
+          <div id="qa3" class="accordion-collapse collapse" data-bs-parent="#qaAccordion">
+            <div class="accordion-body">
+              <pre><code>RÔLE
+Vous êtes un éditeur spécialisé en amélioration de sorties IA. Vous corrigez les sorties faibles.
+
+OBJECTIF
+Reprendre une sortie IA jugée faible. La corriger selon les contraintes. Respecter strictement le format imposé.
+
+CONTEXTE
+Entrées fournies :
+1) Le prompt initial (6 blocs)
+2) La sortie faible à corriger
+3) Les critères d'acceptation de la Semaine 2
+Sources autorisées : DOC_1, DOC_2, HTML_1 uniquement.
+
+DONNÉES
+Autorisées :
+- Le prompt initial complet
+- La sortie faible fournie
+- Les critères d'acceptation
+Interdites :
+- Données sensibles non fournies
+- Ajout de faits ou données non présentes dans les sources
+
+CONTRAINTES
+- Conserver l'intention initiale du prompt
+- Zéro invention de contenu
+- Si info manque → utiliser [À COMPLÉTER]
+- Respecter scrupuleusement le format de sortie imposé dans le prompt initial
+
+FORMAT DE SORTIE
+1) Sortie corrigée (format exact imposé)
+2) Liste des changements appliqués (3 puces maximum)
+3) Points restant à compléter ([À COMPLÉTER])</code></pre>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- RESSOURCES -->
+  <section id="ressources" class="py-4">
+    <div class="container">
+      <h2 class="h4 section-title mb-3">📚 Ressources obligatoires</h2>
+      <div class="card">
+        <div class="card-body">
+          <div class="fw-semibold">Références internes imposées</div>
+          <div class="small-muted mt-2">Ces 3 documents doivent être utilisés dans tous les prompts. Aucune source externe n'est autorisée.</div>
+          <ul class="small mt-3 mb-0">
+            <li><strong>DOC_1</strong> : “ATELIER PERSONNALISE prompt ingineering” <span class="small-muted">[À COMPLÉTER - lien ou accès]</span></li>
+            <li><strong>DOC_2</strong> : “OUTILS IA 25 Août 2025” <span class="small-muted">[À COMPLÉTER - lien ou accès]</span></li>
+            <li><strong>HTML_1</strong> : “PERMIS DE CONDUIRE IA” <span class="small-muted">[À COMPLÉTER - lien ou accès]</span></li>
+          </ul>
+          <div class="alert alert-warning mt-3 small">
+            ⚠️ <strong>Rappel :</strong> Tout prompt doit citer explicitement ces références dans la section CONTEXTE ou DONNÉES autorisées.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TÉLÉCHARGEMENTS -->
+  <section id="telechargements" class="py-4">
+    <div class="container">
+      <h2 class="h4 section-title mb-3">📥 Téléchargements & Templates</h2>
+
+      <div class="row g-3">
+        <div class="col-lg-6">
+          <div class="card h-100">
+            <div class="card-body">
+              <div class="fw-semibold">📄 Documents de travail</div>
+              <div class="small-muted mt-2">Téléchargez tous les templates et guides nécessaires</div>
+              <div class="d-grid gap-2 mt-3">
+                <a class="btn btn-outline-dark" href="./docs/guide_formateur.md">📘 Guide formateur (détaillé)</a>
+                <a class="btn btn-outline-dark" href="./docs/workbook_participant.md">📓 Workbook participant (exercices)</a>
+                <a class="btn btn-outline-dark" href="./docs/prompts_pack.md">📦 Template prompts pack (30 prompts)</a>
+                <a class="btn btn-outline-dark" href="./docs/evaluation.md">📝 Évaluation & quiz (12 questions)</a>
+                <a class="btn btn-outline-dark" href="./docs/communication_whatsapp.md">💬 Communication WhatsApp</a>
+                <a class="btn btn-outline-dark" href="./docs/moodle_mapping.md">🎓 Mapping Moodle (structure)</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="card h-100">
+            <div class="card-body">
+              <div class="fw-semibold">⚡ Actions rapides</div>
+              <div class="small-muted mt-2">Accès direct aux plateformes et informations clés</div>
+
+              <div class="callout mt-3">
+                <div class="fw-semibold">🎓 Accès Moodle</div>
+                <div class="small-muted mt-1">URL : <span class="fw-semibold">[À COMPLÉTER]</span></div>
+                <div class="small-muted">Date limite dépôt : <span class="fw-semibold">[À COMPLÉTER]</span></div>
+              </div>
+
+              <div class="callout mt-2">
+                <div class="fw-semibold">📅 Échéances</div>
+                <div class="small-muted mt-1">Quiz validation : <span class="fw-semibold">[À COMPLÉTER]</span></div>
+                <div class="small-muted">Bibliothèque v1 : <span class="fw-semibold">[À COMPLÉTER]</span></div>
+              </div>
+
+              <div class="callout mt-2">
+                <div class="fw-semibold">🔄 Version</div>
+                <div class="small-muted mt-1">v2026.02.01 - Semaine 2 - Prompt engineering opérationnel</div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FICHE WHATSAPP -->
+  <section id="fiche-whatsapp" class="py-4">
+    <div class="container">
+      <h2 class="h4 section-title mb-3">💬 Fiche WhatsApp (copiable)</h2>
+      <div class="row g-3">
+        <div class="col-lg-8">
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
+                <div>
+                  <div class="fw-semibold">📋 Bloc copiable pour communication</div>
+                  <div class="small-muted">À envoyer aux participants pour rappel des décisions et échéances</div>
+                </div>
+                <button id="btnCopyWhatsApp" class="btn btn-gold">📋 Copier</button>
+              </div>
+
+              <pre class="mt-3" id="whatsAppText"><code>FORMATION-IA-2026 | Parcours Entreprise
+Semaine 2 — Prompt engineering opérationnel
+
+✅ DÉCISIONS
+- Méthode unique en 6 blocs adoptée pour tous les prompts
+- Règles données autorisées/interdites validées
+- Format de sortie imposé pour chaque prompt métier
+- Nommage unique obligatoire : ENT-W2-[METIER]-[INTENTION]-[NN]
+
+📅 SUIVI
+- Responsable bibliothèque v1 : [À COMPLÉTER]
+- Date limite dépôt v1 : [À COMPLÉTER]
+- Lien Moodle module : [À COMPLÉTER]
+
+📦 LIVRABLES ATTENDUS
+- 30 prompts métiers (RH, Vente, Support, Finance, Direction)
+- 10 anti-prompts avec correction
+- 1 prompt détecteur de trous
+- 1 prompt de reprise
+- Protocole de test + scoring 0-100
+
+⚠️ POINTS BLOQUANTS / À COMPLÉTER
+- Accès sources DOC_1, DOC_2, HTML_1 : [À COMPLÉTER]
+- Cas réels anonymisés : [À COMPLÉTER]
+- Validation quiz : note minimale [À COMPLÉTER] /12
+
+🔗 RESSOURCES
+- Templates : [À COMPLÉTER]
+- Guide : [À COMPLÉTER]
+- Contact formateur : [À COMPLÉTER]
+
+📌 RÈGLE ABSOLUE : Si info manque → écrire [À COMPLÉTER]. Jamais inventer.</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="card h-100">
+            <div class="card-body">
+              <div class="fw-semibold">📌 Rappel des règles</div>
+              <div class="small-muted mt-2">À inclure dans toute communication :</div>
+              <ul class="small mt-2 mb-0">
+                <li>Si une info manque → [À COMPLÉTER]</li>
+                <li>Zéro invention de données</li>
+                <li>Sources internes uniquement</li>
+                <li>Anonymisation obligatoire des cas réels</li>
+                <li>Format de nommage strict</li>
+              </ul>
+              <hr>
+              <div class="fw-semibold">📞 Contact support</div>
+              <div class="small-muted mt-1">Formateur : [À COMPLÉTER]</div>
+              <div class="small-muted">Support technique : [À COMPLÉTER]</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer py-4">
+    <div class="container">
+      <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
+        <div class="small-muted">📧 Contact : [À COMPLÉTER] | 📞 Support : [À COMPLÉTER]</div>
+        <div class="small-muted">🔄 Version : v2026.02.01 - Semaine 2 - Prompt engineering opérationnel</div>
+      </div>
+      <div class="small-muted mt-2">📌 Notes : [À COMPLÉTER]</div>
+      <div class="small-muted mt-1">© FORMATION-IA-2026 - Parcours Entreprise - Tous droits réservés</div>
+    </div>
+  </footer>
+
+  <!-- TOAST -->
+  <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1080">
+    <div id="appToast" class="toast align-items-center text-bg-dark border-0" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body" id="toastBody">✅ Copié dans le presse-papier !</div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Fermer"></button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    function showToast(msg){
+      const el = document.getElementById('appToast');
+      document.getElementById('toastBody').textContent = msg || '✅ Copié !';
+      const t = new bootstrap.Toast(el, { delay: 2000 });
+      t.show();
+    }
+
+    async function copyTextFromPre(preEl){
+      const txt = preEl.innerText || '';
+      try{
+        await navigator.clipboard.writeText(txt);
+        showToast('✅ Fiche WhatsApp copiée !');
+      }catch(e){
+        const ta = document.createElement('textarea');
+        ta.value = txt;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        ta.remove();
+        showToast('✅ Fiche WhatsApp copiée !');
+      }
+    }
+
+    document.getElementById('btnCopyWhatsApp').addEventListener('click', function(){
+      copyTextFromPre(document.getElementById('whatsAppText'));
+    });
+  </script>
+</body>
+</html>

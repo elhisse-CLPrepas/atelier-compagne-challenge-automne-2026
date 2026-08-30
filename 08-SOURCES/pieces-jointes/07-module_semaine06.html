@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="fr" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FORMATION-IA-2026 | Parcours Entreprise | Semaine 6</title>
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --bleu-nuit: #0a1a3a;
+            --dore: #c9a96e;
+            --dore-clair: #e8d9b9;
+            --gris-clair: #f8f9fa;
+            --gris-moyen: #6c757d;
+            --gris-fonce: #343a40;
+        }
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            color: var(--gris-fonce);
+        }
+        .topbar {
+            background-color: var(--bleu-nuit);
+            color: white;
+            padding: 0.75rem 0;
+            font-size: 0.9rem;
+            border-bottom: 3px solid var(--dore);
+        }
+        .hero {
+            background: linear-gradient(rgba(10, 26, 58, 0.9), rgba(10, 26, 58, 0.95)), url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+            color: white;
+            padding: 5rem 0;
+        }
+        .badge-kpi { background-color: #198754; color: white; }
+        .badge-roi { background-color: #0d6efd; color: white; }
+        .badge-capstone { background-color: var(--dore); color: var(--bleu-nuit); font-weight: bold;}
+        .card {
+            border: none;
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+            margin-bottom: 1.5rem;
+            border-top: 4px solid transparent;
+        }
+        .card.objectif { border-top-color: var(--dore); }
+        .card.agenda { border-top-color: #198754; }
+        .card.concept { border-top-color: #6f42c1; }
+        .card.methode { border-top-color: #fd7e14; }
+        .card.demo { border-top-color: #20c997; }
+        .card.pratique { border-top-color: #0dcaf0; }
+        .card.capstone { border-top-color: #d63384; }
+        .card.livrables { border-top-color: #6c757d; }
+        .card.checklist { border-top-color: #ffc107; }
+        .card.ressources { border-top-color: var(--bleu-nuit); }
+        .table-striped>tbody>tr:nth-of-type(odd)>* { --bs-table-accent-bg: rgba(201, 169, 110, 0.1); }
+        .btn-primary {
+            background-color: var(--dore);
+            border-color: var(--dore);
+            color: var(--bleu-nuit);
+            font-weight: 600;
+        }
+        .btn-primary:hover {
+            background-color: var(--dore-clair);
+            border-color: var(--dore-clair);
+            color: var(--bleu-nuit);
+        }
+        .btn-outline-primary {
+            color: var(--dore);
+            border-color: var(--dore);
+        }
+        .btn-outline-primary:hover {
+            background-color: var(--dore);
+            border-color: var(--dore);
+            color: var(--bleu-nuit);
+        }
+        .form-control:focus, .form-select:focus {
+            border-color: var(--dore-clair);
+            box-shadow: 0 0 0 0.25rem rgba(201, 169, 110, 0.25);
+        }
+        .copy-btn {
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .copy-btn:hover {
+            transform: scale(1.05);
+        }
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1055;
+        }
+        footer {
+            background-color: var(--bleu-nuit);
+            color: white;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        .whatsapp-card {
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            color: white;
+        }
+        .kpi-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--dore);
+        }
+        .progress {
+            height: 1.5rem;
+        }
+        .progress-bar {
+            background-color: var(--dore);
+        }
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: var(--dore);
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2rem;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--dore);
+            border: 2px solid white;
+        }
+        /* LocalStorage progression */
+        .module-progress .form-check-input:checked {
+            background-color: var(--dore);
+            border-color: var(--dore);
+        }
+    </style>
+</head>
+<body>
+    <!-- Topbar -->
+    <div class="topbar">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <span class="me-3"><strong>Programme :</strong> FORMATION-IA-2026</span>
+                    <span class="me-3"><strong>Parcours :</strong> Entreprise</span>
+                    <span class="me-3"><strong>Semaine :</strong> 6</span>
+                    <span><strong>Module :</strong> Déploiement, mesure, projet final</span>
+                </div>
+                <div class="col-md-4 text-end">
+                    <small>Version : 1.0 | Dernière mise à jour : <span id="currentDate"></span></small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <h1 class="display-4 fw-bold mb-3">Semaine 6 – Déploiement, mesure, projet final</h1>
+                    <p class="lead mb-4">Déployez sans bruit. Mesurez. Ajustez. Prouvez le bénéfice et installez un cycle d'amélioration continue.</p>
+                    <div class="d-flex flex-wrap gap-2 mb-4">
+                        <span class="badge badge-kpi rounded-pill p-2"><i class="bi bi-speedometer2 me-1"></i> KPI Utiles</span>
+                        <span class="badge badge-roi rounded-pill p-2"><i class="bi bi-graph-up-arrow me-1"></i> ROI v1</span>
+                        <span class="badge badge-capstone rounded-pill p-2"><i class="bi bi-award me-1"></i> CAPSTONE</span>
+                        <span class="badge bg-light text-dark rounded-pill p-2"><i class="bi bi-calendar-range me-1"></i> Plan 30 jours</span>
+                    </div>
+                    <button class="btn btn-primary btn-lg px-4 me-2" onclick="scrollToSection('objectifs')"><i class="bi bi-arrow-down-circle me-1"></i> Commencer</button>
+                    <button class="btn btn-outline-light btn-lg px-4" onclick="scrollToSection('capstone')"><i class="bi bi-award me-1"></i> Voir le Capstone</button>
+                </div>
+                <div class="col-lg-4 text-center d-none d-lg-block">
+                    <!-- Placeholder pour image générée -->
+                    <div class="bg-dark bg-opacity-50 p-4 rounded">
+                        <i class="bi bi-bar-chart-line-fill text-dore" style="font-size: 5rem;"></i>
+                        <p class="mt-2 small">Image: courbe KPI, tableau ROI, badge "30J"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Objectifs -->
+    <section class="py-5" id="objectifs">
+        <div class="container">
+            <h2 class="fw-bold mb-4 border-bottom pb-2">Objectifs du module</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card objectif h-100">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="kpi-number me-3">1</div>
+                                <h4 class="card-title mb-0">Déployer sans bruit</h4>
+                            </div>
+                            <p class="card-text">Mettre en œuvre le plan d'adoption 30 jours avec les champions, les rituels et le support.</p>
+                            <p class="mb-0"><strong>Métrique :</strong> <span class="text-primary">Taux d'adoption (≥80%)</span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card objectif h-100">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="kpi-number me-3">2</div>
+                                <h4 class="card-title mb-0">Prouver le bénéfice</h4>
+                            </div>
+                            <p class="card-text">Mesurer l'impact avant/après sur les processus pilotes et calculer un ROI version 1.</p>
+                            <p class="mb-0"><strong>Métrique :</strong> <span class="text-primary">ROI positif en 30 jours</span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card objectif h-100">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="kpi-number me-3">3</div>
+                                <h4 class="card-title mb-0">Installer un cycle</h4>
+                            </div>
+                            <p class="card-text">Établir la gouvernance minimale et les rituels pour une amélioration continue.</p>
+                            <p class="mb-0"><strong>Métrique :</strong> <span class="text-primary">Revue risques mensuelle active</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Agenda -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <h2 class="fw-bold mb-4 border-bottom pb-2">Agenda de la semaine</h2>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card agenda h-100">
+                        <div class="card-body">
+                            <h4 class="card-title"><i class="bi bi-clock-history text-success me-2"></i>Séance A – Atelier guidé (90 min)</h4>
+                            <p class="text-muted">Adoption, KPI et ROI.</p>
+                            <div class="timeline">
+                                <div class="timeline-item">
+                                    <h6>0-10 min : Cadrage</h6>
+                                    <p>Rappel des objectifs, présentation du plan 30 jours.</p>
+                                </div>
+                                <div class="timeline-item">
+                                    <h6>10-40 min : KPI utiles</h6>
+                                    <p>Définir les KPI pour vos processus pilotes (temps, qualité, satisfaction).</p>
+                                </div>
+                                <div class="timeline-item">
+                                    <h6>40-70 min : Atelier Plan 30j</h6>
+                                    <p>Remplir votre plan d'adoption (tableau éditable).</p>
+                                </div>
+                                <div class="timeline-item">
+                                    <h6>70-90 min : Atelier ROI v1</h6>
+                                    <p>Compléter le tableau ROI pour vos 3 processus.</p>
+                                </div>
+                            </div>
+                            <div class="mt-3">
+                                <span class="badge bg-success">Interactif</span>
+                                <span class="badge bg-info">Travail en binôme</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card agenda h-100">
+                        <div class="card-body">
+                            <h4 class="card-title"><i class="bi bi-people text-primary me-2"></i>Séance B – Jury blanc (60 min)</h4>
+                            <p class="text-muted">Répétition et feedback structuré.</p>
+                            <div class="timeline">
+                                <div class="timeline-item">
+                                    <h6>0-15 min : Briefing jury</h6>
+                                    <p>Présentation du format et de la grille d'évaluation.</p>
+                                </div>
+                                <div class="timeline-item">
+                                    <h6>15-45 min : Présentations (2x15min)</h6>
+                                    <p>Chaque participant présente son projet (format capstone).</p>
+                                </div>
+                                <div class="timeline-item">
+                                    <h6>45-60 min : Feedback structuré</h6>
+                                    <p>Retours des pairs et du formateur selon la grille.</p>
+                                </div>
+                            </div>
+                            <div class="mt-3">
+                                <span class="badge bg-warning text-dark">Évaluation</span>
+                                <span class="badge bg-secondary">Feedback</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-4 text-center">
+                <p class="mb-1"><strong>Travail asynchrone (7 jours) :</strong> Finalisation des livrables Capstone.</p>
+                <div class="progress" style="height: 10px;">
+                    <div class="progress-bar" role="progressbar" style="width: 0%;" id="progressBar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <small class="text-muted">Progression enregistrée localement.</small>
+            </div>
+        </div>
+    </section>
+
+    <!-- Concepts & Erreurs -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="fw-bold mb-4 border-bottom pb-2">Concepts clés & erreurs à éviter</h2>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card concept h-100">
+                        <div class="card-body">
+                            <h4 class="card-title text-danger"><i class="bi bi-x-octagon-fill me-2"></i>Erreurs de déploiement</h4>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><strong>Lancer sans champions :</strong> Pas de relais terrain, adoption lente.</li>
+                                <li class="list-group-item"><strong>Ignorer la communication :</strong> Les équipes ne savent pas pourquoi ni comment.</li>
+                                <li class="list-group-item"><strong>Oublier le support :</strong> Pas de réponse aux questions, frustration.</li>
+                                <li class="list-group-item"><strong>Déployer trop large d'un coup :</strong> Risque de saturation et d'incidents.</li>
+                                <li class="list-group-item"><strong>Négliger les rituels :</strong> Pas de suivi, pas d'ajustements.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card concept h-100">
+                        <div class="card-body">
+                            <h4 class="card-title text-danger"><i class="bi bi-x-octagon-fill me-2"></i>Erreurs de mesure</h4>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><strong>Mesurer trop de choses :</strong> Perte de focus, données inexploitables.</li>
+                                <li class="list-group-item"><strong>Pas de mesure "avant" :</strong> Impossible de calculer un gain.</li>
+                                <li class="list-group-item"><strong>KPI non actionnables :</strong> Mesures qui n'informent pas les décisions.</li>
+                                <li class="list-group-item"><strong>Oublier la qualité :</strong> Se concentrer uniquement sur le temps gagné.</li>
+                                <li class="list-group-item"><strong>Ne pas documenter les preuves :</strong> ROI non vérifiable.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Méthode -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <h2 class="fw-bold mb-4 border-bottom pb-2">Méthode</h2>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card methode">
+                        <div class="card-body">
+                            <h4 class="card-title"><i class="bi bi-calendar-check me-2"></i>Plan d'adoption 30 jours</h4>
+                            <p class="card-subtitle mb-3 text-muted">Modèle à personnaliser pour votre entreprise.</p>
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped" id="planAdoptionTable">
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th scope="col">Période</th>
+                                            <th scope="col">Objectif</th>
+                                            <th scope="col">Actions</th>
+                                            <th scope="col">Preuves / KPI</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input type="text" class="form-control form-control-sm" value="J1–J7" data-field="periode"></td>
+                                            <td><input type="text" class="form-control form-control-sm" value="Lancer et cadrer" data-field="objectif"></td>
+                                            <td><textarea class="form-control form-control-sm" rows="2" data-field="actions">Annonce interne, charte v1, choix de 2 processus, nomination de 2 champions</textarea></td>
+                                            <td><textarea class="form-control form-control-sm" rows="2" data-field="preuves">Charte signée, champions nommés, backlog cas priorisés</textarea></td>
+                                        </tr>
+                                        <tr>
+                                            <td><input type="text" class="form-control form-control-sm" value="J8–J14" data-field="periode"></td>
+                                            <td><input type="text" class="form-control form-control-sm" value="Former et outiller" data-field="objectif"></td>
+                                            <td><textarea class="form-control form-control-sm" rows="2" data-field="actions">Atelier 90 min, diffusion prompts, mise en place checklists</textarea></td>
+                                            <td><textarea class="form-control form-control-sm" rows="2" data-field="preuves">Taux complétion, qualité sorties, nombre prompts réutilisés</textarea></td>
+                                        </tr>
+                                        <tr>
+                                            <td><input type="text" class="form-control form-control-sm" value="J15–J21" data-field="periode"></td>
+                                            <td><input type="text" class="form-control form-control-sm" value="Produire en conditions réelles" data-field="objectif"></td>
+                                            <td><textarea class="form-control form-control-sm" rows="2" data-field="actions">2 workflows sur pilote, mesure avant/après</textarea></td>
+                                            <td><textarea class="form-control form-control-sm" rows="2" data-field="preuves">Minutes gagnées, taux rework, incidents évités</textarea></td>
+                                        </tr>
+                                        <tr>
+                                            <td><input type="text" class="form-control form-control-sm" value="J22–J30" data-field="periode"></td>
+                                            <td><input type="text" class="form-control form-control-sm" value="Stabiliser et élargir" data-field="objectif"></td>
+                                            <td><textarea class="form-control form-control-sm" rows="2" data-field="actions">Ajustements, 3e workflow, rituels hebdo, revue risques</textarea></td>
+                                            <td><textarea class="form-control form-control-sm" rows="2" data-field="preuves">ROI v1, satisfaction, registre risques mis à jour</textarea></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="mt-3 d-flex justify-content-between">
+                                <button class="btn btn-sm btn-outline-secondary" onclick="resetPlanTable()"><i class="bi bi-arrow-clockwise me-1"></i>Réinitialiser</button>
+                                <button class="btn btn-sm btn-primary" onclick="copyTableToClipboard('planAdoptionTable', 'Plan d\'adoption 30 jours copié !')"><i class="bi bi-clipboard me-1"></i>Copier le tableau</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-lg-6">
+                    <div class="card methode h-100">
+                        <div class="card-body">
+                            <h4 class="card-title"><i class="bi bi-arrow-repeat me-2"></i>Rituels de pilotage</h4>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <strong>Revue hebdomadaire (30 min)</strong><br>
+                                    Cas, gains, incidents, décisions. Animé par le champion.
+                                </li>
+                                <li class="list-group-item">
+                                    <strong>Journal de décisions</strong><br>
+                                    Qui a validé quoi et pourquoi. Stocké dans un empartagé.
+                                </li>
+                                <li class="list-group-item">
+                                    <strong>Revue mensuelle des risques (45 min)</strong><br>
+                                    Mise à jour du registre risques + contrôles. Animé par le sponsor.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card methode h-100">
+                        <div class="card-body">
+                            <h4 class="card-title"><i class="bi bi-calculator me-2"></i>Tableau ROI v1</h4>
+                            <p class="card-subtitle mb-3 text-muted">Mesurer l'impact sur 3 processus pilotes.</p>
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-sm" id="roiTable">
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th scope="col">Processus</th>
+                                            <th scope="col">Tâche</th>
+                                            <th scope="col">Temps avant (min)</th>
+                                            <th scope="col">Temps après (min)</th>
+                                            <th scope="col">Qualité/rework</th>
+                                            <th scope="col">Risque réduit</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input type="text" class="form-control form-control-sm" placeholder="Ex: Réponse RFPs" data-field="processus"></td>
+                                            <td><input type="text" class="form-control form-control-sm" placeholder="Ex: Rédaction première version" data-field="tache"></td>
+                                            <td><input type="number" class="form-control form-control-sm" placeholder="120" data-field="tempsAvant"></td>
+                                            <td><input type="number" class="form-control form-control-sm" placeholder="45" data-field="tempsApres"></td>
+                                            <td><input type="text" class="form-control form-control-sm" placeholder="Ex: Réduction 50%" data-field="qualite"></td>
+                                            <td><input type="text" class="form-control form-control-sm" placeholder="Ex: Oubli clause" data-field="risque"></td>
+                                        </tr>
+                                        <tr>
+                                            <td><input type="text" class="form-control form-control-sm" data-field="processus"></td>
+                                            <td><input type="text" class="form-control form-control-sm" data-field="tache"></td>
+                                            <td><input type="number" class="form-control form-control-sm" data-field="tempsAvant"></td>
+                                            <td><input type="number" class="form-control form-control-sm" data-field="tempsApres"></td>
+                                            <td><input type="text" class="form-control form-control-sm" data-field="qualite"></td>
+                                            <td><input type="text" class="form-control form-control-sm" data-field="risque"></td>
+                                        </tr>
+                                        <tr>
+                                            <td><input type="text" class="form-control form-control-sm" data-field="processus"></td>
+                                            <td><input type="text" class="form-control form-control-sm" data-field="tache"></td>
+                                            <td><input type="number" class="form-control form-control-sm" data-field="tempsAvant"></td>
+                                            <td><input type="number" class="form-control form-control-sm" data-field="tempsApres"></td>
+                                            <td><input type="text" class="form-control form-control-sm" data-field="qualite"></td>
+                                            <td><input type="text" class="form-control form-control-sm" data-field="risque"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="mt-3 d-flex justify-content-between">
+                                <button class="btn btn-sm btn-outline-secondary" onclick="resetRoiTable()"><i class="bi bi-arrow-clockwise me-1"></i>Réinitialiser</button>
+                                <button class="btn btn-sm btn-primary" onclick="copyTableToClipboard('roiTable', 'Tableau ROI copié !')"><i class="bi bi-clipboard me-1"></i>Copier le tableau</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Démonstration -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="fw-bold mb-4 border-bottom pb-2">Démonstration</h2>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card demo h-100">
+                        <div class="card-body">
+                            <h4 class="card-title"><i class="bi bi-graph-up-arrow me-2"></i>Exemple ROI sur 1 processus (fictif)</h4>
+                            <p class="card-subtitle mb-3 text-muted">Processus : Réponse aux appels d'offres (RFP)</p>
+                            <table class="table table-bordered">
+                                <thead class="table-secondary">
+                                    <tr>
+                                        <th scope="col">Tâche</th>
+                                        <th scope="col">Avant (min)</th>
+                                        <th scope="col">Après (min)</th>
+                                        <th scope="col">Gain</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Recherche informations</td>
+                                        <td>60</td>
+                                        <td>15</td>
+                                        <td class="text-success">45 min</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Rédaction première version</td>
+                                        <td>120</td>
+                                        <td>45</td>
+                                        <td class="text-success">75 min</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Relecture et corrections</td>
+                                        <td>90</td>
+                                        <td>30</td>
+                                        <td class="text-success">60 min</td>
+                                    </tr>
+                                    <tr class="table-primary">
+                                        <td><strong>Total par RFP</strong></td>
+                                        <td><strong>270 min</strong></td>
+                                        <td><strong>90 min</strong></td>
+                                        <td class="text-success"><strong>180 min (3h)</strong></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <p><strong>Calcul ROI simplifié :</strong> 10 RFP/mois × 3h gagnées × coût horaire (€).</p>
+                            <p><strong>Amélioration qualité :</strong> Réduction rework de 40%.</p>
+                            <p><strong>Risque réduit :</strong> Oubli de clause importante (détecté par IA).</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card demo h-100">
+                        <div class="card-body">
+                            <h4 class="card-title"><i class="bi bi-journal-text me-2"></i>Exemple journal de décisions</h4>
+                            <p class="card-subtitle mb-3 text-muted">Extrait fictif</p>
+                            <div class="table-responsive">
+                                <table class="table table-sm">
+                                    <thead class="table-secondary">
+                                        <tr>
+                                            <th scope="col">Date</th>
+                                            <th scope="col">Décision</th>
+                                            <th scope="col">Validé par</th>
+                                            <th scope="col">Justification</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>15/06/2026</td>
+                                            <td>Autoriser l'utilisation de [OUTIL_A] pour la rédaction de comptes-rendus clients.</td>
+                                            <td>Sponsor (Directeur)</td>
+                                            <td>Gain de temps avéré, données non sensibles.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>18/06/2026</td>
+                                            <td>Interdire la saisie de données financières confidentielles dans tout outil IA public.</td>
+                                            <td>Sponsor + DPO</td>
+                                            <td>Conformité RGPD et politique interne.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>22/06/2026</td>
+                                            <td>Élargir le pilote à l'équipe Marketing pour la génération d'idées de campagnes.</td>
+                                            <td>Champion IA</td>
+                                            <td>Satisfaction élevée de l'équipe pilote, pas d'incident.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <button class="btn btn-sm btn-outline-primary mt-2" onclick="copyText('journalDecisions', 'Modèle journal copié !')"><i class="bi bi-clipboard me-1"></i>Copier le modèle</button>
+                            <div id="journalDecisions" style="display:none;">
+Date | Décision | Validé par | Justification
+15/06/2026 | Autoriser l'utilisation de [OUTIL_A] pour la rédaction de comptes-rendus clients. | Sponsor (Directeur) | Gain de temps avéré, données non sensibles.
+18/06/2026 | Interdire la saisie de données financières confidentielles dans tout outil IA public. | Sponsor + DPO | Conformité RGPD et politique interne.
+22/06/2026 | Élargir le pilote à l'équipe Marketing pour la génération d'idées de campagnes. | Champion IA | Satisfaction élevée de l'équipe pilote, pas d'incident.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pratique guidée -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <h2 class="fw-bold mb-4 border-bottom pb-2">Pratique guidée</h2>
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <div class="card pratique h-100">
+                        <div class="card-body">
+                            <h4 class="card-title"><i class="bi bi-calendar-plus me-2"></i>Construire votre plan adoption</h4>
+                            <p class="card-text">Utilisez le tableau éditable ci-dessus. Personnalisez les actions et les preuves pour votre contexte.</p>
+                            <p><strong>Questions clés :</strong></p>
+                            <ul>
+                                <li>Qui sont vos champions ? <span class="text-muted">[À COMPLÉTER]</span></li>
+                                <li>Quels sont vos 2-3 processus pilotes ?</li>
+                                <li>Comment allez-vous communiquer ?</li>
+                            </ul>
+                            <button class="btn btn-primary mt-2" onclick="scrollToSection('planAdoptionTable')"><i class="bi bi-pencil me-1"></i>Remplir le tableau</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card pratique h-100">
+                        <div class="card-body">
+                            <h4 class="card-title"><i class="bi bi-calculator me-2"></i>Compléter votre ROI v1</h4>
+                            <p class="card-text">Remplissez le tableau ROI avec vos processus. Mesurez le temps avant. Estimez le temps après.</p>
+                            <p><strong>Données nécessaires :</strong></p>
+                            <ul>
+                                <li>Processus 1 : <span class="text-muted">[À COMPLÉTER]</span></li>
+                                <li>Processus 2 : <span class="text-muted">[À COMPLÉTER]</span></li>
+                                <li>Processus 3 : <span class="text-muted">[À COMPLÉTER]</span></li>
+                            </ul>
+                            <button class="btn btn-primary mt-2" onclick="scrollToSection('roiTable')"><i class="bi bi-calculator me-1"></i>Calculer le ROI</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card pratique h-100">
+                        <div class="card-body">
+                            <h4 class="card-title"><i class="bi bi-box-seam me-2"></i>Assembler le pack final</h4>
+                            <p class="card-text">Vérifiez que vous avez tous les livrables pour le capstone. Utilisez la checklist ci-dessous.</p>
+                            <p><strong>Livrables obligatoires :</strong></p>
+                            <ol>
+                                <li>Playbook IA entreprise (10p max)</li>
+                                <li>3 workflows "production-ready"</li>
+                                <li>Module formation interne (90 min)</li>
+                                <li>Gouvernance minimale pack</li>
+                            </ol>
+                            <button class="btn btn-primary mt-2" onclick="scrollToSection('capstone')"><i class="bi bi-award me-1"></i>Vérifier le capstone</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Capstone -->
+    <section class="py-5" id="capstone">
+        <div class="container">
+            <h2 class="fw-bold mb-4 border-bottom pb-2">Capstone – Évaluation finale</h2>
+            <div class="card capstone">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <h4 class="card-title"><i class="bi bi-award me-2"></i>Format : 15 min + 10 min + 10 min</h4>
+                            <p class="card-subtitle mb-3">Présentation 15 min + Démo 10 min + Q/R 10 min</p>
+                            <p><strong>Livrables obligatoires :</strong></p>
+                            <div class="form-check module-progress">
+                                <input class="form-check-input" type="checkbox" value="" id="livrable1" onchange="updateProgress()">
+                                <label class="form-check-label" for="livrable1">
+                                    <strong>Playbook IA entreprise</strong> (10 pages max) : usages prioritaires, règles données, workflow type, validation, exemples par métier.
+                                </label>
+                            </div>
+                            <div class="form-check module-progress">
+                                <input class="form-check-input" type="checkbox" value="" id="livrable2" onchange="updateProgress()">
+                                <label class="form-check-label" for="livrable2">
+                                    <strong>3 workflows IA "production-ready"</strong> : documentés, mesurés, reproductibles.
+                                </label>
+                            </div>
+                            <div class="form-check module-progress">
+                                <input class="form-check-input" type="checkbox" value="" id="livrable3" onchange="updateProgress()">
+                                <label class="form-check-label" for="livrable3">
+                                    <strong>1 module de formation interne (90 min)</strong> : slides, exercices, évaluation, corrigé, fiche d'animation.
+                                </label>
+                            </div>
+                            <div class="form-check module-progress">
+                                <input class="form-check-input" type="checkbox" value="" id="livrable4" onchange="updateProgress()">
+                                <label class="form-check-label" for="livrable4">
+                                    <strong>Gouvernance minimale pack</strong> : charte d'usage, registre risques + contrôles, procédure escalade, journal décisions.
+                                </label>
+                            </div>
+                            <div class="mt-4">
+                                <h5>Checklist "Prêt à présenter"</h5>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="check1">
+                                    <label class="form-check-label" for="check1">
+                                        Tous les livrables sont finalisés et nommés correctement.
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="check2">
+                                    <label class="form-check-label" for="check2">
+                                        La démonstration est fluide et ne dépasse pas 10 minutes.
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="check3">
+                                    <label class="form-check-label" for="check3">
+                                        Les preuves de mesure (avant/après) sont prêtes.
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="check4">
+                                    <label class="form-check-label" for="check4">
+                                        Le plan d'adoption 30j et le ROI v1 sont intégrés dans la présentation.
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="card bg-light border-0">
+                                <div class="card-body">
+                                    <h5 class="card-title">Grille de notation (100 points)</h5>
+                                    <p class="small">Utilisée par le jury lors du capstone.</p>
+                                    <table class="table table-sm table-borderless">
+                                        <tr>
+                                            <td><strong>Valeur business et clarté des cas</strong></td>
+                                            <td class="text-end">25</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Qualité des workflows et contrôles</strong></td>
+                                            <td class="text-end">25</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Sécurité et gouvernance</strong></td>
+                                            <td class="text-end">20</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Qualité pédagogique et animation</strong></td>
+                                            <td class="text-end">20</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Mesure ROI et plan d'adoption</strong></td>
+                                            <td class="text-end">10</td>
+                                        </tr>
+                                        <tr class="border-top">
+                                            <td><strong>Total</strong></td>
+                                            <td class="text-end"><strong>100</strong></td>
+                                        </tr>
+                                    </table>
+                                    <p class="small text-muted">Seuil de réussite : <span class="text-primary">[À COMPLÉTER]</span> /100.</p>
+                                    <button class="btn btn-sm btn-outline-primary w-100" onclick="copyText('grilleNotation', 'Grille de notation copiée !')"><i class="bi bi-clipboard me-1"></i>Copier la grille</button>
+                                    <div id="grilleNotation" style="display:none;">
+Valeur business et clarté des cas : 25
+Qualité des workflows et contrôles : 25
+Sécurité et gouvernance : 20
+Qualité pédagogique et animation : 20
+Mesure ROI et plan d'adoption : 10
+Total : 100
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Livrables semaine -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <h2 class="fw-bold mb-4 border-bottom pb-2">Livrables de la semaine</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card livrables h-100">
+                        <div class="card-body">
+                            <h4 class="card-title"><i class="bi bi-file-earmark-text me-2"></i>Plan d'adoption 30j</h4>
+                            <p class="card-text">Document détaillant les actions, les responsables et les preuves pour les 30 premiers jours.</p>
+                            <p class="mb-1"><strong>Format :</strong> Tableau (voir méthode).</p>
+                            <p class="mb-1"><strong>Échéance :</strong> Fin de la semaine.</p>
+                            <p class="mb-0"><strong>Stockage :</strong> Dossier projet partagé.</p>
+                            <button class="btn btn-sm btn-primary mt-3" onclick="copyTableToClipboard('planAdoptionTable', 'Plan d\'adoption copié !')"><i class="bi bi-clipboard me-1"></i>Copier le modèle</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card livrables h-100">
+                        <div class="card-body">
+                            <h4 class="card-title"><i class="bi bi-calculator me-2"></i>ROI v1</h4>
+                            <p class="card-text">Tableau calculant les gains (temps, qualité, risque) sur les 3 processus pilotes.</p>
+                            <p class="mb-1"><strong>Format :</strong> Tableau avec mesures avant/après.</p>
+                            <p class="mb-1"><strong>Échéance :</strong> Fin de la semaine.</p>
+                            <p class="mb-0"><strong>Validation :</strong> Par le sponsor.</p>
+                            <button class="btn btn-sm btn-primary mt-3" onclick="copyTableToClipboard('roiTable', 'Tableau ROI copié !')"><i class="bi bi-clipboard me-1"></i>Copier le modèle</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card livrables h-100">
+                        <div class="card-body">
+                            <h4 class="card-title"><i class="bi bi-box-seam me-2"></i>Pack final formation interne</h4>
+                            <p class="card-text">Ensemble complet pour animer un module de 90 min sur l'IA dans votre entreprise.</p>
+                            <p class="mb-1"><strong>Contenu :</strong> Slides, fiche animation, exercices, corrigés.</p>
+                            <p class="mb-1"><strong>Échéance :</strong> Présentation capstone.</p>
+                            <p class="mb-0"><strong>Cible :</strong> Collègues de votre équipe.</p>
+                            <button class="btn btn-sm btn-primary mt-3" onclick="copyText('packFormation', 'Référence pack formation copiée !')"><i class="bi bi-clipboard me-1"></i>Copier la référence</button>
+                            <div id="packFormation" style="display:none;">
+Pack formation interne (90 min) doit contenir :
+1. Slides outline (12-15 diapos)
+2. Fiche animation minute par minute
+3. Exercices + corrigé
+4. Évaluation + barème
+5. Checklist animateur
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Checklists & QA -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="fw-bold mb-4 border-bottom pb-2">Checklists & Assurance Qualité</h2>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card checklist h-100">
+                        <div class="card-body">
+                            <h4 class="card-title"><i class="bi bi-check-circle me-2"></i>Checklist "Prêt à déployer"</h4>
+                            <p class="card-subtitle mb-3">À valider avant le déploiement du plan 30 jours.</p>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="qa1">
+                                <label class="form-check-label" for="qa1">
+                                    Champions identifiés et briefés.
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="qa2">
+                                <label class="form-check-label" for="qa2">
+                                    Charte d'usage rédigée et validée.
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="qa3">
+                                <label class="form-check-label" for="qa3">
+                                    Processus pilotes choisis et mesures "avant" enregistrées.
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="qa4">
+                                <label class="form-check-label" for="qa4">
+                                    Supports de formation et checklists prêts.
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="qa5">
+                                <label class="form-check-label" for="qa5">
+                                    Plan de communication interne établi.
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="qa6">
+                                <label class="form-check-label" for="qa6">
+                                    Registre des risques initial créé.
+                                </label>
+                            </div>
+                            <button class="btn btn-sm btn-outline-primary mt-3" onclick="copyChecklist('checklistDeploy', 'Checklist copiée !')"><i class="bi bi-clipboard me-1"></i>Copier la checklist</button>
+                            <div id="checklistDeploy" style="display:none;">
+Checklist "Prêt à déployer"
+- Champions identifiés et briefés.
+- Charte d'usage rédigée et validée.
+- Processus pilotes choisis et mesures "avant" enregistrées.
+- Supports de formation et checklists prêts.
+- Plan de communication interne établi.
+- Registre des risques initial créé.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card checklist h-100">
+                        <div class="card-body">
+                            <h4 class="card-title"><i class="bi bi-chat-left-text me-2"></i>Prompts de vérification</h4>
+                            <p class="card-subtitle mb-3">Utilisez ces prompts pour auditer vos livrables.</p>
+                            <div class="mb-3">
+                                <h6>Prompt "CAPSTONE AUDIT"</h6>
+                                <p class="small">Détecte les trous : preuves, risques, données interdites.</p>
+                                <code class="d-block p-2 bg-dark text-light rounded small" id="promptAudit">En tant qu'auditeur interne, analyse le livrable suivant : [COLLER LE LIVRABLE]. Identifie : 1) Les preuves de mesure manquantes (avant/après), 2) Les risques non couverts (sécurité, conformité, continuité), 3) Les potentielles utilisations de données interdites (liste : {DONNEES_INTERDITES}). Format de sortie : tableau avec ligne, problème, criticité (élevée/moyenne/faible), recommandation. Règle : validation humaine obligatoire pour chaque problème identifié.</code>
+                                <button class="btn btn-sm btn-outline-light mt-1" onclick="copyText('promptAudit', 'Prompt copié !')"><i class="bi bi-clipboard me-1"></i>Copier</button>
+                            </div>
+                            <div class="mb-3">
+                                <h6>Prompt "REPRISE"</h6>
+                                <p class="small">Améliore plan/ROI/playbook.</p>
+                                <code class="d-block p-2 bg-dark text-light rounded small" id="promptReprise">En tant qu'expert en déploiement IA, analyse et améliore le document suivant : [COLLER LE DOCUMENT]. Focus : 1) Renforcer les mesures de preuve (KPI concrets), 2) Clarifier les rôles (RACI), 3) Ajouter des contrôles vérifiables pour la sécurité et la qualité. Format de sortie : version améliorée du document avec changements surlignés. Règle : ne pas inventer de données ou d'exemples fictifs, utiliser uniquement le contexte fourni.</code>
+                                <button class="btn btn-sm btn-outline-light mt-1" onclick="copyText('promptReprise', 'Prompt copié !')"><i class="bi bi-clipboard me-1"></i>Copier</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ressources -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <h2 class="fw-bold mb-4 border-bottom pb-2">Ressources</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card ressources h-100">
+                        <div class="card-body">
+                            <h4 class="card-title"><i class="bi bi-link me-2"></i>Références internes</h4>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <a href="#" class="text-decoration-none">ATELIER PERSONNALISE prompt ingineering</a>
+                                    <br><small class="text-muted">[SOURCE NON FOURNIE] – Contenu de l'atelier sur l'ingénierie de prompts.</small>
+                                </li>
+                                <li class="list-group-item">
+                                    <a href="#" class="text-decoration-none">OUTILS IA 25 Août 2025</a>
+                                    <br><small class="text-muted">[SOURCE NON FOURNIE] – Liste des outils IA autorisés et guides d'usage.</small>
+                                </li>
+                                <li class="list-group-item">
+                                    <a href="#" class="text-decoration-none">PERMIS DE CONDUIRE IA.html</a>
+                                    <br><small class="text-muted">[SOURCE NON FOURNIE] – Règles de base pour l'utilisation responsable de l'IA.</small>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card ressources h-100">
+                        <div class="card-body">
+                            <h4 class="card-title"><i class="bi bi-download me-2"></i>Téléchargements</h4>
+                            <p class="card-text">Tous les documents modèles sont intégrés dans cette page. Vous pouvez les copier via les boutons.</p>
+                            <p><strong>Documents complets à produire :</strong></p>
+                            <ol class="small">
+                                <li>guide_formateur.md</li>
+                                <li>playbook_ia_entreprise.md</li>
+                                <li>workflows_production_ready.md</li>
+                                <li>module_interne_90min_pack.md</li>
+                                <li>gouvernance_minimale_pack.md</li>
+                                <li>plan_adoption_30j.md</li>
+                                <li>tableau_roi_v1.md</li>
+                                <li>capstone_grading.md</li>
+                                <li>prompts_pack.md</li>
+                                <li>communication_whatsapp.md</li>
+                                <li>moodle_mapping.md</li>
+                            </ol>
+                            <p class="small text-muted">Ces documents doivent être créés dans le dossier <code>/docs/</code> de votre projet.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bloc WhatsApp -->
+    <section class="py-5">
+        <div class="container">
+            <div class="card whatsapp-card border-0">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-lg-8">
+                            <h4 class="card-title"><i class="bi bi-whatsapp me-2"></i>Fiche WhatsApp copiable</h4>
+                            <p class="card-text">Utilisez ce message pour coordonner votre équipe et rappeler les échéances.</p>
+                            <code class="d-block p-3 bg-dark bg-opacity-25 rounded text-light" id="whatsappMsg">
+Semaine 6 – Déploiement & Capstone
+📅 Calendrier :
+- Séance A (90 min) : [DATE], [HEURE]
+- Séance B (Jury blanc, 60 min) : [DATE], [HEURE]
+- Livrables à rendre : [DATE]
+- Présentation Capstone : [DATE]
+
+🎯 Objectifs :
+1. Finaliser le plan d'adoption 30j
+2. Compléter le ROI v1
+3. Préparer la présentation Capstone (15+10+10)
+
+📋 Livrables attendus :
+- Plan adoption 30j
+- ROI v1
+- Pack final formation interne
+- Tous les éléments pour le Capstone
+
+⚠️ Rappel : vérifiez vos livrables avec le prompt "CAPSTONE AUDIT".
+
+Bonne semaine !
+                            </code>
+                            <button class="btn btn-light mt-3" onclick="copyText('whatsappMsg', 'Message WhatsApp copié !')"><i class="bi bi-whatsapp me-1"></i>Copier le message</button>
+                        </div>
+                        <div class="col-lg-4 text-center d-none d-lg-block">
+                            <i class="bi bi-phone" style="font-size: 5rem; opacity: 0.8;"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <h5>FORMATION-IA-2026 | Parcours Entreprise</h5>
+                    <p class="small">Semaine 6 – Déploiement, mesure, projet final</p>
+                    <p class="small">Pack complet : Page Web + Plan adoption 30j + ROI v1 + Pack formation interne + Capstone + Grille 100 + Moodle mapping</p>
+                </div>
+                <div class="col-lg-4">
+                    <h5>Contact</h5>
+                    <ul class="list-unstyled small">
+                        <li>Directeur pédagogique : <span class="text-light">[À COMPLÉTER]</span></li>
+                        <li>Chef de projet déploiement : <span class="text-light">[À COMPLÉTER]</span></li>
+                        <li>Support technique : <span class="text-light">support-ia@entreprise.com</span></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h5>Informations</h5>
+                    <ul class="list-unstyled small">
+                        <li>Version : 1.0</li>
+                        <li>Dernière mise à jour : <span id="currentDateFooter"></span></li>
+                        <li>Contexte entreprise : <span class="text-light">Secteur: {SECTEUR}, Métiers: {METIERS}</span></li>
+                        <li>Sponsor : <span class="text-light">{SPONSOR} [À COMPLÉTER]</span></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4" style="border-color: #c9a96e;">
+            <div class="text-center small">
+                <p>© 2026 FORMATION-IA-2026 – Parcours Entreprise. Tous droits réservés. | <a href="#" class="text-light text-decoration-underline">Politique de confidentialité</a> | <a href="#" class="text-light text-decoration-underline">Conditions d'utilisation</a></p>
+                <p class="text-light">Ce module est conçu pour être reproductible par un collègue. Zéro donnée sensible n'est utilisée dans les exemples.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast -->
+    <div class="toast align-items-center text-bg-primary border-0" role="alert" aria-live="assertive" aria-atomic="true" id="liveToast">
+        <div class="d-flex">
+            <div class="toast-body">
+                <i class="bi bi-check-circle me-2"></i><span id="toastMessage">Copié dans le presse-papier !</span>
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+
+    <script>
+        // Module data object
+        const MODULE = {
+            semaine: 6,
+            titre: "Déploiement, mesure, projet final",
+            objectifs: [
+                "Déployer sans bruit. Mesurer. Ajuster.",
+                "Prouver le bénéfice.",
+                "Installer un cycle d'amélioration."
+            ],
+            kpiCibles: "{KPI_CIBLES}",
+            processusPilotes: "{PROCESSUS_PILOTES}",
+            champions: "{CHAMPIONS}",
+            sponsor: "{SPONSOR}",
+            outilsAutorises: "{OUTILS_AUTORISES}",
+            donneesAutorisees: "{DONNEES_AUTORISEES}",
+            donneesInterdites: "{DONNEES_INTERDITES}",
+            rituels: "{RITUELS}"
+        };
+
+        // Set current date
+        const now = new Date();
+        const options = { day: 'numeric', month: 'long', year: 'numeric' };
+        const dateString = now.toLocaleDateString('fr-FR', options);
+        document.getElementById('currentDate').textContent = dateString;
+        document.getElementById('currentDateFooter').textContent = dateString;
+
+        // Toast function
+        const toastLiveExample = document.getElementById('liveToast');
+        const toastMessage = document.getElementById('toastMessage');
+        function showToast(message) {
+            toastMessage.textContent = message;
+            const toast = new bootstrap.Toast(toastLiveExample);
+            toast.show();
+        }
+
+        // Copy table to clipboard
+        function copyTableToClipboard(tableId, successMessage) {
+            const table = document.getElementById(tableId);
+            let text = '';
+            const headers = [];
+            table.querySelectorAll('thead th').forEach(header => {
+                headers.push(header.textContent.trim());
+            });
+            text += headers.join('\t') + '\n';
+
+            table.querySelectorAll('tbody tr').forEach(row => {
+                const rowData = [];
+                row.querySelectorAll('td input, td textarea').forEach(input => {
+                    rowData.push(input.value);
+                });
+                text += rowData.join('\t') + '\n';
+            });
+
+            navigator.clipboard.writeText(text).then(() => {
+                showToast(successMessage);
+            }).catch(err => {
+                console.error('Erreur lors de la copie : ', err);
+            });
+        }
+
+        // Copy text to clipboard
+        function copyText(elementId, successMessage) {
+            const text = document.getElementById(elementId).textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                showToast(successMessage);
+            }).catch(err => {
+                console.error('Erreur lors de la copie : ', err);
+            });
+        }
+
+        // Copy checklist
+        function copyChecklist(elementId, successMessage) {
+            const text = document.getElementById(elementId).textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                showToast(successMessage);
+            }).catch(err => {
+                console.error('Erreur lors de la copie : ', err);
+            });
+        }
+
+        // Reset plan table
+        function resetPlanTable() {
+            const defaultData = [
+                { periode: "J1–J7", objectif: "Lancer et cadrer", actions: "Annonce interne, charte v1, choix de 2 processus, nomination de 2 champions", preuves: "Charte signée, champions nommés, backlog cas priorisés" },
+                { periode: "J8–J14", objectif: "Former et outiller", actions: "Atelier 90 min, diffusion prompts, mise en place checklists", preuves: "Taux complétion, qualité sorties, nombre prompts réutilisés" },
+                { periode: "J15–J21", objectif: "Produire en conditions réelles", actions: "2 workflows sur pilote, mesure avant/après", preuves: "Minutes gagnées, taux rework, incidents évités" },
+                { periode: "J22–J30", objectif: "Stabiliser et élargir", actions: "Ajustements, 3e workflow, rituels hebdo, revue risques", preuves: "ROI v1, satisfaction, registre risques mis à jour" }
+            ];
+            const rows = document.querySelectorAll('#planAdoptionTable tbody tr');
+            rows.forEach((row, index) => {
+                const data = defaultData[index];
+                row.querySelector('input[data-field="periode"]').value = data.periode;
+                row.querySelector('input[data-field="objectif"]').value = data.objectif;
+                row.querySelector('textarea[data-field="actions"]').value = data.actions;
+                row.querySelector('textarea[data-field="preuves"]').value = data.preuves;
+            });
+            showToast('Tableau réinitialisé !');
+        }
+
+        // Reset ROI table
+        function resetRoiTable() {
+            const inputs = document.querySelectorAll('#roiTable input');
+            inputs.forEach(input => {
+                input.value = '';
+            });
+            showToast('Tableau ROI réinitialisé !');
+        }
+
+        // Scroll to section
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // LocalStorage progression
+        function loadProgress() {
+            const progress = localStorage.getItem('module6Progress') || '0';
+            document.getElementById('progressBar').style.width = `${progress}%`;
+            document.getElementById('progressBar').setAttribute('aria-valuenow', progress);
+            // Load checkboxes
+            for (let i = 1; i <= 4; i++) {
+                const checkbox = document.getElementById(`livrable${i}`);
+                if (checkbox) {
+                    checkbox.checked = localStorage.getItem(`livrable${i}`) === 'true';
+                }
+            }
+        }
+
+        function updateProgress() {
+            let checked = 0;
+            for (let i = 1; i <= 4; i++) {
+                const checkbox = document.getElementById(`livrable${i}`);
+                if (checkbox && checkbox.checked) {
+                    checked++;
+                    localStorage.setItem(`livrable${i}`, 'true');
+                } else {
+                    localStorage.setItem(`livrable${i}`, 'false');
+                }
+            }
+            const progress = (checked / 4) * 100;
+            document.getElementById('progressBar').style.width = `${progress}%`;
+            document.getElementById('progressBar').setAttribute('aria-valuenow', progress);
+            localStorage.setItem('module6Progress', progress.toString());
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            loadProgress();
+        });
+    </script>
+</body>
+</html>

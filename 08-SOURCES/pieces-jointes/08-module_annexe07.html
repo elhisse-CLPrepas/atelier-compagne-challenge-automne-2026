@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Annexe 7 — Templates prêts à copier | Formation IA 2026 | Parcours Entreprise</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --bleu-nuit: #0a1a3a;
+            --dore: #c9a96e;
+            --gris-clair: #f8f9fa;
+            --gris-moyen: #6c757d;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+            background-color: #fff;
+        }
+        .topbar {
+            background-color: var(--bleu-nuit);
+            color: white;
+            padding: 0.75rem 0;
+            font-size: 0.9rem;
+        }
+        .hero {
+            background: linear-gradient(135deg, var(--bleu-nuit) 0%, #1a3a6a 100%);
+            color: white;
+            padding: 4rem 1rem;
+            border-bottom: 4px solid var(--dore);
+        }
+        .badge-copy {
+            background-color: var(--dore);
+            color: var(--bleu-nuit);
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .badge-copy:hover {
+            background-color: #b8975c;
+        }
+        .accordion-button {
+            font-weight: 600;
+            background-color: var(--gris-clair);
+        }
+        .accordion-button:not(.collapsed) {
+            background-color: #e9ecef;
+            color: var(--bleu-nuit);
+        }
+        .template-block {
+            background-color: #f8f9fa;
+            border-left: 4px solid var(--dore);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            overflow-x: auto;
+        }
+        .form-field {
+            background-color: #fff;
+            border: 1px dashed #ccc;
+            padding: 0.5rem;
+            margin: 0.25rem 0;
+            border-radius: 4px;
+        }
+        .btn-dore {
+            background-color: var(--dore);
+            color: var(--bleu-nuit);
+            border: none;
+            font-weight: 600;
+        }
+        .btn-dore:hover {
+            background-color: #b8975c;
+            color: var(--bleu-nuit);
+        }
+        .footer {
+            background-color: var(--bleu-nuit);
+            color: white;
+            padding: 3rem 0 2rem;
+            margin-top: 4rem;
+        }
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1050;
+        }
+        .whatsapp-block {
+            background-color: #e3f2fd;
+            border: 1px solid #bbdefb;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Topbar -->
+    <div class="topbar">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    Formation IA 2026 | Parcours Entreprise | <strong>ANNEXE 7 — Templates prêts à copier</strong>
+                </div>
+                <div class="col-md-6 text-end">
+                    Version 1.0 | [À COMPLÉTER]
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero -->
+    <section class="hero text-center">
+        <div class="container">
+            <h1 class="display-5 fw-bold mb-3">Annexe 7 — Templates prêts à copier</h1>
+            <p class="lead mb-4">Pack complet de templates opérationnels pour standardiser, sécuriser et déployer l'IA en entreprise.</p>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <ul class="list-inline">
+                        <li class="list-inline-item"><i class="bi bi-check-circle-fill"></i> Charte IA 1 page</li>
+                        <li class="list-inline-item"><i class="bi bi-check-circle-fill"></i> Prompt brief 6 blocs</li>
+                        <li class="list-inline-item"><i class="bi bi-check-circle-fill"></i> Checklists qualité</li>
+                        <li class="list-inline-item"><i class="bi bi-check-circle-fill"></i> Workflow card</li>
+                        <li class="list-inline-item"><i class="bi bi-check-circle-fill"></i> SOP gabarit</li>
+                        <li class="list-inline-item"><i class="bi bi-check-circle-fill"></i> Registre risques</li>
+                        <li class="list-inline-item"><i class="bi bi-check-circle-fill"></i> Procédure escalade</li>
+                    </ul>
+                </div>
+            </div>
+            <a href="#templates" class="btn btn-lg btn-dore mt-3"><i class="bi bi-download"></i> Accéder aux templates</a>
+        </div>
+    </section>
+
+    <!-- Objectifs -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="h3 fw-bold text-center mb-4">Objectifs de ce pack</h2>
+            <div class="row text-center">
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body">
+                            <i class="bi bi-clipboard-check display-6 text-primary mb-3"></i>
+                            <h5 class="card-title">Standardiser</h5>
+                            <p class="card-text">Fournir des formats uniques pour tous les projets IA, garantissant cohérence et qualité.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body">
+                            <i class="bi bi-shield-check display-6 text-primary mb-3"></i>
+                            <h5 class="card-title">Sécuriser</h5>
+                            <p class="card-text">Intégrer la gouvernance minimale : validation, traçabilité, escalade, protection des données.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body">
+                            <i class="bi bi-arrow-repeat display-6 text-primary mb-3"></i>
+                            <h5 class="card-title">Opérationnaliser</h5>
+                            <p class="card-text">Rendre l'IA actionnable au quotidien avec des templates courts, vérifiables, réutilisables.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pack de templates -->
+    <section id="templates" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="h2 fw-bold text-center mb-5">Pack de templates</h2>
+            <div class="accordion" id="accordionTemplates">
+
+                <!-- A) Charte IA 1 page -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseA">
+                            A) Charte d'usage IA (1 page)
+                        </button>
+                    </h2>
+                    <div id="collapseA" class="accordion-collapse collapse show" data-bs-parent="#accordionTemplates">
+                        <div class="accordion-body">
+                            <p class="mb-3">Clarifie ce qui est autorisé et interdit. Règles données, validation humaine, traçabilité.</p>
+                            <ul class="nav nav-tabs" id="charteTab" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="copy-tab" data-bs-toggle="tab" data-bs-target="#copyA" type="button">Copier-coller</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="form-tab" data-bs-toggle="tab" data-bs-target="#formA" type="button">Formulaire à remplir</button>
+                                </li>
+                            </ul>
+                            <div class="tab-content p-3 border border-top-0">
+                                <div class="tab-pane fade show active" id="copyA" role="tabpanel">
+                                    <div class="template-block" id="templateA">
+CHARTE D'USAGE DE L'INTELLIGENCE ARTIFICIELLE
+Version : [À COMPLÉTER]
+Date : [À COMPLÉTER]
+
+1) PÉRIMÈTRE
+- Outils IA autorisés : [À COMPLÉTER]
+- Usages autorisés : [À COMPLÉTER]
+
+2) DONNÉES
+- Données publiques : OK
+- Données internes : OK sous anonymisation si nécessaire
+- Données sensibles : interdit (ex: personnelles, financières, stratégiques)
+
+3) VALIDATION HUMAINE
+- Obligatoire pour : juridique, finance, recrutement, communication externe
+- Toute sortie IA destinée à un document externe ou sensible doit être validée par un humain.
+
+4) RÈGLES SIMPLES
+- Ne pas coller de données sensibles dans un outil IA.
+- Toujours demander un format de sortie clair dans le prompt.
+- Utiliser un prompt de vérification avant diffusion (ex: "Vérifie les chiffres, dates, et respects RGPD").
+- Documenter les décisions importantes dans le journal de décisions.
+
+5) ESCALADE
+- Stopper et escalader si doute sur : données sensibles, résultat inattendu, biais suspect.
+- Canal d'escalade : [À COMPLÉTER]
+                                    </div>
+                                    <button class="btn btn-sm btn-dore mt-2" onclick="copyToClipboard('templateA')"><i class="bi bi-clipboard"></i> Copier la charte</button>
+                                </div>
+                                <div class="tab-pane fade" id="formA" role="tabpanel">
+                                    <div class="template-block">
+CHARTE D'USAGE DE L'INTELLIGENCE ARTIFICIELLE
+Version : <span class="form-field">[À COMPLÉTER]</span>
+Date : <span class="form-field">[À COMPLÉTER]</span>
+
+1) PÉRIMÈTRE
+- Outils IA autorisés : <span class="form-field">[À COMPLÉTER]</span>
+- Usages autorisés : <span class="form-field">[À COMPLÉTER]</span>
+
+2) DONNÉES
+- Données publiques : OK
+- Données internes : OK sous anonymisation si nécessaire
+- Données sensibles : interdit (ex: personnelles, financières, stratégiques)
+
+3) VALIDATION HUMAINE
+- Obligatoire pour : juridique, finance, recrutement, communication externe
+- Toute sortie IA destinée à un document externe ou sensible doit être validée par un humain.
+
+4) RÈGLES SIMPLES
+- Ne pas coller de données sensibles dans un outil IA.
+- Toujours demander un format de sortie clair dans le prompt.
+- Utiliser un prompt de vérification avant diffusion (ex: "Vérifie les chiffres, dates, et respects RGPD").
+- Documenter les décisions importantes dans le journal de décisions.
+
+5) ESCALADE
+- Stopper et escalader si doute sur : données sensibles, résultat inattendu, biais suspect.
+- Canal d'escalade : <span class="form-field">[À COMPLÉTER]</span>
+                                    </div>
+                                    <button class="btn btn-sm btn-dore mt-2" onclick="copyToClipboard('formA')"><i class="bi bi-clipboard"></i> Copier le formulaire</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- B) Prompt brief 6 blocs -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseB">
+                            B) Prompt brief (6 blocs)
+                        </button>
+                    </h2>
+                    <div id="collapseB" class="accordion-collapse collapse" data-bs-parent="#accordionTemplates">
+                        <div class="accordion-body">
+                            <p class="mb-3">Structurer un prompt efficace en 6 blocs : Rôle, Objectif, Contexte, Données, Contraintes, Format de sortie.</p>
+                            <ul class="nav nav-tabs" id="promptTab" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="copy-tab-b" data-bs-toggle="tab" data-bs-target="#copyB" type="button">Copier-coller</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="form-tab-b" data-bs-toggle="tab" data-bs-target="#formB" type="button">Formulaire à remplir</button>
+                                </li>
+                            </ul>
+                            <div class="tab-content p-3 border border-top-0">
+                                <div class="tab-pane fade show active" id="copyB" role="tabpanel">
+                                    <div class="template-block" id="templateB">
+1) RÔLE
+Tu es [spécifier le rôle, ex: expert en communication marketing].
+
+2) OBJECTIF
+[Quel est le but concret de la tâche? Ex: Rédiger un email de relance client pour un produit spécifique.]
+
+3) CONTEXTE
+[Informations sur la situation, l'audience, le ton, les enjeux. Ex: L'entreprise vend un logiciel B2B, le client a téléchargé un livre blanc mais n'a pas donné suite.]
+
+4) DONNÉES (fournies)
+[Les données que vous fournissez à l'IA. Ex: Nom du produit: "SyncPro", avantages clés: automatisation, intégration, prix à mentionner: 99€/mois.]
+
+5) CONTRAINTES
+[Les limites à respecter. Ex: Ne pas utiliser de jargon technique, respecter le ton professionnel mais amical, ne pas dépasser 150 mots, éviter les données sensibles.]
+
+6) FORMAT DE SORTIE
+[Préciser le format attendu. Ex: Un paragraphe d'introduction, une liste à puces de 3 avantages, un appel à action clair.]
+                                    </div>
+                                    <button class="btn btn-sm btn-dore mt-2" onclick="copyToClipboard('templateB')"><i class="bi bi-clipboard"></i> Copier le prompt brief</button>
+                                </div>
+                                <div class="tab-pane fade" id="formB" role="tabpanel">
+                                    <div class="template-block">
+1) RÔLE
+Tu es <span class="form-field">[spécifier le rôle]</span>.
+
+2) OBJECTIF
+<span class="form-field">[Quel est le but concret de la tâche?]</span>
+
+3) CONTEXTE
+<span class="form-field">[Informations sur la situation, l'audience, le ton, les enjeux.]</span>
+
+4) DONNÉES (fournies)
+<span class="form-field">[Les données que vous fournissez à l'IA.]</span>
+
+5) CONTRAINTES
+<span class="form-field">[Les limites à respecter.]</span>
+
+6) FORMAT DE SORTIE
+<span class="form-field">[Préciser le format attendu.]</span>
+                                    </div>
+                                    <button class="btn btn-sm btn-dore mt-2" onclick="copyToClipboard('formB')"><i class="bi bi-clipboard"></i> Copier le formulaire</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- C) Checklist qualité sortie -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseC">
+                            C) Checklist qualité sortie
+                        </button>
+                    </h2>
+                    <div id="collapseC" class="accordion-collapse collapse" data-bs-parent="#accordionTemplates">
+                        <div class="accordion-body">
+                            <p class="mb-3">Vérifier la qualité et l'actionnabilité de toute sortie IA avant diffusion.</p>
+                            <ul class="nav nav-tabs" id="checklistTab" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="copy-tab-c" data-bs-toggle="tab" data-bs-target="#copyC" type="button">Copier-coller</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="form-tab-c" data-bs-toggle="tab" data-bs-target="#formC" type="button">Formulaire à remplir</button>
+                                </li>
+                            </ul>
+                            <div class="tab-content p-3 border border-top-0">
+                                <div class="tab-pane fade show active" id="copyC" role="tabpanel">
+                                    <div class="template-block" id="templateC">
+[ ] 1. Hypothèses explicites : Les hypothèses faites par l'IA sont-elles clairement énoncées ?
+[ ] 2. Faits séparés des recommandations : Les faits objectifs sont-ils distingués des avis/recommandations ?
+[ ] 3. Chiffres/dates vérifiés : Tous les chiffres, dates, statistiques sont-ils vérifiés ou marqués "[À VÉRIFIER]" ?
+[ ] 4. Format respecté : Le format de sortie demandé dans le prompt est-il respecté ?
+[ ] 5. Actionnable : La sortie précise-t-elle qui fait quoi, quand (si applicable) ?
+[ ] 6. Données sensibles : Aucune donnée sensible (personnelle, financière, stratégique) n'est présente ?
+[ ] 7. Biais détectés : Aucun biais manifeste (langage, stéréotype) n'est détecté ?
+[ ] 8. Validation humaine : Si le document est sensible/externe, la validation humaine est-elle planifiée/obtenue ?
+                                    </div>
+                                    <button class="btn btn-sm btn-dore mt-2" onclick="copyToClipboard('templateC')"><i class="bi bi-clipboard"></i> Copier la checklist</button>
+                                </div>
+                                <div class="tab-pane fade" id="formC" role="tabpanel">
+                                    <div class="template-block">
+[ ] 1. Hypothèses explicites : <span class="form-field">[Les hypothèses faites par l'IA sont-elles clairement énoncées ?]</span>
+[ ] 2. Faits séparés des recommandations : <span class="form-field">[Les faits objectifs sont-ils distingués des avis/recommandations ?]</span>
+[ ] 3. Chiffres/dates vérifiés : <span class="form-field">[Tous les chiffres, dates, statistiques sont-ils vérifiés ou marqués "[À VÉRIFIER]" ?]</span>
+[ ] 4. Format respecté : <span class="form-field">[Le format de sortie demandé dans le prompt est-il respecté ?]</span>
+[ ] 5. Actionnable : <span class="form-field">[La sortie précise-t-elle qui fait quoi, quand (si applicable) ?]</span>
+[ ] 6. Données sensibles : <span class="form-field">[Aucune donnée sensible (personnelle, financière, stratégique) n'est présente ?]</span>
+[ ] 7. Biais détectés : <span class="form-field">[Aucun biais manifeste (langage, stéréotype) n'est détecté ?]</span>
+[ ] 8. Validation humaine : <span class="form-field">[Si le document est sensible/externe, la validation humaine est-elle planifiée/obtenue ?]</span>
+                                    </div>
+                                    <button class="btn btn-sm btn-dore mt-2" onclick="copyToClipboard('formC')"><i class="bi bi-clipboard"></i> Copier le formulaire</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- D) Workflow card -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseD">
+                            D) Workflow card (fiche)
+                        </button>
+                    </h2>
+                    <div id="collapseD" class="accordion-collapse collapse" data-bs-parent="#accordionTemplates">
+                        <div class="accordion-body">
+                            <p class="mb-3">Documenter un processus métier incluant l'IA : étapes, prompts, contrôles.</p>
+                            <ul class="nav nav-tabs" id="workflowTab" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="copy-tab-d" data-bs-toggle="tab" data-bs-target="#copyD" type="button">Copier-coller</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="form-tab-d" data-bs-toggle="tab" data-bs-target="#formD" type="button">Formulaire à remplir</button>
+                                </li>
+                            </ul>
+                            <div class="tab-content p-3 border border-top-0">
+                                <div class="tab-pane fade show active" id="copyD" role="tabpanel">
+                                    <div class="template-block" id="templateD">
+WORKFLOW CARD
+Nom : [Nom du workflow, ex: "Création de contenu blog"]
+Objectif : [Objectif en une phrase]
+Entrées : [Données, documents, informations nécessaires pour démarrer]
+Étapes :
+1. [Étape 1 : description brève]
+   - Prompt associé : [Prompt à utiliser]
+2. [Étape 2 : description brève]
+   - Prompt associé : [Prompt à utiliser]
+3. [Étape 3 : description brève]
+   - Prompt associé : [Prompt à utiliser]
+Contrôles : [Points de contrôle qualité, validation humaine]
+Sorties : [Livrables attendus]
+Mesure : [Comment mesurer le succès ? ex: temps gagné, qualité]
+                                    </div>
+                                    <button class="btn btn-sm btn-dore mt-2" onclick="copyToClipboard('templateD')"><i class="bi bi-clipboard"></i> Copier la workflow card</button>
+                                </div>
+                                <div class="tab-pane fade" id="formD" role="tabpanel">
+                                    <div class="template-block">
+WORKFLOW CARD
+Nom : <span class="form-field">[Nom du workflow]</span>
+Objectif : <span class="form-field">[Objectif en une phrase]</span>
+Entrées : <span class="form-field">[Données, documents, informations nécessaires pour démarrer]</span>
+Étapes :
+1. <span class="form-field">[Étape 1 : description brève]</span>
+   - Prompt associé : <span class="form-field">[Prompt à utiliser]</span>
+2. <span class="form-field">[Étape 2 : description brève]</span>
+   - Prompt associé : <span class="form-field">[Prompt à utiliser]</span>
+3. <span class="form-field">[Étape 3 : description brève]</span>
+   - Prompt associé : <span class="form-field">[Prompt à utiliser]</span>
+Contrôles : <span class="form-field">[Points de contrôle qualité, validation humaine]</span>
+Sorties : <span class="form-field">[Livrables attendus]</span>
+Mesure : <span class="form-field">[Comment mesurer le succès ?]</span>
+                                    </div>
+                                    <button class="btn btn-sm btn-dore mt-2" onclick="copyToClipboard('formD')"><i class="bi bi-clipboard"></i> Copier le formulaire</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- E) SOP gabarit -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseE">
+                            E) SOP (procédure interne) – gabarit
+                        </button>
+                    </h2>
+                    <div id="collapseE" class="accordion-collapse collapse" data-bs-parent="#accordionTemplates">
+                        <div class="accordion-body">
+                            <p class="mb-3">Standard Operating Procedure : formaliser une procédure mixte humain-IA.</p>
+                            <ul class="nav nav-tabs" id="sopTab" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="copy-tab-e" data-bs-toggle="tab" data-bs-target="#copyE" type="button">Copier-coller</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="form-tab-e" data-bs-toggle="tab" data-bs-target="#formE" type="button">Formulaire à remplir</button>
+                                </li>
+                            </ul>
+                            <div class="tab-content p-3 border border-top-0">
+                                <div class="tab-pane fade show active" id="copyE" role="tabpanel">
+                                    <div class="template-block" id="templateE">
+SOP : [Titre de la procédure]
+Version : [À COMPLÉTER]
+Date : [À COMPLÉTER]
+
+1. BUT
+[Pourquoi cette procédure existe ?]
+
+2. PÉRIMÈTRE
+[Qui est concerné ? Quels projets ? Quelles limites ?]
+
+3. RÔLES
+- [Rôle 1] : [Responsabilités]
+- [Rôle 2] : [Responsabilités]
+
+4. ÉTAPES (avec IA)
+4.1 [Étape 1 : description]
+   - Outil IA : [quel outil]
+   - Prompt type : [copier le prompt]
+   - Validation : [qui valide ?]
+4.2 [Étape 2 : description]
+   - Outil IA : [quel outil]
+   - Prompt type : [copier le prompt]
+   - Validation : [qui valide ?]
+
+5. ÉTAPES (sans IA)
+5.1 [Étape humaine 1 : description]
+5.2 [Étape humaine 2 : description]
+
+6. CONTRÔLES QUALITÉ
+- [Contrôle 1 : description]
+- [Contrôle 2 : description]
+
+7. ARCHIVAGE
+- Où archiver les preuves ? : [À COMPLÉTER]
+- Durée de conservation : [À COMPLÉTER]
+                                    </div>
+                                    <button class="btn btn-sm btn-dore mt-2" onclick="copyToClipboard('templateE')"><i class="bi bi-clipboard"></i> Copier la SOP</button>
+                                </div>
+                                <div class="tab-pane fade" id="formE" role="tabpanel">
+                                    <div class="template-block">
+SOP : <span class="form-field">[Titre de la procédure]</span>
+Version : <span class="form-field">[À COMPLÉTER]</span>
+Date : <span class="form-field">[À COMPLÉTER]</span>
+
+1. BUT
+<span class="form-field">[Pourquoi cette procédure existe ?]</span>
+
+2. PÉRIMÈTRE
+<span class="form-field">[Qui est concerné ? Quels projets ? Quelles limites ?]</span>
+
+3. RÔLES
+- <span class="form-field">[Rôle 1]</span> : <span class="form-field">[Responsabilités]</span>
+- <span class="form-field">[Rôle 2]</span> : <span class="form-field">[Responsabilités]</span>
+
+4. ÉTAPES (avec IA)
+4.1 <span class="form-field">[Étape 1 : description]</span>
+   - Outil IA : <span class="form-field">[quel outil]</span>
+   - Prompt type : <span class="form-field">[copier le prompt]</span>
+   - Validation : <span class="form-field">[qui valide ?]</span>
+4.2 <span class="form-field">[Étape 2 : description]</span>
+   - Outil IA : <span class="form-field">[quel outil]</span>
+   - Prompt type : <span class="form-field">[copier le prompt]</span>
+   - Validation : <span class="form-field">[qui valide ?]</span>
+
+5. ÉTAPES (sans IA)
+5.1 <span class="form-field">[Étape humaine 1 : description]</span>
+5.2 <span class="form-field">[Étape humaine 2 : description]</span>
+
+6. CONTRÔLES QUALITÉ
+- <span class="form-field">[Contrôle 1 : description]</span>
+- <span class="form-field">[Contrôle 2 : description]</span>
+
+7. ARCHIVAGE
+- Où archiver les preuves ? : <span class="form-field">[À COMPLÉTER]</span>
+- Durée de conservation : <span class="form-field">[À COMPLÉTER]</span>
+                                    </div>
+                                    <button class="btn btn-sm btn-dore mt-2" onclick="copyToClipboard('formE')"><i class="bi bi-clipboard"></i> Copier le formulaire</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- F) Registre risques gabarit -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseF">
+                            F) Registre risques (gabarit)
+                        </button>
+                    </h2>
+                    <div id="collapseF" class="accordion-collapse collapse" data-bs-parent="#accordionTemplates">
+                        <div class="accordion-body">
+                            <p class="mb-3">Identifier, évaluer et suivre les risques liés à l'usage de l'IA.</p>
+                            <ul class="nav nav-tabs" id="riskTab" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="copy-tab-f" data-bs-toggle="tab" data-bs-target="#copyF" type="button">Copier-coller</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="form-tab-f" data-bs-toggle="tab" data-bs-target="#formF" type="button">Formulaire à remplir</button>
+                                </li>
+                            </ul>
+                            <div class="tab-content p-3 border border-top-0">
+                                <div class="tab-pane fade show active" id="copyF" role="tabpanel">
+                                    <div class="template-block" id="templateF">
+REGISTRE DES RISQUES IA
+Projet/Processus : [À COMPLÉTER]
+Responsable : [À COMPLÉTER]
+Date de création : [À COMPLÉTER]
+
+| Risque | Impact (1-5) | Probabilité (1-5) | Contrôle | Propriétaire | Fréquence revue |
+|--------|--------------|-------------------|----------|--------------|-----------------|
+| [Description du risque] | [1-5] | [1-5] | [Mesure de contrôle existante] | [Nom] | [ex: trimestrielle] |
+| [Ex: Fuite de données sensibles] | 5 | 2 | Charte IA, formation, prompts sans données sensibles | [À COMPLÉTER] | trimestrielle |
+| [Ex: Biais dans le recrutement] | 4 | 3 | Validation humaine, checklist qualité | [À COMPLÉTER] | semestrielle |
+
+Échelle Impact : 1=négligeable, 2=faible, 3=modéré, 4=grave, 5=critique.
+Échelle Probabilité : 1=très rare, 2=peu probable, 3=possible, 4=probable, 5=quasi certain.
+                                    </div>
+                                    <button class="btn btn-sm btn-dore mt-2" onclick="copyToClipboard('templateF')"><i class="bi bi-clipboard"></i> Copier le registre</button>
+                                </div>
+                                <div class="tab-pane fade" id="formF" role="tabpanel">
+                                    <div class="template-block">
+REGISTRE DES RISQUES IA
+Projet/Processus : <span class="form-field">[À COMPLÉTER]</span>
+Responsable : <span class="form-field">[À COMPLÉTER]</span>
+Date de création : <span class="form-field">[À COMPLÉTER]</span>
+
+| Risque | Impact (1-5) | Probabilité (1-5) | Contrôle | Propriétaire | Fréquence revue |
+|--------|--------------|-------------------|----------|--------------|-----------------|
+| <span class="form-field">[Description du risque]</span> | <span class="form-field">[1-5]</span> | <span class="form-field">[1-5]</span> | <span class="form-field">[Mesure de contrôle existante]</span> | <span class="form-field">[Nom]</span> | <span class="form-field">[ex: trimestrielle]</span> |
+
+Échelle Impact : 1=négligeable, 2=faible, 3=modéré, 4=grave, 5=critique.
+Échelle Probabilité : 1=très rare, 2=peu probable, 3=possible, 4=probable, 5=quasi certain.
+                                    </div>
+                                    <button class="btn btn-sm btn-dore mt-2" onclick="copyToClipboard('formF')"><i class="bi bi-clipboard"></i> Copier le formulaire</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- G) Procédure escalade gabarit -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseG">
+                            G) Procédure d'escalade (gabarit)
+                        </button>
+                    </h2>
+                    <div id="collapseG" class="accordion-collapse collapse" data-bs-parent="#accordionTemplates">
+                        <div class="accordion-body">
+                            <p class="mb-3">Que faire en cas de doute, d'erreur ou d'incident avec l'IA ?</p>
+                            <ul class="nav nav-tabs" id="escaladeTab" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="copy-tab-g" data-bs-toggle="tab" data-bs-target="#copyG" type="button">Copier-coller</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="form-tab-g" data-bs-toggle="tab" data-bs-target="#formG" type="button">Formulaire à remplir</button>
+                                </li>
+                            </ul>
+                            <div class="tab-content p-3 border border-top-0">
+                                <div class="tab-pane fade show active" id="copyG" role="tabpanel">
+                                    <div class="template-block" id="templateG">
+PROCÉDURE D'ESCALADE IA
+
+1. STOPPER
+- Arrêter immédiatement l'utilisation de l'outil IA pour la tâche en cours.
+- Ne pas diffuser, partager ou sauvegarder le résultat suspect.
+
+2. RETIRER LES DONNÉES SENSIBLES
+- Si des données sensibles ont été saisies, les retirer de l'outil IA si possible.
+- Signaler l'incident au RSSI/DPO si une fuite est suspectée.
+
+3. TRANSFÉRER AU VALIDATEUR
+- Contacter le validateur désigné : [À COMPLÉTER]
+- Fournir : le prompt utilisé, le résultat obtenu, le contexte, les données fournies (anonymisées).
+
+4. DÉCISION
+Le validateur décide (sous 24h) :
+- Corriger : reformuler le prompt, ajuster les données.
+- Reformuler : demander une nouvelle version avec contraintes renforcées.
+- Abandonner : arrêter l'usage IA pour cette tâche, trouver une alternative.
+
+5. TRACER LA DÉCISION
+- Documenter l'incident et la décision dans le journal de décisions : [À COMPLÉTER]
+- Mettre à jour le registre des risques si nécessaire.
+
+MESSAGE TYPE D'ESCALADE (copier-coller)
+Sujet : [ESCALADE IA] - [Résumé du problème]
+Message :
+- Prompt utilisé : [coller le prompt]
+- Résultat obtenu : [coller le résultat ou décrire]
+- Données fournies (anonymisées) : [décrire]
+- Doute/risque identifié : [ex: données sensibles, biais, incohérence]
+- Action immédiate : [ex: tâche stoppée, données retirées]
+                                    </div>
+                                    <button class="btn btn-sm btn-dore mt-2" onclick="copyToClipboard('templateG')"><i class="bi bi-clipboard"></i> Copier la procédure</button>
+                                </div>
+                                <div class="tab-pane fade" id="formG" role="tabpanel">
+                                    <div class="template-block">
+PROCÉDURE D'ESCALADE IA
+
+1. STOPPER
+- Arrêter immédiatement l'utilisation de l'outil IA pour la tâche en cours.
+- Ne pas diffuser, partager ou sauvegarder le résultat suspect.
+
+2. RETIRER LES DONNÉES SENSIBLES
+- Si des données sensibles ont été saisies, les retirer de l'outil IA si possible.
+- Signaler l'incident au RSSI/DPO si une fuite est suspectée.
+
+3. TRANSFÉRER AU VALIDATEUR
+- Contacter le validateur désigné : <span class="form-field">[À COMPLÉTER]</span>
+- Fournir : le prompt utilisé, le résultat obtenu, le contexte, les données fournies (anonymisées).
+
+4. DÉCISION
+Le validateur décide (sous <span class="form-field">[délai, ex: 24h]</span>) :
+- Corriger : reformuler le prompt, ajuster les données.
+- Reformuler : demander une nouvelle version avec contraintes renforcées.
+- Abandonner : arrêter l'usage IA pour cette tâche, trouver une alternative.
+
+5. TRACER LA DÉCISION
+- Documenter l'incident et la décision dans le journal de décisions : <span class="form-field">[À COMPLÉTER]</span>
+- Mettre à jour le registre des risques si nécessaire.
+
+MESSAGE TYPE D'ESCALADE (copier-coller)
+Sujet : [ESCALADE IA] - <span class="form-field">[Résumé du problème]</span>
+Message :
+- Prompt utilisé : <span class="form-field">[coller le prompt]</span>
+- Résultat obtenu : <span class="form-field">[coller le résultat ou décrire]</span>
+- Données fournies (anonymisées) : <span class="form-field">[décrire]</span>
+- Doute/risque identifié : <span class="form-field">[ex: données sensibles, biais, incohérence]</span>
+- Action immédiate : <span class="form-field">[ex: tâche stoppée, données retirées]</span>
+                                    </div>
+                                    <button class="btn btn-sm btn-dore mt-2" onclick="copyToClipboard('formG')"><i class="bi bi-clipboard"></i> Copier le formulaire</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Règles d'usage rapide -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="h3 fw-bold text-center mb-4">Règles d'usage rapide</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><i class="bi bi-check-circle text-success me-2"></i> Toujours utiliser un prompt structuré (6 blocs).</li>
+                                <li class="list-group-item"><i class="bi bi-check-circle text-success me-2"></i> Vérifier la sortie avec la checklist qualité avant diffusion.</li>
+                                <li class="list-group-item"><i class="bi bi-check-circle text-success me-2"></i> Pour tout document sensible/externe, validation humaine obligatoire.</li>
+                                <li class="list-group-item"><i class="bi bi-check-circle text-success me-2"></i> En cas de doute : stopper, retirer données sensibles, escalader.</li>
+                                <li class="list-group-item"><i class="bi bi-check-circle text-success me-2"></i> Documenter les décisions importantes dans le journal de décisions.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Checklists & QA -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <h2 class="h3 fw-bold text-center mb-4">Checklists & QA</h2>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0">Checklist "Prêt à signer" (Charte IA)</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="c1">
+                                <label class="form-check-label" for="c1">Les outils IA autorisés sont listés et à jour.</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="c2">
+                                <label class="form-check-label" for="c2">Les usages autorisés sont clairement définis.</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="c3">
+                                <label class="form-check-label" for="c3">Les règles données (publique/interne/sensible) sont comprises.</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="c4">
+                                <label class="form-check-label" for="c4">Les cas de validation humaine obligatoire sont identifiés.</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="c5">
+                                <label class="form-check-label" for="c5">Le canal d'escalade est renseigné et connu.</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="c6">
+                                <label class="form-check-label" for="c6">La charte a été relue par [À COMPLÉTER].</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0">Checklist "Prêt à diffuser" (tout template)</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="d1">
+                                <label class="form-check-label" for="d1">Tous les champs [À COMPLÉTER] ont été remplis ou supprimés.</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="d2">
+                                <label class="form-check-label" for="d2">Les exemples fictifs sont remplacés par des données réelles ou génériques.</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="d3">
+                                <label class="form-check-label" for="d3">Le format est respecté (liste, tableau, paragraphes).</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="d4">
+                                <label class="form-check-label" for="d4">La version et la date sont mises à jour.</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="d5">
+                                <label class="form-check-label" for="d5">Le template a été testé sur un cas réel (si applicable).</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="d6">
+                                <label class="form-check-label" for="d6">Le lieu d'archivage des preuves est renseigné.</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fiche WhatsApp -->
+    <section class="py-5">
+        <div class="container">
+            <div class="whatsapp-block">
+                <h3 class="h4 fw-bold"><i class="bi bi-whatsapp text-success me-2"></i> Fiche WhatsApp copiable</h3>
+                <p class="mb-3">À partager rapidement dans les groupes d'équipe :</p>
+                <div class="template-block" id="whatsappBlock">
+ANNEXE 7 — Templates IA (Formation IA 2026)
+
+📍 Où trouver les templates ?
+- Page web interne : [À COMPLÉTER]
+- Dossier partagé : [À COMPLÉTER]
+
+✅ Règle de validation :
+Tout document sensible (juridique, finance, recrutement, communication externe) doit être validé par un humain avant diffusion.
+
+🛑 Escalade :
+En cas de doute (données sensibles, biais, résultat bizarre) :
+1. Stopper
+2. Retirer données sensibles
+3. Contacter : [À COMPLÉTER]
+4. Utiliser le message type d'escalade
+
+📋 Templates clés :
+- Charte IA (1 page) : cadre général
+- Prompt brief (6 blocs) : structurer ses prompts
+- Checklist qualité : vérifier toute sortie
+- Workflow card : documenter un processus
+- SOP : procédure interne détaillée
+- Registre risques : identifier et suivre
+- Procédure escalade : que faire en cas de problème
+
+🔗 Lien vers le pack complet : [À COMPLÉTER]
+                </div>
+                <button class="btn btn-sm btn-dore mt-2" onclick="copyToClipboard('whatsappBlock')"><i class="bi bi-clipboard"></i> Copier la fiche WhatsApp</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Téléchargements -->
+    <section class="py-5 bg-light">
+        <div class="container text-center">
+            <h2 class="h3 fw-bold mb-4">Téléchargements</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body">
+                            <i class="bi bi-file-earmark-zip display-4 text-primary mb-3"></i>
+                            <h5 class="card-title">Pack complet (ZIP)</h5>
+                            <p class="card-text">Tous les templates en versions HTML, Markdown, PDF.</p>
+                            <a href="#" class="btn btn-dore">Télécharger ZIP</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body">
+                            <i class="bi bi-file-earmark-pdf display-4 text-primary mb-3"></i>
+                            <h5 class="card-title">Charte IA signable (PDF)</h5>
+                            <p class="card-text">Version 1 page pour signature et affichage.</p>
+                            <a href="#" class="btn btn-dore">Télécharger PDF</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body">
+                            <i class="bi bi-markdown display-4 text-primary mb-3"></i>
+                            <h5 class="card-title">Templates bruts (Markdown)</h5>
+                            <p class="card-text">Pour intégration wiki, email, documentation.</p>
+                            <a href="#" class="btn btn-dore">Télécharger MD</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p class="text-muted mt-4">Les liens de téléchargement sont fictifs dans cette démo.</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Formation IA 2026 — Parcours Entreprise</h5>
+                    <p>Annexe 7 — Templates prêts à copier<br>
+                    Version 1.0 — Février 2026</p>
+                    <p>Contact : [À COMPLÉTER]<br>
+                    Support : [À COMPLÉTER]</p>
+                </div>
+                <div class="col-md-6 text-end">
+                    <h5>Références internes</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white-50">[SOURCE NON FOURNIE] ATELIER PERSONNALISE prompt ingineering</a></li>
+                        <li><a href="#" class="text-white-50">[SOURCE NON FOURNIE] OUTILS IA 25 Août 2025</a></li>
+                        <li><a href="#" class="text-white-50">[SOURCE NON FOURNIE] PERMIS DE CONDUIRE IA.html</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="mt-4 mb-4" style="border-color: #2a4a7a;">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p class="mb-0">© 2026 Formation IA 2026. Tous droits réservés. | <a href="#" class="text-white-50">Mentions légales</a> | <a href="#" class="text-white-50">Politique de confidentialité</a></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast -->
+    <div class="toast align-items-center text-white bg-success border-0" id="copyToast" role="alert">
+        <div class="d-flex">
+            <div class="toast-body">
+                <i class="bi bi-check-circle me-2"></i> Template copié dans le presse-papier.
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Fonction copier-coller
+        function copyToClipboard(elementId) {
+            const element = document.getElementById(elementId);
+            const text = element.innerText || element.textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                const toast = new bootstrap.Toast(document.getElementById('copyToast'));
+                toast.show();
+            });
+        }
+
+        // Sauvegarde des champs remplis (optionnel)
+        document.addEventListener('DOMContentLoaded', function() {
+            const formFields = document.querySelectorAll('.form-field');
+            formFields.forEach(field => {
+                field.addEventListener('input', function() {
+                    localStorage.setItem(field.id || field.name, field.innerText);
+                });
+                const saved = localStorage.getItem(field.id || field.name);
+                if (saved) {
+                    field.innerText = saved;
+                }
+            });
+        });
+
+        // Objet ANNEXE (données de la page)
+        const ANNEXE = {
+            titre: "Annexe 7 — Templates prêts à copier",
+            parcours: "Entreprise",
+            version: "1.0",
+            date: "Février 2026",
+            templates: ["Charte IA", "Prompt brief", "Checklist qualité", "Workflow card", "SOP", "Registre risques", "Procédure escalade"],
+            contexteEntreprise: {
+                outilsAutorises: "[À COMPLÉTER]",
+                usagesAutorises: "[À COMPLÉTER]",
+                validateurs: "[À COMPLÉTER]",
+                canalEscalade: "[À COMPLÉTER]",
+                archivagePreuves: "[À COMPLÉTER]",
+                reglesInternes: "[À COMPLÉTER]"
+            }
+        };
+        console.log("ANNEXE chargée :", ANNEXE);
+    </script>
+</body>
+</html>

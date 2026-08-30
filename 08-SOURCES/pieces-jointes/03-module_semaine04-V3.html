@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Formation IA 2026 — Semaine 4 (Entreprise)</title>
+  <meta name="description" content="Semaine 4 : Gouvernance, sécurité, conformité. Documents prêts à l’emploi." />
+  <style>
+    :root{
+      --bg:#0b1220;
+      --panel:rgba(255,255,255,0.06);
+      --panel2:rgba(255,255,255,0.09);
+      --text:#e9eef8;
+      --muted:#b7c2d6;
+      --turq:#38b2ac;
+      --gold:#c8a24a;
+      --line:rgba(255,255,255,0.12);
+      --shadow:0 18px 45px rgba(0,0,0,0.45);
+      --radius:18px;
+      --radius2:22px;
+      --max:1100px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:var(--sans);
+      color:var(--text);
+      background:
+        radial-gradient(900px 500px at 20% -10%, rgba(56,178,172,0.22), transparent 60%),
+        radial-gradient(800px 450px at 90% 10%, rgba(200,162,74,0.18), transparent 60%),
+        radial-gradient(900px 550px at 50% 110%, rgba(56,178,172,0.12), transparent 55%),
+        var(--bg);
+      min-height:100vh;
+    }
+    a{color:inherit}
+    .wrap{max-width:var(--max); margin:0 auto; padding:28px 18px 48px}
+    .top{
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      margin-bottom:14px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      padding:10px 12px; border:1px solid var(--line); border-radius:999px;
+      background:rgba(255,255,255,0.04);
+    }
+    .dot{
+      width:12px; height:12px; border-radius:50%;
+      background:linear-gradient(135deg,var(--turq),var(--gold));
+      box-shadow:0 0 18px rgba(56,178,172,0.35);
+    }
+    .brand b{letter-spacing:0.2px}
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,0.04);
+      color:var(--muted);
+      text-decoration:none;
+    }
+    .hero{
+      margin-top:18px;
+      padding:22px;
+      border-radius:var(--radius2);
+      border:1px solid var(--line);
+      background:linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.03));
+      box-shadow:var(--shadow);
+    }
+    h1{margin:0 0 8px; font-size:28px; letter-spacing:0.2px}
+    .sub{margin:0; color:var(--muted); line-height:1.5}
+    .grid{
+      display:grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap:14px;
+      margin-top:14px;
+    }
+    .card{
+      padding:16px;
+      border-radius:var(--radius);
+      border:1px solid var(--line);
+      background:rgba(255,255,255,0.04);
+    }
+    .card h2{margin:0 0 10px; font-size:16px}
+    .list{margin:0; padding-left:18px; color:var(--muted); line-height:1.55}
+    .list li{margin:6px 0}
+    .links{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+      margin-top:10px;
+    }
+    .link{
+      display:block;
+      padding:12px 12px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,0.04);
+      text-decoration:none;
+    }
+    .link .t{font-weight:650; font-size:13px}
+    .link .d{margin-top:4px; color:var(--muted); font-size:12px; line-height:1.45}
+    .badge{
+      display:inline-flex; align-items:center; gap:8px;
+      margin-top:10px;
+      padding:8px 10px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      color:var(--muted);
+      font-size:12px;
+      background:rgba(255,255,255,0.03);
+    }
+    .k{
+      font-family:var(--mono);
+      font-size:12px;
+      padding:1px 6px;
+      border:1px solid var(--line);
+      border-radius:8px;
+      background:rgba(255,255,255,0.03);
+      color:var(--text);
+    }
+    .footer{
+      margin-top:16px;
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.6;
+      border-top:1px solid var(--line);
+      padding-top:14px;
+    }
+    @media (max-width: 900px){
+      .grid{grid-template-columns:1fr}
+      .links{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <div class="brand">
+        <span class="dot"></span>
+        <b>Formation IA 2026</b>
+      </div>
+      <a class="pill" href="docs/moodle_mapping.md">Ouvrir le mapping Moodle</a>
+    </div>
+
+    <section class="hero">
+      <h1>Semaine 4 — Gouvernance, sécurité, conformité</h1>
+      <p class="sub">
+        Objectif.
+        Passer de l’usage IA à un usage piloté.
+        Vous obtenez une politique de données.
+        Vous obtenez un registre des risques.
+        Vous obtenez des checklists de validation.
+        Vous obtenez une procédure Stop.
+      </p>
+
+      <div class="grid">
+        <div class="card">
+          <h2>Ce que vous faites cette semaine</h2>
+          <ul class="list">
+            <li>Classer vos données et définir vos règles d’usage IA.</li>
+            <li>Mettre en place la validation humaine pour les contenus à impact.</li>
+            <li>Créer votre registre des risques et vos actions correctives.</li>
+            <li>Standardiser vos prompts pour des sorties répétables.</li>
+            <li>Déployer vos checklists et votre procédure d’escalade Stop.</li>
+          </ul>
+          <div class="badge">
+            Format recommandé.
+            <span class="k">90 min</span>
+            atelier
+            <span class="k">45 min</span>
+            pratique
+            <span class="k">15 min</span>
+            quiz
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Documents prêts à l’emploi</h2>
+          <div class="links">
+            <a class="link" href="docs/guide_formateur.md">
+              <div class="t">Guide formateur</div>
+              <div class="d">Scénario, timing, consignes, erreurs fréquentes.</div>
+            </a>
+            <a class="link" href="docs/workbook_participant.md">
+              <div class="t">Workbook participant</div>
+              <div class="d">Fiches exercice, canevas, livrables attendus.</div>
+            </a>
+            <a class="link" href="docs/politique_donnees_ia_v1.md">
+              <div class="t">Politique données IA v1</div>
+              <div class="d">Classification, règles, validation, traçabilité.</div>
+            </a>
+            <a class="link" href="docs/risk_register.md">
+              <div class="t">Registre des risques</div>
+              <div class="d">Table prête, risques typiques, actions.</div>
+            </a>
+            <a class="link" href="docs/checklists_validation.md">
+              <div class="t">Checklists validation</div>
+              <div class="d">Avant diffusion, avant décision, avant automatisation.</div>
+            </a>
+            <a class="link" href="docs/procedure_escalade_stop.md">
+              <div class="t">Procédure escalade Stop</div>
+              <div class="d">Stop, analyse, correction, reprise contrôlée.</div>
+            </a>
+            <a class="link" href="docs/prompts_pack.md">
+              <div class="t">Pack prompts</div>
+              <div class="d">Prompts robustes, formats de sortie, critères.</div>
+            </a>
+            <a class="link" href="docs/evaluation.md">
+              <div class="t">Évaluation</div>
+              <div class="d">Quiz, grille, critères de réussite.</div>
+            </a>
+            <a class="link" href="docs/communication_whatsapp.md">
+              <div class="t">Communication WhatsApp</div>
+              <div class="d">Messages prêts pour équipe et participants.</div>
+            </a>
+            <a class="link" href="PROMPTS_image_gen.md">
+              <div class="t">Prompts image_gen</div>
+              <div class="d">OG 1200×630 et hero 1600×600.</div>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">
+        Règle simple.
+        Toute sortie IA utile devient un document.
+        Toute sortie IA sensible passe par validation humaine.
+        Toute sortie IA à impact doit être traçable.
+      </div>
+    </section>
+  </div>
+</body>
+</html>
