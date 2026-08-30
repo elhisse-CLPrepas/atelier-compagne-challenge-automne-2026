@@ -1,0 +1,20 @@
+{
+  "facebook": {
+    "min_words": 80,
+    "max_words": 240,
+    "utm_source": "facebook",
+    "utm_medium": "organic"
+  },
+  "linkedin": {
+    "min_words": 100,
+    "max_words": 320,
+    "utm_source": "linkedin",
+    "utm_medium": "organic"
+  },
+  "whatsapp": {
+    "min_words": 55,
+    "max_words": 170,
+    "utm_source": "whatsapp",
+    "utm_medium": "community"
+  }
+}

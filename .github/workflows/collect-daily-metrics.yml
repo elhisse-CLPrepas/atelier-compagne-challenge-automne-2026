@@ -1,0 +1,75 @@
+name: A2 — Préparer la mesure
+
+on:
+  schedule:
+    - cron: "20 19 * * *"
+  workflow_dispatch:
+    inputs:
+      date:
+        description: "Date publiée à mesurer au format AAAA-MM-JJ"
+        required: false
+        type: string
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Lire le dépôt
+        uses: actions/checkout@v4
+
+      - name: Installer Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Identifier les publications à mesurer
+        id: dates
+        env:
+          INPUT_DATE: ${{ inputs.date }}
+        run: |
+          node --input-type=module - <<'NODE' > "$RUNNER_TEMP/dates.txt"
+          import { readdir, readFile } from "node:fs/promises";
+          import path from "node:path";
+          const forced = process.env.INPUT_DATE;
+          if (forced) {
+            console.log(forced);
+            process.exit(0);
+          }
+          const root = path.join(process.cwd(), "02-CONTENUS", "QUOTIDIEN");
+          let entries = [];
+          try { entries = await readdir(root, { withFileTypes: true }); } catch { process.exit(0); }
+          for (const entry of entries) {
+            if (!entry.isDirectory()) continue;
+            try {
+              const publication = JSON.parse(await readFile(path.join(root, entry.name, "publication.json"), "utf8"));
+              if (publication.status === "published") console.log(entry.name);
+            } catch {}
+          }
+          NODE
+          echo "file=$RUNNER_TEMP/dates.txt" >> "$GITHUB_OUTPUT"
+
+      - name: Créer les Issues de mesure manquantes
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DATES_FILE: ${{ steps.dates.outputs.file }}
+        run: |
+          gh label create "controle:requis" \
+            --color "FBCA04" \
+            --description "Contrôle humain requis avant diffusion" \
+            --force
+          while IFS= read -r DATE; do
+            [ -z "$DATE" ] && continue
+            TITLE="[MESURE] Résultats du $DATE"
+            if gh issue list --state all --search "$TITLE in:title" --json title --jq '.[].title' | grep -Fxq "$TITLE"; then
+              echo "Issue déjà présente pour $DATE."
+              continue
+            fi
+            gh issue create \
+              --title "$TITLE" \
+              --label "controle:requis" \
+              --body "## Publication\n- Date : $DATE\n- Liens publics : à renseigner\n\n## Mesures à 24 heures\n- Portée :\n- Clics :\n- Conversations :\n- Prospects qualifiés :\n- Entretiens :\n- Inscriptions confirmées :\n\n## Décision humaine\n- [ ] Recycler\n- [ ] Corriger\n- [ ] Arrêter\n\nAucune donnée personnelle ne doit être ajoutée à cette Issue."
+          done < "$DATES_FILE"
