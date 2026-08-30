@@ -26,6 +26,9 @@ const allowedChannels = new Set(["facebook", "linkedin", "whatsapp"]);
 if (!date || !scheduledFor || !approvedBy) {
   throw new Error("--date, --scheduled-for et --approved-by sont obligatoires.");
 }
+if (Number.isNaN(Date.parse(scheduledFor))) {
+  throw new Error("--scheduled-for doit être une date ISO 8601 valide.");
+}
 if (confirmation !== "VALIDATION_HUMAINE") {
   throw new Error("Confirmation humaine absente. Utiliser --confirm VALIDATION_HUMAINE.");
 }

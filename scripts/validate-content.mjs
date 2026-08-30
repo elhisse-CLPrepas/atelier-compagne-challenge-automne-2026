@@ -29,7 +29,7 @@ async function validateDate(date, { writeReport = false } = {}) {
   const campaign = await loadJsonYaml(path.join(root, "config", "campaign.yml"));
   const errors = [];
   const warnings = [];
-  const required = ["brief.yml", "facebook.md", "linkedin.md", "whatsapp.md", "publication.json"];
+  const required = ["brief.yml", "facebook.md", "linkedin.md", "whatsapp.md", "validation.yml", "publication.json"];
 
   for (const file of required) {
     try {
@@ -45,8 +45,27 @@ async function validateDate(date, { writeReport = false } = {}) {
   if (!campaign.schedule.some((entry) => entry.date === date)) errors.push("Date absente du calendrier approuvé.");
   if (!facts.cta_labels[brief.cta]) errors.push(`CTA non approuvé : ${brief.cta}`);
   if (brief.source !== facts.source) errors.push("La source du brief ne correspond pas à la source approuvée.");
-  if (publication.status !== "draft" || publication.human_approval !== false) {
-    errors.push("Un contenu généré doit rester en brouillon sans approbation humaine.");
+  if (brief.human_review_required !== true) errors.push("La revue humaine doit rester obligatoire.");
+
+  const allowedStatuses = new Set(["draft", "scheduled", "published", "measured"]);
+  if (!allowedStatuses.has(publication.status)) errors.push(`État de publication inconnu : ${publication.status}`);
+  if (publication.status === "draft" && publication.human_approval !== false) {
+    errors.push("Un brouillon ne peut pas porter une approbation humaine.");
+  }
+  if (publication.status !== "draft") {
+    if (publication.human_approval !== true) errors.push("L’approbation humaine est requise après le brouillon.");
+    if (!publication.approved_by) errors.push("Le nom du valideur humain est requis.");
+    if (!publication.scheduled_for || Number.isNaN(Date.parse(publication.scheduled_for))) {
+      errors.push("Une date de programmation ISO 8601 valide est requise.");
+    }
+  }
+  if (["published", "measured"].includes(publication.status)) {
+    if (!publication.published_at || Number.isNaN(Date.parse(publication.published_at))) {
+      errors.push("Une date de publication ISO 8601 valide est requise.");
+    }
+    if (!publication.platform_urls || Object.keys(publication.platform_urls).length === 0) {
+      errors.push("Au moins un lien public est requis après diffusion.");
+    }
   }
 
   for (const [channel, limits] of Object.entries(channels)) {

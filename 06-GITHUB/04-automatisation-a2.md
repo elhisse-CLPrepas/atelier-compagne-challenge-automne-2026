@@ -48,6 +48,9 @@ Après publication, mettre à jour `publication.json` par une Pull Request :
 ```json
 {
   "status": "published",
+  "human_approval": true,
+  "approved_by": "Abderrahman",
+  "scheduled_for": "AAAA-MM-JJTHH:MM:SS+01:00",
   "published_at": "AAAA-MM-JJTHH:MM:SS+01:00",
   "platform_urls": {
     "facebook": "URL_PUBLIQUE",
@@ -55,5 +58,7 @@ Après publication, mettre à jour `publication.json` par une Pull Request :
   }
 }
 ```
+
+Conserver les autres propriétés du fichier, notamment le bloc `metrics`.
 
 Le workflow de mesure ouvrira ensuite une Issue sans recopier de données personnelles.
