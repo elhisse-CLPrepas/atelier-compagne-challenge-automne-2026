@@ -1,0 +1,81 @@
+name: A2 — Préparer le contenu quotidien
+
+on:
+  schedule:
+    - cron: "45 7 * * *"
+      timezone: "Africa/Casablanca"
+  workflow_dispatch:
+    inputs:
+      date:
+        description: "Date à préparer au format AAAA-MM-JJ"
+        required: false
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: a2-prepare-daily
+  cancel-in-progress: false
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Lire le dépôt
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Installer Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Déterminer la date de campagne
+        id: campaign-date
+        env:
+          INPUT_DATE: ${{ inputs.date }}
+        run: |
+          if [ -n "$INPUT_DATE" ]; then
+            DATE="$INPUT_DATE"
+          else
+            DATE="$(TZ=Africa/Casablanca date +%F)"
+          fi
+          echo "date=$DATE" >> "$GITHUB_OUTPUT"
+
+      - name: Générer et contrôler le brouillon
+        env:
+          DATE: ${{ steps.campaign-date.outputs.date }}
+        run: |
+          node scripts/prepare-day.mjs --date "$DATE" --skip-unplanned
+          if [ -d "02-CONTENUS/QUOTIDIEN/$DATE" ]; then
+            node scripts/validate-content.mjs --date "$DATE" --write-report
+          fi
+
+      - name: Ouvrir une Pull Request quotidienne
+        env:
+          DATE: ${{ steps.campaign-date.outputs.date }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if git diff --quiet && git diff --cached --quiet; then
+            echo "Aucun changement à proposer."
+            exit 0
+          fi
+          BRANCH="automation/daily-$DATE"
+          if git ls-remote --exit-code --heads origin "$BRANCH" >/dev/null 2>&1; then
+            echo "La branche $BRANCH existe déjà. Contrôle humain requis."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$BRANCH"
+          git add "02-CONTENUS/QUOTIDIEN/$DATE"
+          git commit -m "content: préparer la campagne du $DATE"
+          git push --set-upstream origin "$BRANCH"
+          gh pr create \
+            --base main \
+            --head "$BRANCH" \
+            --title "[A2] Contrôler le contenu du $DATE" \
+            --body "Brouillon généré et contrôlé automatiquement. La revue humaine reste obligatoire avant programmation. Référence : #4."

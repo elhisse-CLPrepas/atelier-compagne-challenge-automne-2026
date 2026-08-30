@@ -1,0 +1,39 @@
+{
+  "source": "https://elhisse-clprepas.github.io/offre-formation-ia/",
+  "facts": {
+    "campaign_name": "Challenge 100 Jours — Automne 2026",
+    "start_date": "25 septembre 2026",
+    "duration": "14 semaines",
+    "sessions": "28 séances",
+    "delivery": "100 % en ligne",
+    "method": "apprentissage par la pratique",
+    "proof": "portfolio de preuves",
+    "positioning": "L’IA assiste. L’humain pilote, contrôle et décide."
+  },
+  "offer_url": "https://elhisse-clprepas.github.io/offre-formation-ia/",
+  "portfolio_url": "https://elhisse-clprepas.github.io/portfolio-formation-ia-ln-ia/",
+  "signature": "Prof. Abderrahman El Hisse — LAB-NUMÉRIQUE-IA",
+  "cta_labels": {
+    "discover_offer": "Découvrir l’offre",
+    "request_program": "Demander le programme",
+    "book_call": "Réserver un échange de 15 minutes",
+    "join_webinar": "S’inscrire au webinaire",
+    "apply": "Candidater",
+    "view_portfolio": "Voir le portfolio",
+    "ask_question": "Poser une question",
+    "share_need": "Présenter votre besoin",
+    "direct_contact": "Contacter le formateur"
+  },
+  "forbidden_markers": [
+    "A_VALIDER",
+    "A_COMPLETER",
+    "A COMPLÉTER",
+    "résultat garanti",
+    "revenu garanti",
+    "devenez expert instantanément",
+    "maîtrisez toute l’IA"
+  ],
+  "forbidden_patterns": [
+    "\\b\\d+(?:[.,]\\d+)?\\s?(?:MAD|DH|EUR|€)\\b"
+  ]
+}

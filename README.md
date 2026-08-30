@@ -41,6 +41,36 @@ Le groupe WhatsApp sert à nourrir la relation et accueillir les candidats. Il n
 6. Publier le contenu prévu dans `02-CONTENUS/01-calendrier-editorial-28-jours.md`.
 7. Contacter les premiers prospects le jour même.
 
+## Automatisation A2
+
+La campagne dispose maintenant d’un cycle contrôlé :
+
+```text
+Génération automatique
+→ contrôle automatique
+→ Pull Request
+→ validation humaine
+→ préparation de la programmation
+→ diffusion autorisée
+→ mesure
+```
+
+Les fichiers techniques se trouvent à la racine dans `.github/workflows`, `config` et `scripts`.
+
+Les contenus de chaque journée se trouvent dans `02-CONTENUS/QUOTIDIEN/AAAA-MM-JJ`.
+
+Commandes locales :
+
+```bash
+npm run prepare:day -- --date 2026-08-30
+npm run validate
+npm test
+```
+
+Le mode opératoire complet se trouve dans `06-GITHUB/04-automatisation-a2.md`.
+
+La version A2.1 ne publie pas directement sur les réseaux sociaux. La connexion aux plateformes exige une autorisation séparée et des secrets protégés.
+
 ## Rythme quotidien recommandé
 
 - 20 minutes : consulter les chiffres et choisir la priorité.
@@ -59,7 +89,7 @@ Le groupe WhatsApp sert à nourrir la relation et accueillir les candidats. Il n
 | `03-WEBINAIRES` | plan, script et relances |
 | `04-META-ADS` | pilote publicitaire et tests A/B |
 | `05-VENTE-COMMUNAUTE` | qualification, entretien et relances WhatsApp |
-| `06-GITHUB` | rôle des preuves et GitHub Projects |
+| `06-GITHUB` | rôle des preuves, GitHub Projects et automatisation A2 |
 | `07-MESURE` | tableau Excel de pilotage |
 | `08-SOURCES` | audit, références et pièces jointes d’origine |
 

@@ -1,0 +1,71 @@
+name: A2 — Préparer la programmation
+
+on:
+  workflow_dispatch:
+    inputs:
+      date:
+        description: "Date du contenu au format AAAA-MM-JJ"
+        required: true
+        type: string
+      scheduled_for:
+        description: "Date et heure prévues au format ISO 8601"
+        required: true
+        type: string
+      channels:
+        description: "Canaux séparés par des virgules"
+        required: true
+        default: "facebook,linkedin,whatsapp"
+        type: string
+      confirmation:
+        description: "Saisir VALIDATION_HUMAINE"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  prepare-publication:
+    environment: publication
+    runs-on: ubuntu-latest
+    steps:
+      - name: Lire le dépôt
+        uses: actions/checkout@v4
+
+      - name: Installer Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Vérifier la confirmation
+        env:
+          CONFIRMATION: ${{ inputs.confirmation }}
+        run: |
+          test "$CONFIRMATION" = "VALIDATION_HUMAINE"
+
+      - name: Recontrôler les contenus
+        env:
+          DATE: ${{ inputs.date }}
+        run: node scripts/validate-content.mjs --date "$DATE"
+
+      - name: Construire le pack approuvé
+        env:
+          DATE: ${{ inputs.date }}
+          SCHEDULED_FOR: ${{ inputs.scheduled_for }}
+          CHANNELS: ${{ inputs.channels }}
+          APPROVED_BY: ${{ github.actor }}
+        run: |
+          node scripts/build-publication-pack.mjs \
+            --date "$DATE" \
+            --scheduled-for "$SCHEDULED_FOR" \
+            --channels "$CHANNELS" \
+            --approved-by "$APPROVED_BY" \
+            --confirm VALIDATION_HUMAINE
+
+      - name: Conserver le pack de programmation
+        uses: actions/upload-artifact@v4
+        with:
+          name: publication-${{ inputs.date }}
+          path: dist/publications/${{ inputs.date }}
+          if-no-files-found: error
+          retention-days: 30
