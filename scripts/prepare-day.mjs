@@ -42,10 +42,11 @@ function trackedUrl(base, channel, date, channels, campaign) {
 function makeMessages({ plan, facts, channels, campaign }) {
   const f = facts.facts;
   const cta = facts.cta_labels[plan.cta];
+  const destination = plan.cta === "view_portfolio" ? facts.portfolio_url : facts.offer_url;
   const url = Object.fromEntries(
     Object.keys(channels).map((channel) => [
       channel,
-      trackedUrl(facts.offer_url, channel, plan.date, channels, campaign)
+      trackedUrl(destination, channel, plan.date, channels, campaign)
     ])
   );
 

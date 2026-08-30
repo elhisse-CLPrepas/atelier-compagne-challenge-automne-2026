@@ -18,8 +18,13 @@ function wordCount(text) {
   return text.trim().split(/\s+/u).filter(Boolean).length;
 }
 
-function countUrls(text) {
-  return (text.match(/https?:\/\/\S+/gu) || []).length;
+function extractUrls(text) {
+  return text.match(/https?:\/\/\S+/gu) || [];
+}
+
+function normalizedDestination(value) {
+  const url = new URL(value);
+  return `${url.origin}${url.pathname.replace(/\/+$/u, "")}`;
 }
 
 async function validateDate(date, { writeReport = false } = {}) {
@@ -74,7 +79,25 @@ async function validateDate(date, { writeReport = false } = {}) {
     if (total < limits.min_words || total > limits.max_words) {
       errors.push(`${channel}: ${total} mots hors limites ${limits.min_words}-${limits.max_words}.`);
     }
-    if (countUrls(text) !== 1) errors.push(`${channel}: un seul lien est requis.`);
+    const urls = extractUrls(text);
+    if (urls.length !== 1) {
+      errors.push(`${channel}: un seul lien est requis.`);
+    } else {
+      const actual = new URL(urls[0]);
+      const expectedBase = brief.cta === "view_portfolio" ? facts.portfolio_url : facts.offer_url;
+      if (normalizedDestination(actual) !== normalizedDestination(expectedBase)) {
+        errors.push(`${channel}: destination non approuvée.`);
+      }
+      const expectedParams = {
+        utm_source: limits.utm_source,
+        utm_medium: limits.utm_medium,
+        utm_campaign: campaign.campaign_id,
+        utm_content: `${date}_${channel}`
+      };
+      for (const [name, expected] of Object.entries(expectedParams)) {
+        if (actual.searchParams.get(name) !== expected) errors.push(`${channel}: paramètre ${name} incorrect.`);
+      }
+    }
     if (!text.includes(facts.facts.start_date)) errors.push(`${channel}: date de départ absente.`);
     if (!text.includes(facts.facts.duration)) errors.push(`${channel}: durée absente.`);
     if (!text.includes(facts.facts.sessions)) errors.push(`${channel}: nombre de séances absent.`);

@@ -2,8 +2,7 @@ name: A2 — Préparer la mesure
 
 on:
   schedule:
-    - cron: "20 20 * * *"
-      timezone: "Africa/Casablanca"
+    - cron: "20 19 * * *"
   workflow_dispatch:
     inputs:
       date:
@@ -58,6 +57,10 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           DATES_FILE: ${{ steps.dates.outputs.file }}
         run: |
+          gh label create "controle:requis" \
+            --color "FBCA04" \
+            --description "Contrôle humain requis avant diffusion" \
+            --force
           while IFS= read -r DATE; do
             [ -z "$DATE" ] && continue
             TITLE="[MESURE] Résultats du $DATE"

@@ -20,7 +20,7 @@ Calendrier approuvé
 
 ## Exécution quotidienne
 
-Le workflow `prepare-daily-content.yml` s’exécute à 7 h 45 dans le fuseau `Africa/Casablanca`. Il peut aussi être lancé manuellement depuis l’onglet Actions.
+Le workflow `prepare-daily-content.yml` s’exécute à 6 h 45 UTC, soit 7 h 45 au Maroc pendant la campagne. Le script calcule toujours la date dans le fuseau `Africa/Casablanca`. Il peut aussi être lancé manuellement depuis l’onglet Actions.
 
 Il crée une branche `automation/daily-AAAA-MM-JJ` et une Pull Request. Il ne modifie pas directement `main`.
 
