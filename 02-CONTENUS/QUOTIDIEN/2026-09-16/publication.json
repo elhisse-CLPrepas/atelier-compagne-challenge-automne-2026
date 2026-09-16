@@ -1,0 +1,17 @@
+{
+  "date": "2026-09-16",
+  "status": "draft",
+  "human_approval": false,
+  "approved_by": null,
+  "scheduled_for": null,
+  "published_at": null,
+  "platform_urls": {},
+  "metrics": {
+    "reach": null,
+    "clicks": null,
+    "conversations": null,
+    "qualified_prospects": null,
+    "interviews": null,
+    "confirmed_registrations": null
+  }
+}
