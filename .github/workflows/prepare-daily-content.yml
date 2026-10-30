@@ -44,16 +44,21 @@ jobs:
           fi
           echo "date=$DATE" >> "$GITHUB_OUTPUT"
 
-      - name: Générer et contrôler le brouillon
+      - name: Générer le brouillon
+        id: prepare-day
         env:
           DATE: ${{ steps.campaign-date.outputs.date }}
         run: |
           node scripts/prepare-day.mjs --date "$DATE" --skip-unplanned
-          if [ -d "02-CONTENUS/QUOTIDIEN/$DATE" ]; then
-            node scripts/validate-content.mjs --date "$DATE" --write-report
-          fi
+
+      - name: Contrôler le brouillon
+        if: ${{ steps.prepare-day.outputs.planned == 'true' }}
+        env:
+          DATE: ${{ steps.campaign-date.outputs.date }}
+        run: node scripts/validate-content.mjs --date "$DATE" --write-report
 
       - name: Ouvrir une Pull Request quotidienne
+        if: ${{ steps.prepare-day.outputs.planned == 'true' }}
         env:
           DATE: ${{ steps.campaign-date.outputs.date }}
           GH_TOKEN: ${{ github.token }}

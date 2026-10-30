@@ -24,6 +24,8 @@ Le workflow `prepare-daily-content.yml` s’exécute à 6 h 45 UTC, soit 7 h 45 
 
 Il crée une branche `automation/daily-AAAA-MM-JJ` et une Pull Request. Il ne modifie pas directement `main`.
 
+Si la date ne figure pas dans `config/campaign.yml`, le générateur appelé avec `--skip-unplanned` signale `planned=false` au workflow. L’exécution réussit sans créer de dossier, de branche ou de Pull Request. Pour une date planifiée, il signale `planned=true` et le contrôle du brouillon reste obligatoire avant la création de la Pull Request. Une erreur de génération ou un brouillon absent, incomplet ou invalide fait échouer l’exécution.
+
 ## Validation humaine
 
 Le workflow `prepare-publication.yml` utilise l’environnement GitHub `publication`.

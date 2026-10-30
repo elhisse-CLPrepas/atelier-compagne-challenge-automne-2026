@@ -1,4 +1,4 @@
-import { access, mkdir, readFile, writeFile } from "node:fs/promises";
+import { access, appendFile, mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
 
@@ -11,6 +11,12 @@ function getArg(name) {
 
 function hasFlag(name) {
   return process.argv.includes(`--${name}`);
+}
+
+async function reportPlanned(planned) {
+  if (process.env.GITHUB_OUTPUT) {
+    await appendFile(process.env.GITHUB_OUTPUT, `planned=${planned}\n`);
+  }
 }
 
 async function loadJsonYaml(file) {
@@ -66,11 +72,14 @@ const plan = campaign.schedule.find((entry) => entry.date === date);
 
 if (!plan) {
   if (hasFlag("skip-unplanned")) {
+    await reportPlanned(false);
     console.log(`Aucun contenu planifié pour ${date}. Fin sans erreur.`);
     process.exit(0);
   }
   throw new Error(`Aucun contenu planifié pour ${date}.`);
 }
+
+await reportPlanned(true);
 
 const outputDir = path.join(root, "02-CONTENUS", "QUOTIDIEN", date);
 try {

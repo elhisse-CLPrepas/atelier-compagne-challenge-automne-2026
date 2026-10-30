@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { cp, mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import { cp, mkdir, mkdtemp, readFile, readdir, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { spawnSync } from "node:child_process";
@@ -20,9 +20,10 @@ async function fixture() {
   return root;
 }
 
-function run(root, script, args = []) {
+function run(root, script, args = [], env = {}) {
   return spawnSync(process.execPath, [path.join(root, "scripts", script), ...args], {
     cwd: root,
+    env: { ...process.env, GITHUB_OUTPUT: "", ...env },
     encoding: "utf8"
   });
 }
@@ -130,3 +131,97 @@ test("construit le pack après contrôle et confirmation", { skip }, async () =>
   }
 });
 
+test("signale une date planifiée et produit un brouillon valide", { skip }, async () => {
+  const root = await fixture();
+  try {
+    const output = path.join(root, "github-output");
+    await writeFile(output, "existing=value\n");
+    const result = run(root, "prepare-day.mjs", ["--date", "2026-09-02", "--skip-unplanned"], {
+      GITHUB_OUTPUT: output
+    });
+    assert.equal(result.status, 0, result.stderr);
+    assert.equal(await readFile(output, "utf8"), "existing=value\nplanned=true\n");
+    const validate = run(root, "validate-content.mjs", ["--date", "2026-09-02", "--write-report"]);
+    assert.equal(validate.status, 0, validate.stderr);
+  } finally {
+    await rm(root, { recursive: true, force: true });
+  }
+});
+
+for (const date of ["2026-10-27", "2026-10-28", "2026-10-29"]) {
+  test(`ignore le ${date} sans créer de dossier`, { skip }, async () => {
+    const root = await fixture();
+    try {
+      const output = path.join(root, "github-output");
+      const result = run(root, "prepare-day.mjs", ["--date", date, "--skip-unplanned"], {
+        GITHUB_OUTPUT: output
+      });
+      assert.equal(result.status, 0, result.stderr);
+      assert.equal(await readFile(output, "utf8"), "planned=false\n");
+      assert.deepEqual(await readdir(path.join(root, "02-CONTENUS", "QUOTIDIEN")), []);
+    } finally {
+      await rm(root, { recursive: true, force: true });
+    }
+  });
+}
+
+test("signale aussi un brouillon planifié existant sans l’écraser", { skip }, async () => {
+  const root = await fixture();
+  try {
+    await prepareValidated(root, "2026-08-30");
+    const file = path.join(root, "02-CONTENUS", "QUOTIDIEN", "2026-08-30", "facebook.md");
+    await writeFile(file, "Texte relu par une personne.\n");
+    const output = path.join(root, "github-output");
+    const result = run(root, "prepare-day.mjs", ["--date", "2026-08-30", "--skip-unplanned"], {
+      GITHUB_OUTPUT: output
+    });
+    assert.equal(result.status, 0, result.stderr);
+    assert.equal(await readFile(output, "utf8"), "planned=true\n");
+    assert.equal(await readFile(file, "utf8"), "Texte relu par une personne.\n");
+  } finally {
+    await rm(root, { recursive: true, force: true });
+  }
+});
+
+test("refuse une date non planifiée sans --skip-unplanned", { skip }, async () => {
+  const root = await fixture();
+  try {
+    const result = run(root, "prepare-day.mjs", ["--date", "2026-10-29"]);
+    assert.notEqual(result.status, 0);
+    assert.match(result.stderr, /Aucun contenu planifié/u);
+    assert.deepEqual(await readdir(path.join(root, "02-CONTENUS", "QUOTIDIEN")), []);
+  } finally {
+    await rm(root, { recursive: true, force: true });
+  }
+});
+
+test("conserve l’échec de génération pour une date planifiée", { skip }, async () => {
+  const root = await fixture();
+  try {
+    const factsFile = path.join(root, "config", "approved-facts.yml");
+    const facts = JSON.parse(await readFile(factsFile, "utf8"));
+    facts.offer_url = "URL invalide";
+    await writeFile(factsFile, JSON.stringify(facts));
+    const output = path.join(root, "github-output");
+    const result = run(root, "prepare-day.mjs", ["--date", "2026-08-30", "--skip-unplanned"], {
+      GITHUB_OUTPUT: output
+    });
+    assert.notEqual(result.status, 0);
+    assert.match(result.stderr, /Invalid URL/u);
+    assert.equal(await readFile(output, "utf8"), "planned=true\n");
+  } finally {
+    await rm(root, { recursive: true, force: true });
+  }
+});
+
+test("ne masque pas une configuration illisible avec --skip-unplanned", { skip }, async () => {
+  const root = await fixture();
+  try {
+    await writeFile(path.join(root, "config", "campaign.yml"), "{");
+    const result = run(root, "prepare-day.mjs", ["--date", "2026-10-29", "--skip-unplanned"]);
+    assert.notEqual(result.status, 0);
+    assert.match(result.stderr, /SyntaxError/u);
+  } finally {
+    await rm(root, { recursive: true, force: true });
+  }
+});
